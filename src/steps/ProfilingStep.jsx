@@ -1,6 +1,22 @@
 import React from "react";
-import { Landmark, Umbrella, Tent, Building2, Coins, ShieldCheck } from "lucide-react";
+import {
+  Landmark,
+  Umbrella,
+  Tent,
+  Building2,
+  Coins,
+  ShieldCheck,
+} from "lucide-react";
 import CustomSlider from "../components/CustomSlider.jsx";
+
+const BORDER_COLOR_CLASS_MAP = {
+  "text-amber-600": "border-amber-600",
+  "text-cyan-500": "border-cyan-500",
+  "text-emerald-600": "border-emerald-600",
+  "text-slate-600": "border-slate-600",
+  "text-yellow-500": "border-yellow-500",
+  "text-indigo-600": "border-indigo-600",
+};
 
 const ProfilingStep = ({
   demographics,
@@ -18,24 +34,22 @@ const ProfilingStep = ({
         <div>
           <p className="font-medium text-gray-800 mb-3">1. Płeć</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {["Kobieta", "Mężczyzna", "Inna", "Nie chcę podawać"].map(
-              (opt) => (
-                <button
-                  key={opt}
-                  onClick={() =>
-                    setDemographics({ ...demographics, gender: opt })
-                  }
-                  className={`p-3 rounded-lg border text-sm font-medium transition-all
+            {["Kobieta", "Mężczyzna", "Inna", "Nie chcę podawać"].map((opt) => (
+              <button
+                key={opt}
+                onClick={() =>
+                  setDemographics({ ...demographics, gender: opt })
+                }
+                className={`p-3 rounded-lg border text-sm font-medium transition-all
                           ${
                             demographics.gender === opt
                               ? "bg-blue-600 text-white border-blue-600"
-                              : "bg-white text-gray-700 hover:bg-gray-50"
+                              : "bg-white text-gray-700 hover:bg-gray-50 border-gray-400"
                           }`}
-                >
-                  {opt}
-                </button>
-              ),
-            )}
+              >
+                {opt}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -51,14 +65,12 @@ const ProfilingStep = ({
             ].map((opt) => (
               <button
                 key={opt}
-                onClick={() =>
-                  setDemographics({ ...demographics, age: opt })
-                }
+                onClick={() => setDemographics({ ...demographics, age: opt })}
                 className={`p-3 rounded-lg border text-sm font-medium transition-all
                           ${
                             demographics.age === opt
                               ? "bg-blue-600 text-white border-blue-600"
-                              : "bg-white text-gray-700 hover:bg-gray-50"
+                              : "bg-white text-gray-700 hover:bg-gray-50 border-gray-400"
                           }`}
               >
                 {opt}
@@ -87,7 +99,7 @@ const ProfilingStep = ({
                           ${
                             demographics.frequency === opt
                               ? "bg-blue-600 text-white border-blue-600"
-                              : "bg-white text-gray-700 hover:bg-gray-50"
+                              : "bg-white text-gray-700 hover:bg-gray-50 border-gray-400"
                           }`}
               >
                 {opt}
@@ -103,8 +115,8 @@ const ProfilingStep = ({
         Twoje preferencje podróżnicze
       </h2>
       <p className="text-sm text-gray-500 mb-10">
-        Proszę określić ważność poniższych czynników przy wyborze
-        destynacji turystycznej (0 - zupełnie nieważne, 10 - kluczowe).
+        Proszę określić ważność poniższych czynników przy wyborze destynacji
+        turystycznej (0 - zupełnie nieważne, 10 - kluczowe).
       </p>
 
       <div className="space-y-8 pb-4">
@@ -152,7 +164,11 @@ const ProfilingStep = ({
           >
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-3 font-semibold text-gray-800 text-lg">
-                <div className={`p-2 rounded-lg bg-gray-50 border`}>
+                <div
+                  className={`p-2 rounded-lg bg-gray-50 border ${
+                    BORDER_COLOR_CLASS_MAP[colorClass] || ""
+                  }`}
+                >
                   {icon}
                 </div>{" "}
                 {label}
@@ -164,9 +180,7 @@ const ProfilingStep = ({
 
             <CustomSlider
               value={preferences[key]}
-              onChange={(val) =>
-                setPreferences({ ...preferences, [key]: val })
-              }
+              onChange={(val) => setPreferences({ ...preferences, [key]: val })}
               colorClass={colorClass}
             />
 
@@ -182,4 +196,3 @@ const ProfilingStep = ({
 );
 
 export default ProfilingStep;
-
