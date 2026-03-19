@@ -22,13 +22,15 @@ const ProfilingStep = ({
 }) => (
   <div className="space-y-8 animate-fadeIn">
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+      <h2 className="text-[18.5px] md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">
         Metryczka użytkownika
       </h2>
 
       <div className="space-y-6">
         <div>
-          <p className="font-medium text-gray-800 mb-3">1. Płeć</p>
+          <p className="text-[15px] md:text-base font-medium text-gray-800 mb-3">
+            1. Płeć
+          </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {["Kobieta", "Mężczyzna", "Inna", "Nie chcę podawać"].map((opt) => (
               <button
@@ -50,7 +52,9 @@ const ProfilingStep = ({
         </div>
 
         <div>
-          <p className="font-medium text-gray-800 mb-3">2. Wiek</p>
+          <p className="text-[15px] md:text-base font-medium text-gray-800 mb-3">
+            2. Wiek
+          </p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
               "18-25 lat",
@@ -76,7 +80,7 @@ const ProfilingStep = ({
         </div>
 
         <div>
-          <p className="font-medium text-gray-800 mb-3">
+          <p className="text-[15px] md:text-base font-medium text-gray-800 mb-3">
             3. Częstotliwość podróży zagranicznych
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -106,20 +110,20 @@ const ProfilingStep = ({
       </div>
     </div>
 
-    <div className="pt-7 border-t border-gray-300 mt-11">
-      <h2 className="text-2xl font-bold text-gray-900 mb-3">
+    <div className="pt-5 md:pt-7 border-t border-gray-300 mt-8 md:mt-11">
+      <h2 className="text-[18.5px] md:text-2xl font-bold text-gray-900 mb-2.5 md:mb-3">
         Twoje preferencje podróżnicze
       </h2>
       <p
-        className="text-[14.5px] text-gray-500 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="text-[14.5px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         {hyphenatePl(
           "Proszę określić ważność poniższych czynników przy wyborze destynacji turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 – „kluczowe”.",
         )}
       </p>
-      <p className="flex items-start text-[14px] text-gray-500 mb-8">
-        <span className="mr-3 flex h-[21px] items-center text-[13.5px] leading-none">
+      <p className="flex items-start text-[13.1px] sm:text-[14px] text-gray-600 mb-[20px] md:mb-8">
+        <span className="-ml-[2.5px] sm:-ml-0 mr-1.5 sm:mr-2 flex h-[21px] items-center text-[9.9px] sm:text-[11.2px] leading-none">
           💡
         </span>
         <span
@@ -135,7 +139,7 @@ const ProfilingStep = ({
         </span>
       </p>
 
-      <div className="space-y-8 pb-4">
+      <div className="space-y-6 md:space-y-8 pb-3 md:pb-4">
         {[
           {
             key: "monuments",
