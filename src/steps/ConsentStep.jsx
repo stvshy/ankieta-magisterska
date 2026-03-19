@@ -2,12 +2,12 @@ import React from "react";
 import { Info } from "lucide-react";
 
 const ConsentStep = ({ agreed, setAgreed }) => (
-  <div className="space-y-6 animate-fadeIn">
-    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+  <div className="consent-step-layout animate-fadeIn">
+    <div className="consent-step-note bg-blue-50 p-6 rounded-xl border border-blue-100">
       <h2 className="text-2xl font-bold text-blue-900 mb-4 flex items-center gap-2">
         <Info className="w-6 h-6" /> Informacja dla uczestnika badania
       </h2>
-      <div className="text-sm text-gray-700 space-y-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+      <div className="text-sm text-gray-700 space-y-4 overflow-y-auto pr-2 custom-scrollbar consent-step-note-content">
         <p>Szanowna Pani/Szanowny Panie,</p>
         <p>
           Nazywam się Mateusz Staszków i jestem studentem Informatyki
@@ -45,7 +45,7 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       </div>
     </div>
 
-    <label className="flex items-start gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+    <label className="consent-step-checkbox flex items-start gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
       <input
         type="checkbox"
         checked={agreed}

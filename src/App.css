@@ -203,6 +203,33 @@
   min-width: 32px !important;
 }
 
+.consent-step-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 300px);
+}
+
+.consent-step-note {
+  margin-bottom: 0;
+  min-height: 0;
+}
+
+.consent-step-note-content {
+  max-height: calc(100dvh - 510px);
+}
+
+.consent-step-checkbox {
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+
+@media (min-width: 1024px) {
+  .consent-step-layout {
+    justify-content: center;
+    transform: translateY(-75px);
+  }
+}
+
 @media (min-width: 641px) and (max-width: 1023px) {
   .ankieta-stepper-shell {
     /* Narrow tablet view to match bottom-nav horizontal rhythm. */
@@ -222,5 +249,15 @@
     white-space: normal !important;
     word-break: break-word;
     line-height: 1.1;
+  }
+
+  .consent-step-layout {
+    min-height: auto;
+    margin-top: -12px;
+  }
+
+  .consent-step-note-content {
+    max-height: none;
+    overflow-y: visible;
   }
 }
