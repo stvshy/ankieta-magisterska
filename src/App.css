@@ -167,7 +167,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4.5px;
     border: 5px solid transparent;
@@ -180,5 +180,33 @@
   &::after {
     right: 0;
     border-right-color: var(--border);
+  }
+}
+
+/* Top stepper fixed width */
+.ankieta-stepper-shell {
+  width: 816px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .ankieta-stepper-shell {
+    width: min(390px, 100%);
+  }
+
+  /* Make items fit into narrow stepper width */
+  .ankieta-stepper-shell .ankieta-stepper-item {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  .ankieta-stepper-shell .ankieta-stepper-label {
+    /* Allow titles to wrap instead of forcing horizontal overflow */
+    white-space: normal !important;
+    word-break: break-word;
+    line-height: 1.1;
   }
 }

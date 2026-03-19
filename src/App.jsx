@@ -5,6 +5,7 @@ import ProfilingStep from "./steps/ProfilingStep.jsx";
 import ListEvaluationStep from "./steps/ListEvaluationStep.jsx";
 import SummaryStep from "./steps/SummaryStep.jsx";
 import ThankYouStep from "./steps/ThankYouStep.jsx";
+import "./App.css";
 
 // --- MOCK DATA (PLACEHOLDERY DLA LIST) ---
 const MOCK_LISTS = {
@@ -177,42 +178,43 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-0 sm:px-4 py-4">
           <h1 className="text-lg font-bold text-blue-900 text-center mb-6">
             Badanie Naukowe PWr
           </h1>
 
-          <div className="relative">
-            {/* Linia łącząca kroki */}
-            <div className="absolute top-4 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0 hidden sm:block rounded-full"></div>
-            <div
-              className="absolute top-4 left-0 h-1 bg-blue-500 -translate-y-1/2 z-0 hidden sm:block rounded-full transition-all duration-500"
-              style={{
-                width: `${(currentStep / (STEPS.length - 1)) * 100}%`,
-              }}
-            ></div>
+          <div className="ankieta-stepper-shell mx-auto">
+            <div className="relative">
+              {/* Linia łącząca kroki */}
+              <div className="absolute top-4 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0 hidden sm:block rounded-full"></div>
+              <div
+                className="absolute top-4 left-0 h-1 bg-blue-500 -translate-y-1/2 z-0 hidden sm:block rounded-full transition-all duration-500"
+                style={{
+                  width: `${(currentStep / (STEPS.length - 1)) * 100}%`,
+                }}
+              ></div>
 
-            {/* Kropki kroków */}
-            <div className="flex justify-between relative z-10 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 px-2 sm:px-0 scrollbar-hide">
-              {STEPS.map((step, index) => {
-                const isCompleted = index < currentStep;
-                const isCurrent = index === currentStep;
+              {/* Kropki kroków */}
+              <div className="flex justify-between relative z-10 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 px-0 sm:px-0 scrollbar-hide">
+                {STEPS.map((step, index) => {
+                  const isCompleted = index < currentStep;
+                  const isCurrent = index === currentStep;
 
-                return (
-                  <button
-                    key={step.id}
-                    type="button"
-                    onClick={() => handleStepClick(index)}
-                    disabled={!isCompleted}
-                    className={`flex flex-col items-center min-w-[60px] sm:min-w-0 focus:outline-none transition-transform
+                  return (
+                    <button
+                      key={step.id}
+                      type="button"
+                      onClick={() => handleStepClick(index)}
+                      disabled={!isCompleted}
+                      className={`ankieta-stepper-item flex flex-col items-center min-w-[60px] sm:min-w-0 focus:outline-none transition-transform
                       ${
                         isCompleted
                           ? "cursor-pointer hover:scale-105 active:scale-95"
                           : "cursor-default"
                       }`}
-                  >
-                    <span
-                      className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300
+                    >
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300
                         ${
                           isCompleted
                             ? "bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 hover:shadow-md active:bg-blue-800"
@@ -220,22 +222,23 @@ export default function App() {
                               ? "bg-white border-blue-600 text-blue-600 shadow-[0_0_0_4px_rgba(37,99,235,0.1)]"
                               : "bg-white border-gray-300 text-gray-400"
                         }`}
-                    >
-                      {isCompleted ? (
-                        <Check className="w-5 h-5 stroke-[3]" />
-                      ) : (
-                        <span className="text-sm font-bold">{index + 1}</span>
-                      )}
-                    </span>
-                    <span
-                      className={`text-[10px] sm:text-xs font-semibold mt-2 text-center whitespace-nowrap
+                      >
+                        {isCompleted ? (
+                          <Check className="w-5 h-5 stroke-[3]" />
+                        ) : (
+                          <span className="text-sm font-bold">{index + 1}</span>
+                        )}
+                      </span>
+                      <span
+                        className={`ankieta-stepper-label text-[10px] sm:text-xs font-semibold mt-2 text-center whitespace-nowrap
                       ${isCurrent ? "text-blue-700" : isCompleted ? "text-gray-800" : "text-gray-400"}`}
-                    >
-                      {step.title}
-                    </span>
-                  </button>
-                );
-              })}
+                      >
+                        {step.title}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
