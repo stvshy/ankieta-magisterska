@@ -219,8 +219,10 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  background: #f4f9ff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  outline: 1px solid #dfe3e8;
+  outline-offset: 0;
+  background: #ffffff;
   box-shadow:
     0 10px 26px rgba(15, 23, 42, 0.08),
     0 2px 8px rgba(59, 130, 246, 0.11),
@@ -235,8 +237,8 @@
   background:
     linear-gradient(
       145deg,
-      rgba(244, 249, 255, 0.78) 0%,
-      rgba(232, 243, 255, 0.58) 100%
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(248, 251, 255, 0.72) 100%
     ),
     radial-gradient(
       120% 90% at 14% 4%,
