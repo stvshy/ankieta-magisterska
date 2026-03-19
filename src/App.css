@@ -298,6 +298,7 @@
   border-width: 1px;
   position: relative;
   align-items: flex-start;
+  background-color: #ffffff;
   transition:
     border-color 0.22s ease,
     box-shadow 0.22s ease,
@@ -400,6 +401,36 @@
 
 .consent-step-checkbox-input:focus-visible + .consent-step-checkbox-circle {
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .consent-step-checkbox:hover {
+    background-color: #f8fafc;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+  }
+
+  .consent-step-checkbox--required:hover {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.16);
+  }
+
+  .consent-step-checkbox--checked:hover {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .consent-step-checkbox:active {
+    background-color: #f3f4f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+  }
+
+  .consent-step-checkbox--required:active {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+  }
+
+  .consent-step-checkbox--checked:active {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+  }
 }
 
 .consent-step-checkbox-input:checked + .consent-step-checkbox-circle {
