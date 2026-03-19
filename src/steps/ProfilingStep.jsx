@@ -17,7 +17,7 @@ const ProfilingStep = ({
 }) => (
   <div className="space-y-8 animate-fadeIn">
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
         Metryczka użytkownika
       </h2>
 
@@ -108,6 +108,11 @@ const ProfilingStep = ({
       <p className="text-sm text-gray-500 mb-10">
         Proszę określić ważność poniższych czynników przy wyborze destynacji
         turystycznej (0 - zupełnie nieważne, 10 - kluczowe).
+      </p>
+      <p className="text-xs text-gray-500 mb-8">
+        💡 Wskazówka: Zastanów się, co jest dla Ciebie naprawdę najważniejsze.
+        Ustawienie takich samych ocen (np. samych "10") dla wszystkich
+        czynników obniży precyzję dopasowania destynacji.
       </p>
 
       <div className="space-y-8 pb-4">
