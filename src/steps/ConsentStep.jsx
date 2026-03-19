@@ -9,36 +9,48 @@ const hyphenatePl = (text) => plHypher.hyphenateText(text);
 const ConsentStep = ({ agreed, setAgreed }) => (
   <div className="consent-step-layout animate-fadeIn">
     <div className="consent-step-note bg-blue-50 p-6 rounded-xl border border-blue-100">
-      <h2 className="text-2xl font-bold text-blue-900 mb-4 flex items-center gap-2">
-        <Info className="w-6 h-6" /> Informacja dla uczestnika badania
+      <h2 className="text-[16.5px] font-semibold text-blue-900 mb-4 flex items-center gap-2">
+        <Info className="w-4 h-4" /> Informacja dla uczestnika badania
       </h2>
-      <div className="text-sm text-gray-700 space-y-4 overflow-y-auto pr-2 custom-scrollbar consent-step-note-content">
-        <p>Szanowna Pani/Szanowny Panie,</p>
-        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+      <div className="text-sm text-gray-700 overflow-y-auto pr-2 custom-scrollbar consent-step-note-content">
+        <p className="mb-3 text-gray-800">Szanowna Pani/Szanowny Panie,</p>
+        <p
+          className="mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
           {hyphenatePl(
             "Nazywam się Mateusz Staszków i jestem studentem Informatyki Stosowanej na Politechnice Wrocławskiej. Zapraszam do udziału w badaniu naukowym, które stanowi część mojej pracy magisterskiej, realizowanej pod opieką dr inż. Bernadetty Maleszki.",
           )}
         </p>
-        <h3 className="font-bold text-gray-900 mt-4">
+        <h3 className="font-semibold text-gray-900 mt-4 mb-2">
           1. Cel i przebieg badania
         </h3>
-        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+        <p
+          className="text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
           {hyphenatePl(
             "Celem badania jest ocena trafności i użyteczności różnych metod rekomendacji podróżniczych w opinii użytkowników. Badanie realizowane jest w formie interaktywnej sesji, a jej wypełnienie zajmie około 5-10 minut.",
           )}
         </p>
-        <h3 className="font-bold text-gray-900 mt-4">
+        <h3 className="font-semibold text-gray-900 mt-4 mb-2">
           2. Dobrowolność i anonimowość
         </h3>
-        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+        <p
+          className="text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
           {hyphenatePl(
             "Udział w badaniu jest w pełni dobrowolny. Badanie jest w pełni anonimowe. Nie zbieramy żadnych danych, które mogłyby pozwolić na Pana/Pani identyfikację (takich jak imię, nazwisko, adres e-mail czy adres IP urządzenia).",
           )}
         </p>
-        <h3 className="font-bold text-gray-900 mt-4">
+        <h3 className="font-semibold text-gray-900 mt-4 mb-2">
           3. Przetwarzanie danych
         </h3>
-        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+        <p
+          className="text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
           {hyphenatePl(
             "Administratorem danych jest Politechnika Wrocławska. Zanonimizowane dane zostaną wykorzystane wyłącznie do celów naukowych i analizy statystycznej.",
           )}
@@ -46,15 +58,15 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       </div>
     </div>
 
-    <label className="consent-step-checkbox flex items-start gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+    <label className="consent-step-checkbox flex items-center gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
       <input
         type="checkbox"
         checked={agreed}
         onChange={(e) => setAgreed(e.target.checked)}
-        className="mt-1 w-6 h-6 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+        className="w-6 h-6 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
       />
       <span
-        className="text-sm font-medium text-gray-800 pt-1 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="text-sm font-medium text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         {hyphenatePl(
