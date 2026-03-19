@@ -50,7 +50,7 @@ const MOCK_LISTS = {
 
 export const STEPS = [
   { id: "consent", title: "Zgoda" },
-  { id: "profiling", title: "Twój Profil" },
+  { id: "profiling", title: "Profil" },
   { id: "evalA", title: "Lista A" },
   { id: "evalB", title: "Lista B" },
   { id: "evalC", title: "Lista C" },

@@ -1,5 +1,10 @@
 import React from "react";
 import { Info } from "lucide-react";
+import Hypher from "hypher";
+import polish from "hyphenation.pl";
+
+const plHypher = new Hypher(polish);
+const hyphenatePl = (text) => plHypher.hyphenateText(text);
 
 const ConsentStep = ({ agreed, setAgreed }) => (
   <div className="consent-step-layout animate-fadeIn">
@@ -9,38 +14,34 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       </h2>
       <div className="text-sm text-gray-700 space-y-4 overflow-y-auto pr-2 custom-scrollbar consent-step-note-content">
         <p>Szanowna Pani/Szanowny Panie,</p>
-        <p>
-          Nazywam się Mateusz Staszków i jestem studentem Informatyki
-          Stosowanej na Politechnice Wrocławskiej. Zapraszam do udziału
-          w badaniu naukowym, które stanowi część mojej pracy
-          magisterskiej, realizowanej pod opieką dr inż. Bernadetty
-          Maleszki.
+        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+          {hyphenatePl(
+            "Nazywam się Mateusz Staszków i jestem studentem Informatyki Stosowanej na Politechnice Wrocławskiej. Zapraszam do udziału w badaniu naukowym, które stanowi część mojej pracy magisterskiej, realizowanej pod opieką dr inż. Bernadetty Maleszki.",
+          )}
         </p>
         <h3 className="font-bold text-gray-900 mt-4">
           1. Cel i przebieg badania
         </h3>
-        <p>
-          Celem badania jest ocena trafności i użyteczności różnych
-          metod rekomendacji podróżniczych w opinii użytkowników.
-          Badanie realizowane jest w formie interaktywnej sesji, a jej
-          wypełnienie zajmie około 5-10 minut.
+        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+          {hyphenatePl(
+            "Celem badania jest ocena trafności i użyteczności różnych metod rekomendacji podróżniczych w opinii użytkowników. Badanie realizowane jest w formie interaktywnej sesji, a jej wypełnienie zajmie około 5-10 minut.",
+          )}
         </p>
         <h3 className="font-bold text-gray-900 mt-4">
           2. Dobrowolność i anonimowość
         </h3>
-        <p>
-          Udział w badaniu jest w pełni dobrowolny. Badanie jest w pełni
-          anonimowe. Nie zbieramy żadnych danych, które mogłyby pozwolić
-          na Pana/Pani identyfikację (takich jak imię, nazwisko, adres
-          e-mail czy adres IP urządzenia).
+        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+          {hyphenatePl(
+            "Udział w badaniu jest w pełni dobrowolny. Badanie jest w pełni anonimowe. Nie zbieramy żadnych danych, które mogłyby pozwolić na Pana/Pani identyfikację (takich jak imię, nazwisko, adres e-mail czy adres IP urządzenia).",
+          )}
         </p>
         <h3 className="font-bold text-gray-900 mt-4">
           3. Przetwarzanie danych
         </h3>
-        <p>
-          Administratorem danych jest Politechnika Wrocławska.
-          Zanonimizowane dane zostaną wykorzystane wyłącznie do celów
-          naukowych i analizy statystycznej.
+        <p className="text-justify [hyphens:auto] [-webkit-hyphens:auto]" lang="pl">
+          {hyphenatePl(
+            "Administratorem danych jest Politechnika Wrocławska. Zanonimizowane dane zostaną wykorzystane wyłącznie do celów naukowych i analizy statystycznej.",
+          )}
         </p>
       </div>
     </div>
@@ -52,14 +53,16 @@ const ConsentStep = ({ agreed, setAgreed }) => (
         onChange={(e) => setAgreed(e.target.checked)}
         className="mt-1 w-6 h-6 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
       />
-      <span className="text-sm font-medium text-gray-800 pt-1">
-        Oświadczam, że zapoznałem/am się z informacją o badaniu, mam
-        ukończone 18 lat i wyrażam dobrowolną zgodę na udział w badaniu
-        naukowym.
+      <span
+        className="text-sm font-medium text-gray-800 pt-1 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        lang="pl"
+      >
+        {hyphenatePl(
+          "Oświadczam, że zapoznałem/am się z informacją o badaniu, mam ukończone 18 lat i wyrażam dobrowolną zgodę na udział w badaniu naukowym.",
+        )}
       </span>
     </label>
   </div>
 );
 
 export default ConsentStep;
-
