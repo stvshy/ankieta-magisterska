@@ -110,8 +110,8 @@ const ProfilingStep = ({
         turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 –
         „kluczowe”.
       </p>
-      <p className="flex items-center text-[14px] text-gray-500 mb-8">
-        <span className="mr-3 text-[13.5px] leading-none flex items-center">
+      <p className="flex items-start text-[14px] text-gray-500 mb-8">
+        <span className="mr-3 flex h-[21px] items-center text-[13.5px] leading-none">
           💡
         </span>
         <span>
