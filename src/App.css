@@ -185,22 +185,36 @@
 
 /* Top stepper fixed width */
 .ankieta-stepper-shell {
-  width: 816px;
+  width: min(816px, 100%);
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
 }
 
+.ankieta-stepper-line {
+  left: 16px;
+  right: 16px;
+}
+
+.ankieta-stepper-shell .ankieta-stepper-item {
+  flex: 0 0 32px !important;
+  width: 32px;
+  min-width: 32px !important;
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .ankieta-stepper-shell {
+    /* Narrow tablet view to match bottom-nav horizontal rhythm. */
+    width: calc(100% - 48px);
+    max-width: none;
+  }
+}
+
 @media (max-width: 640px) {
   .ankieta-stepper-shell {
-    width: min(390px, 100%);
-  }
-
-  /* Make items fit into narrow stepper width */
-  .ankieta-stepper-shell .ankieta-stepper-item {
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
+    width: 100%;
+    max-width: 100%;
   }
 
   .ankieta-stepper-shell .ankieta-stepper-label {

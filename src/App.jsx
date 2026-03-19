@@ -179,7 +179,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-4xl mx-auto px-0 sm:px-4 py-4">
+        <div className="max-w-4xl mx-auto px-4 py-4">
           <h1 className="text-lg font-bold text-blue-900 text-center mb-6">
             Badanie Naukowe PWr
           </h1>
@@ -187,7 +187,7 @@ export default function App() {
           <div className="ankieta-stepper-shell mx-auto">
             <div className="relative">
               {/* Linia łącząca kroki */}
-              <div className="absolute top-4 left-4 right-4 sm:left-2 sm:right-2 -translate-y-1/2 z-0">
+              <div className="ankieta-stepper-line absolute top-4 -translate-y-1/2 z-0">
                 <div className="w-full h-0.5 sm:h-1 bg-gray-200 rounded-full"></div>
                 <div
                   className="absolute top-0 left-0 h-0.5 sm:h-1 bg-blue-500 rounded-full transition-all duration-500"
@@ -198,7 +198,7 @@ export default function App() {
               </div>
 
               {/* Kropki kroków */}
-              <div className="flex justify-between relative z-10 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 px-0 sm:px-0 scrollbar-hide">
+              <div className="ankieta-stepper-track flex justify-between relative z-10 overflow-visible pb-2 sm:pb-0 px-0 sm:px-0">
                 {STEPS.map((step, index) => {
                   const isCompleted = index < currentStep;
                   const isCurrent = index === currentStep;
