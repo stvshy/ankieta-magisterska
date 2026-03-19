@@ -80,7 +80,9 @@ const ConsentStep = ({ agreed, setAgreed }) => (
             "Oświadczam, że zapoznałem/am się z informacją o badaniu, mam ukończone 18 lat i wyrażam dobrowolną zgodę na udział w badaniu naukowym.",
           )}
         </span>
-        {!agreed && <span className="consent-step-checkbox-required">Wymagane</span>}
+        {!agreed && (
+          <span className="consent-step-checkbox-required">Wymagane</span>
+        )}
       </span>
     </label>
   </div>
