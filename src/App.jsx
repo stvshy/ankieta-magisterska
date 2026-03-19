@@ -242,12 +242,14 @@ export default function App() {
       </div>
 
       {/* GŁÓWNA ZAWARTOŚĆ */}
-      <div className="max-w-3xl mx-auto px-4 py-8">{renderStep()}</div>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
+        {renderStep()}
+      </div>
 
       {/* FOOTER Z PRZYCISKAMI NAWIGACJI */}
       {currentStep < STEPS.length - 1 && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
-          <div className="max-w-3xl mx-auto flex justify-between items-center gap-4">
+          <div className="max-w-4xl mx-auto flex justify-between items-center gap-4 px-4 sm:px-6 lg:px-10">
             <button
               onClick={handlePrev}
               disabled={currentStep === 0}
@@ -264,7 +266,7 @@ export default function App() {
                 ${
                   canProceed()
                     ? "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
-                    : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 text-white opacity-40 cursor-not-allowed shadow-none ring-1 ring-blue-300"
                 }`}
             >
               {currentStep === STEPS.length - 2 ? "Zakończ badanie" : "Dalej"}{" "}
