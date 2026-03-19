@@ -140,53 +140,53 @@ const ProfilingStep = ({
           {
             key: "monuments",
             label: "Zabytki i historia",
-            icon: <Landmark className="w-8 h-8 text-amber-600" />,
+            icon: <Landmark className="w-[30px] h-[30px] text-amber-600" />,
             colorClass: "text-amber-600",
           },
           {
             key: "beaches",
             label: "Plaże i morze",
-            icon: <Umbrella className="w-8 h-8 text-cyan-500" />,
+            icon: <Umbrella className="w-[30px] h-[30px]  text-cyan-500" />,
             colorClass: "text-cyan-500",
           },
           {
             key: "mountains",
             label: "Góry i natura",
-            icon: <Tent className="w-8 h-8 text-emerald-600" />,
+            icon: <Tent className="w-[30px] h-[30px]  text-emerald-600" />,
             colorClass: "text-emerald-600",
           },
           {
             key: "infrastructure",
-            label: "Infrastruktura turystyczna",
-            icon: <Building2 className="w-8 h-8 text-slate-600" />,
+            label: "Infrastruktura",
+            icon: <Building2 className="w-[30px] h-[30px]  text-slate-600" />,
             colorClass: "text-slate-600",
           },
           {
             key: "costs",
             label: "Niskie Koszty",
-            icon: <Coins className="w-8 h-8 text-yellow-500" />,
+            icon: <Coins className="w-[30px] h-[30px]  text-yellow-500" />,
             colorClass: "text-yellow-500",
           },
           {
             key: "safety",
             label: "Bezpieczeństwo",
-            icon: <ShieldCheck className="w-8 h-8 text-indigo-600" />,
+            icon: <ShieldCheck className="w-[31px] h-[31px] text-indigo-600" />,
             colorClass: "text-indigo-600",
           },
         ].map(({ key, label, icon, colorClass }) => (
           <div
             key={key}
-            className="bg-white p-5 rounded-xl shadow-sm border border-gray-100"
+            className="bg-white p-4 rounded-xl shadow-sm border border-gray-100"
           >
-            <div className="flex justify-between items-center mb-4">
-              <div className="flex items-center gap-3 font-semibold text-gray-800 text-lg">
-                <div className="p-2 rounded-lg bg-gray-50 border border-gray-200">
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-2.5 font-semibold text-gray-800 text-base md:text-[17px]">
+                <div className="p-1.5 rounded-md bg-gray-50 border border-gray-200">
                   {icon}
                 </div>{" "}
                 {label}
               </div>
               <div className="flex items-baseline gap-1">
-                <span className={`font-bold text-2xl ${colorClass}`}>
+                <span className={`font-bold text-[24px] ${colorClass}`}>
                   {preferences[key]}
                 </span>
                 <span className="text-xs text-black font-medium">/ 10</span>
@@ -199,7 +199,7 @@ const ProfilingStep = ({
               colorClass={colorClass}
             />
 
-            <div className="flex justify-between text-xs text-gray-400 mt-3 font-medium px-1">
+            <div className="flex justify-between text-[12px] text-gray-400 mt-3 font-medium px-1">
               <span>Nieważne (0)</span>
               <span>Kluczowe (10)</span>
             </div>

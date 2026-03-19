@@ -22,13 +22,11 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
   };
 
   return (
-    <div className="relative pt-2 pb-2">
-      <div className="relative h-10 w-full mb-1">
+    <div className="relative pt-1.5 pb-1.5">
+      <div className="relative h-[33px] w-full mb-1">
         {marks.map((mark) => {
           const percent = (mark / 10) * 100;
-          const leftPos = `calc(${percent}% + ${
-            12 - (percent * 24) / 100
-          }px)`;
+          const leftPos = `calc(${percent}% + ${12 - (percent * 24) / 100}px)`;
           const isActive = value === mark;
           const isHovered = hoveredMark === mark;
 
@@ -51,7 +49,7 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
               aria-label={`Ustaw wartość ${mark}`}
             >
               <span
-                className={`text-[11px] sm:text-xs font-bold mb-1 transition-all duration-150 ${
+                className={`text-[11px] sm:text-[12.5px] font-bold mb-1 transition-all duration-150 ${
                   isActive || isHovered
                     ? "text-gray-900 scale-125"
                     : "text-gray-400 scale-100"
@@ -62,8 +60,8 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
               <div
                 className={`w-[2px] transition-all ${
                   isActive
-                    ? "h-3 " + colorClass.replace("text-", "bg-")
-                    : "h-2 bg-gray-300"
+                    ? "h-2.5 " + colorClass.replace("text-", "bg-")
+                    : "h-1.5 bg-gray-300"
                 }`}
               ></div>
             </div>
@@ -82,8 +80,8 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
           setHoveredMark(getHoveredMarkFromPointer(e.clientX, e.currentTarget))
         }
         onMouseLeave={() => setHoveredMark(null)}
-        className={`custom-slider block w-full h-3 rounded-lg appearance-none cursor-pointer relative z-10 outline-none
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
+        className={`custom-slider block w-full h-[8.5px] sm:h-[9.8px] rounded-lg appearance-none cursor-pointer relative z-10 outline-none
+          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
           [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-gray-300
           [&::-webkit-slider-thumb]:shadow-sm hover:[&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:border-gray-400
           transition-all
@@ -99,4 +97,3 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
 };
 
 export default CustomSlider;
-

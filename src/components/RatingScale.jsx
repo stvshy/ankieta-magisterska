@@ -5,7 +5,7 @@ const RatingScale = ({ value, onChange, label }) => {
 
   return (
     <div className="mb-6">
-      <p className="font-medium text-gray-800 mb-3">{label}</p>
+      <p className="font-medium text-gray-800 text-sm mb-2.5">{label}</p>
       <div className="flex justify-between items-center gap-2">
         {[1, 2, 3, 4, 5].map((num) => {
           const isSelected = value === num;
@@ -17,7 +17,7 @@ const RatingScale = ({ value, onChange, label }) => {
               onClick={() => onChange(num)}
               onMouseEnter={() => setHoveredValue(num)}
               onMouseLeave={() => setHoveredValue(null)}
-              className={`flex-1 py-3 rounded-lg border-2 transition-all font-bold text-lg
+              className={`flex-1 py-2.5 rounded-lg border-2 transition-all font-bold text-base
               ${
                 isSelected
                   ? "bg-blue-600 border-blue-600 text-white shadow-md"
@@ -44,4 +44,3 @@ const RatingScale = ({ value, onChange, label }) => {
 };
 
 export default RatingScale;
-
