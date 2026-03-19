@@ -22,13 +22,13 @@
   outline: none !important;
   /* stały, cienki szary obrys kółka */
   box-shadow: 
-    0 0 0 1px rgba(156, 163, 175, 0.75),
+    0 0 0 1.5px rgba(156, 163, 175, 0.8),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;
 }
 
 .custom-slider:hover::-webkit-slider-thumb {
   box-shadow:
-    0 0 0 1px rgba(156, 163, 175, 0.9),
+    0 0 0 2px rgba(156, 163, 175, 0.9),
     0 4px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
@@ -36,7 +36,7 @@
   outline: none !important;
   /* cienki szary focus zamiast czarnego */
   box-shadow:
-    0 0 0 2px rgba(156, 163, 175, 0.9),
+    0 0 0 2.5px rgba(156, 163, 175, 0.95),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;
 }
 
@@ -58,19 +58,19 @@
   outline: none !important;
   /* stały, cienki szary obrys kółka */
   box-shadow:
-    0 0 0 1px rgba(156, 163, 175, 0.75),
+    0 0 0 1.5px rgba(156, 163, 175, 0.8),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;
 }
 
 .custom-slider:hover::-moz-range-thumb {
   box-shadow:
-    0 0 0 1px rgba(156, 163, 175, 0.9),
+    0 0 0 2px rgba(156, 163, 175, 0.9),
     0 4px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 .custom-slider:focus-visible::-moz-range-thumb {
   /* cienki szary focus zamiast czarnego */
   box-shadow:
-    0 0 0 2px rgba(156, 163, 175, 0.9),
+    0 0 0 2.5px rgba(156, 163, 175, 0.95),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;
 }
