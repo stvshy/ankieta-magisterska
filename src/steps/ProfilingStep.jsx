@@ -160,9 +160,12 @@ const ProfilingStep = ({
                 </div>{" "}
                 {label}
               </div>
-              <span className={`font-bold text-2xl ${colorClass}`}>
-                {preferences[key]}
-              </span>
+              <div className="flex items-baseline gap-1">
+                <span className={`font-bold text-2xl ${colorClass}`}>
+                  {preferences[key]}
+                </span>
+                <span className="text-xs text-black font-medium">/ 10</span>
+              </div>
             </div>
 
             <CustomSlider
