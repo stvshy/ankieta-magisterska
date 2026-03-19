@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { ChevronRight, ChevronLeft, Check } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
+import { HiOutlineCheck } from "react-icons/hi2";
 import ConsentStep from "./steps/ConsentStep.jsx";
 import ProfilingStep from "./steps/ProfilingStep.jsx";
 import ListEvaluationStep from "./steps/ListEvaluationStep.jsx";
@@ -186,19 +187,23 @@ export default function App() {
           <div className="ankieta-stepper-shell mx-auto">
             <div className="relative">
               {/* Linia łącząca kroki */}
-              <div className="absolute top-4 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0 hidden sm:block rounded-full"></div>
-              <div
-                className="absolute top-4 left-0 h-1 bg-blue-500 -translate-y-1/2 z-0 hidden sm:block rounded-full transition-all duration-500"
-                style={{
-                  width: `${(currentStep / (STEPS.length - 1)) * 100}%`,
-                }}
-              ></div>
+              <div className="absolute top-4 left-4 right-4 sm:left-2 sm:right-2 -translate-y-1/2 z-0">
+                <div className="w-full h-0.5 sm:h-1 bg-gray-200 rounded-full"></div>
+                <div
+                  className="absolute top-0 left-0 h-0.5 sm:h-1 bg-blue-500 rounded-full transition-all duration-500"
+                  style={{
+                    width: `${(currentStep / (STEPS.length - 1)) * 100}%`,
+                  }}
+                ></div>
+              </div>
 
               {/* Kropki kroków */}
               <div className="flex justify-between relative z-10 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 px-0 sm:px-0 scrollbar-hide">
                 {STEPS.map((step, index) => {
                   const isCompleted = index < currentStep;
                   const isCurrent = index === currentStep;
+                  const isFinalStep = index === STEPS.length - 1;
+                  const showCheckIcon = isCompleted || isFinalStep;
 
                   return (
                     <button
@@ -223,10 +228,30 @@ export default function App() {
                               : "bg-white border-gray-300 text-gray-400"
                         }`}
                       >
-                        {isCompleted ? (
-                          <Check className="w-5 h-5 stroke-[3]" />
+                        {showCheckIcon ? (
+                          <HiOutlineCheck className="w-4 h-4" />
                         ) : (
-                          <span className="text-sm font-bold">{index + 1}</span>
+                          <span
+                            className="text-sm font-bold"
+                            style={{
+                              transform:
+                                index === 0
+                                  ? "translate(-0.2px, -0.6px)"
+                                  : index === 1
+                                    ? "translate(0.3px, -0.6px)"
+                                    : index === 2
+                                      ? "translateY(-0.6px)"
+                                      : index === 3
+                                        ? "translate(-0.6px, -0.5px)"
+                                        : index === 4
+                                          ? "translate(0.3px, -0.6px)"
+                                          : index === 5
+                                            ? "translate(-0.3px, -0.6px)"
+                                            : "none",
+                            }}
+                          >
+                            {index + 1}
+                          </span>
                         )}
                       </span>
                       <span
