@@ -534,9 +534,9 @@
   }
 
   .ankieta-stepper-shell .ankieta-stepper-label {
-    /* Allow titles to wrap instead of forcing horizontal overflow */
-    white-space: normal !important;
-    word-break: break-word;
+    white-space: nowrap !important;
+    word-break: normal;
+    overflow-wrap: normal;
     line-height: 1.1;
   }
 

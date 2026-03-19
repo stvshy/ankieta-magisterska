@@ -22,16 +22,16 @@ const ProfilingStep = ({
 }) => (
   <div className="space-y-8 animate-fadeIn">
     <div>
-      <h2 className="-mt-[13px] md:mt-0 text-[18.5px] md:text-[21.5px] font-bold text-gray-900 mb-4 md:mb-6">
+      <h2 className="-mt-[13px] md:mt-0 text-[18.5px] md:text-[21.5px] font-bold text-[#316de5] mb-4 md:mb-6 ">
         Metryczka użytkownika
       </h2>
 
       <div className="space-y-6">
         <div>
-          <p className="text-[15px] md:text-base font-medium text-gray-800 mb-3">
+          <p className="text-[15px] md:text-base font-semibold text-gray-800 mb-3">
             1. Płeć
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 tracking-wide text-[14px] sm:text-[14.8px] font-medium">
             {["Kobieta", "Mężczyzna", "Inna", "Nie chcę podawać"].map((opt) => (
               <button
                 key={opt}
@@ -52,10 +52,10 @@ const ProfilingStep = ({
         </div>
 
         <div>
-          <p className="text-[15px] md:text-base font-medium text-gray-800 mb-3">
+          <p className="text-[15px] md:text-base font-semibold text-gray-800 mb-3">
             2. Wiek
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 tracking-wide text-[14px] sm:text-[14.8px] font-medium">
             {[
               "18-25 lat",
               "26-35 lat",
@@ -80,10 +80,10 @@ const ProfilingStep = ({
         </div>
 
         <div>
-          <p className="text-[15px] md:text-base font-medium text-gray-800 mb-3">
+          <p className="text-[15px] md:text-base font-semibold text-gray-800 mb-3">
             3. Częstotliwość podróży zagranicznych
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 tracking-wide text-[14px] sm:text-[14.8px] font-medium">
             {[
               "Raz na kilka lat",
               "Raz w roku",
@@ -111,18 +111,18 @@ const ProfilingStep = ({
     </div>
 
     <div className="pt-5 md:pt-7 border-t border-gray-300 mt-8 md:mt-11">
-      <h2 className="text-[18.5px] md:text-[21.6px] font-bold text-gray-900 mb-2.5 md:mb-3">
+      <h2 className="text-[18.5px] md:text-[21.6px] font-bold text-[#316de5] mb-2.5 md:mb-3">
         Twoje preferencje podróżnicze
       </h2>
       <p
-        className="text-[14.5px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="sm:text-[14.5px] text-[14.0px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         {hyphenatePl(
           "Proszę określić ważność poniższych czynników przy wyborze destynacji turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 – „kluczowe”.",
         )}
       </p>
-      <p className="flex items-start text-[13.1px] sm:text-[14px] text-gray-600 mb-[20px] md:mb-8">
+      <p className="flex items-start text-[13.6px] sm:text-[14.2px] text-gray-600 mb-[20px] md:mb-8">
         <span className="-ml-[2.5px] sm:-ml-0 mr-1.5 sm:mr-2 flex h-[21px] items-center text-[9.9px] sm:text-[11.2px] leading-none">
           💡
         </span>
