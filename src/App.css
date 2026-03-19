@@ -203,6 +203,10 @@
   min-width: 32px !important;
 }
 
+.ankieta-accent-text {
+  color: #316de5;
+}
+
 .consent-step-layout {
   display: flex;
   flex-direction: column;
@@ -212,11 +216,78 @@
 .consent-step-note {
   margin-bottom: 0;
   min-height: 0;
-  border-color: #d1d5db;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: #f4f9ff;
+  box-shadow:
+    0 10px 26px rgba(15, 23, 42, 0.08),
+    0 2px 8px rgba(59, 130, 246, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.consent-step-note::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(244, 249, 255, 0.78) 0%,
+      rgba(232, 243, 255, 0.58) 100%
+    ),
+    radial-gradient(
+      120% 90% at 14% 4%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0) 62%
+    );
+  backdrop-filter: blur(10px) saturate(125%);
+  -webkit-backdrop-filter: blur(10px) saturate(125%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.consent-step-note > * {
+  position: relative;
+  z-index: 1;
 }
 
 .consent-step-note-content {
   max-height: calc(100dvh - 510px);
+  text-shadow: none;
+}
+
+.consent-step-note h2,
+.consent-step-note h3,
+.consent-step-note p,
+.consent-step-note span {
+  filter: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.consent-step-note::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.04)
+    ),
+    radial-gradient(
+      95% 75% at 96% 96%,
+      rgba(125, 211, 252, 0.04) 0%,
+      rgba(125, 211, 252, 0.012) 42%,
+      rgba(125, 211, 252, 0) 72%
+    );
+  box-shadow: inset -10px -8px 18px rgba(59, 130, 246, 0.002);
+  pointer-events: none;
 }
 
 .consent-step-checkbox {

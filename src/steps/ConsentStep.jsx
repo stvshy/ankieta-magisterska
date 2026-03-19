@@ -9,8 +9,8 @@ const hyphenatePl = (text) => plHypher.hyphenateText(text);
 
 const ConsentStep = ({ agreed, setAgreed }) => (
   <div className="consent-step-layout animate-fadeIn">
-    <div className="consent-step-note bg-blue-50 p-6 rounded-xl border border-blue-100">
-      <h2 className="text-[16.5px] font-semibold text-blue-900 mb-4 flex items-center gap-2">
+    <div className="consent-step-note bg-[#f4f9ff] p-6 rounded-xl border border-blue-100">
+      <h2 className="ankieta-accent-text text-[16.5px] font-semibold mb-4 flex items-center gap-2">
         <Info className="w-4 h-4" /> Informacja dla uczestnika badania
       </h2>
       <div className="text-sm text-gray-700 overflow-y-auto pr-2 custom-scrollbar consent-step-note-content">

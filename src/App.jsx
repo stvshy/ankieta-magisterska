@@ -180,7 +180,7 @@ export default function App() {
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
-          <h1 className="text-lg font-bold text-blue-900 text-center mb-6">
+          <h1 className="ankieta-accent-text text-lg font-bold text-center mb-6">
             Badanie Naukowe PWr
           </h1>
 
@@ -259,8 +259,11 @@ export default function App() {
                         )}
                       </span>
                       <span
-                        className={`ankieta-stepper-label text-[10px] sm:text-xs font-semibold mt-2 text-center whitespace-nowrap
-                      ${isCurrent ? "text-blue-700" : isCompleted ? "text-gray-800" : "text-gray-400"}`}
+                        className={`ankieta-stepper-label text-[10px] sm:text-xs font-semibold mt-2 text-center whitespace-nowrap ${
+                          isCurrent || isCompleted
+                            ? "ankieta-accent-text"
+                            : "text-gray-400"
+                        }`}
                       >
                         {step.title}
                       </span>
