@@ -386,7 +386,11 @@
   left: 14px;
   transform: translateY(-50%);
   padding: 0 6px;
-  background: #ffffff;
+  background: linear-gradient(
+    to bottom,
+    rgba(244, 245, 247, 1) 0 50%,
+    #ffffff 50% 100%
+  );
   border-radius: 4px;
   z-index: 2;
   font-size: 0.76rem;
@@ -407,6 +411,14 @@
   .consent-step-checkbox:hover {
     background-color: #f8fafc;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+  }
+
+  .consent-step-checkbox:hover .consent-step-checkbox-required {
+    background: linear-gradient(
+      to bottom,
+      rgba(244, 245, 247, 1) 0 calc(50% - 1px),
+      #f8fafc calc(50% - 1px) 100%
+    );
   }
 
   .consent-step-checkbox--required:hover {
