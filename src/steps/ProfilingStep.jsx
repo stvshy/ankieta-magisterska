@@ -22,7 +22,7 @@ const ProfilingStep = ({
 }) => (
   <div className="space-y-8 animate-fadeIn">
     <div>
-      <h2 className="text-[18.5px] md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">
+      <h2 className="-mt-[13px] md:mt-0 text-[18.5px] md:text-[21.5px] font-bold text-gray-900 mb-4 md:mb-6">
         Metryczka użytkownika
       </h2>
 
@@ -111,7 +111,7 @@ const ProfilingStep = ({
     </div>
 
     <div className="pt-5 md:pt-7 border-t border-gray-300 mt-8 md:mt-11">
-      <h2 className="text-[18.5px] md:text-2xl font-bold text-gray-900 mb-2.5 md:mb-3">
+      <h2 className="text-[18.5px] md:text-[21.6px] font-bold text-gray-900 mb-2.5 md:mb-3">
         Twoje preferencje podróżnicze
       </h2>
       <p
