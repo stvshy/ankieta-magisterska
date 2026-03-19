@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { HiOutlineCheck } from "react-icons/hi2";
+import { IoCheckmarkSharp, IoCheckmarkDoneSharp } from "react-icons/io5";
 import ConsentStep from "./steps/ConsentStep.jsx";
 import ProfilingStep from "./steps/ProfilingStep.jsx";
 import ListEvaluationStep from "./steps/ListEvaluationStep.jsx";
@@ -229,7 +229,11 @@ export default function App() {
                         }`}
                       >
                         {showCheckIcon ? (
-                          <HiOutlineCheck className="w-4 h-4" />
+                          isFinalStep ? (
+                            <IoCheckmarkDoneSharp className="w-4 h-4" />
+                          ) : (
+                            <IoCheckmarkSharp className="w-4 h-4" />
+                          )
                         ) : (
                           <span
                             className="text-sm font-bold"
