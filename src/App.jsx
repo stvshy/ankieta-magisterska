@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 import ConsentStep from "./steps/ConsentStep.jsx";
 import ProfilingStep from "./steps/ProfilingStep.jsx";
@@ -84,7 +84,7 @@ export default function App() {
   const [finalChoice, setFinalChoice] = useState("");
 
   // --- WALIDACJA KROKÓW ---
-  const canProceed = () => {
+  const canProceed = useCallback(() => {
     if (currentStep === 0) return agreed;
     if (currentStep === 1)
       return demographics.gender && demographics.age && demographics.frequency;
@@ -108,21 +108,31 @@ export default function App() {
       );
     if (currentStep === 5) return finalChoice !== "";
     return true;
-  };
+  }, [currentStep, agreed, demographics, evaluations, finalChoice]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (canProceed() && currentStep < STEPS.length - 1) {
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     }
-  };
+  }, [canProceed, currentStep]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
       window.scrollTo(0, 0);
     }
-  };
+  }, [currentStep]);
+
+  const handleStepClick = useCallback(
+    (index) => {
+      if (index < currentStep) {
+        setCurrentStep(index);
+        window.scrollTo(0, 0);
+      }
+    },
+    [currentStep]
+  );
 
   // --- RENDEROWANIE KROKÓW ---
   const renderStep = () => {
@@ -177,7 +187,9 @@ export default function App() {
             <div className="absolute top-4 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0 hidden sm:block rounded-full"></div>
             <div
               className="absolute top-4 left-0 h-1 bg-blue-500 -translate-y-1/2 z-0 hidden sm:block rounded-full transition-all duration-500"
-              style={{ width: `${(currentStep / (STEPS.length - 1)) * 100}%` }}
+              style={{
+                width: `${(currentStep / (STEPS.length - 1)) * 100}%`,
+              }}
             ></div>
 
             {/* Kropki kroków */}
@@ -187,15 +199,23 @@ export default function App() {
                 const isCurrent = index === currentStep;
 
                 return (
-                  <div
+                  <button
                     key={step.id}
-                    className="flex flex-col items-center min-w-[60px] sm:min-w-0"
+                    type="button"
+                    onClick={() => handleStepClick(index)}
+                    disabled={!isCompleted}
+                    className={`flex flex-col items-center min-w-[60px] sm:min-w-0 focus:outline-none transition-transform
+                      ${
+                        isCompleted
+                          ? "cursor-pointer hover:scale-105 active:scale-95"
+                          : "cursor-default"
+                      }`}
                   >
-                    <div
+                    <span
                       className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300
                         ${
                           isCompleted
-                            ? "bg-blue-600 border-blue-600 text-white"
+                            ? "bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 hover:shadow-md active:bg-blue-800"
                             : isCurrent
                               ? "bg-white border-blue-600 text-blue-600 shadow-[0_0_0_4px_rgba(37,99,235,0.1)]"
                               : "bg-white border-gray-300 text-gray-400"
@@ -206,14 +226,14 @@ export default function App() {
                       ) : (
                         <span className="text-sm font-bold">{index + 1}</span>
                       )}
-                    </div>
+                    </span>
                     <span
                       className={`text-[10px] sm:text-xs font-semibold mt-2 text-center whitespace-nowrap
                       ${isCurrent ? "text-blue-700" : isCompleted ? "text-gray-800" : "text-gray-400"}`}
                     >
                       {step.title}
                     </span>
-                  </div>
+                  </button>
                 );
               })}
             </div>
