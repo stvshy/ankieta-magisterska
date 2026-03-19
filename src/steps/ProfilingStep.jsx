@@ -35,7 +35,7 @@ const ProfilingStep = ({
                           ${
                             demographics.gender === opt
                               ? "bg-blue-600 text-white border-blue-600"
-                              : "bg-white text-gray-700 hover:bg-gray-50 border-gray-400"
+                              : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400 hover:shadow-sm"
                           }`}
               >
                 {opt}
@@ -61,7 +61,7 @@ const ProfilingStep = ({
                           ${
                             demographics.age === opt
                               ? "bg-blue-600 text-white border-blue-600"
-                              : "bg-white text-gray-700 hover:bg-gray-50 border-gray-400"
+                              : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400 hover:shadow-sm"
                           }`}
               >
                 {opt}
@@ -90,7 +90,7 @@ const ProfilingStep = ({
                           ${
                             demographics.frequency === opt
                               ? "bg-blue-600 text-white border-blue-600"
-                              : "bg-white text-gray-700 hover:bg-gray-50 border-gray-400"
+                              : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400 hover:shadow-sm"
                           }`}
               >
                 {opt}
