@@ -105,14 +105,23 @@ const ProfilingStep = ({
       <h2 className="text-2xl font-bold text-gray-900 mb-3">
         Twoje preferencje podróżnicze
       </h2>
-      <p className="text-sm text-gray-500 mb-10">
+      <p className="text-sm text-gray-500 mb-4">
         Proszę określić ważność poniższych czynników przy wyborze destynacji
-        turystycznej (0 - zupełnie nieważne, 10 - kluczowe).
+        turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 –
+        „kluczowe”.
       </p>
-      <p className="text-xs text-gray-500 mb-8">
-        💡 Wskazówka: Zastanów się, co jest dla Ciebie naprawdę najważniejsze.
-        Ustawienie takich samych ocen (np. samych "10") dla wszystkich
-        czynników obniży precyzję dopasowania destynacji.
+      <p className="flex items-center text-[13px] text-gray-500 mb-8">
+        <span className="mr-3 text-base leading-none flex items-center">
+          💡
+        </span>
+        <span>
+          <span className="font-semibold text-[#e6a715] mr-2">Wskazówka:</span>
+          <span>
+            Zastanów się, co jest dla Ciebie naprawdę najważniejsze. Ustawienie
+            takich samych ocen (np. samych "10") dla wszystkich czynników obniży
+            precyzję dopasowania do Twoich preferencji.
+          </span>
+        </span>
       </p>
 
       <div className="space-y-8 pb-4">
