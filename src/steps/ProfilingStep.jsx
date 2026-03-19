@@ -101,7 +101,7 @@ const ProfilingStep = ({
       </div>
     </div>
 
-    <div className="pt-10 border-t mt-8">
+    <div className="pt-7 border-t border-gray-300 mt-11">
       <h2 className="text-2xl font-bold text-gray-900 mb-3">
         Twoje preferencje podróżnicze
       </h2>
