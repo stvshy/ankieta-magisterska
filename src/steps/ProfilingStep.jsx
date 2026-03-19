@@ -7,7 +7,12 @@ import {
   Coins,
   ShieldCheck,
 } from "lucide-react";
+import Hypher from "hypher";
+import polish from "hyphenation.pl";
 import CustomSlider from "../components/CustomSlider.jsx";
+
+const plHypher = new Hypher(polish);
+const hyphenatePl = (text) => plHypher.hyphenateText(text);
 
 const ProfilingStep = ({
   demographics,
@@ -105,21 +110,27 @@ const ProfilingStep = ({
       <h2 className="text-2xl font-bold text-gray-900 mb-3">
         Twoje preferencje podróżnicze
       </h2>
-      <p className="text-[15px] text-gray-500 mb-4">
-        Proszę określić ważność poniższych czynników przy wyborze destynacji
-        turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 –
-        „kluczowe”.
+      <p
+        className="text-[14.5px] text-gray-500 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        lang="pl"
+      >
+        {hyphenatePl(
+          "Proszę określić ważność poniższych czynników przy wyborze destynacji turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 – „kluczowe”.",
+        )}
       </p>
       <p className="flex items-start text-[14px] text-gray-500 mb-8">
         <span className="mr-3 flex h-[21px] items-center text-[13.5px] leading-none">
           💡
         </span>
-        <span>
+        <span
+          className="block text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
           <span className="font-semibold text-[#e6a715] mr-2">Wskazówka:</span>
           <span>
-            Zastanów się, co jest dla Ciebie naprawdę najważniejsze. Ustawienie
-            takich samych ocen (np. samych "10") dla wszystkich czynników obniży
-            precyzję dopasowania do Twoich preferencji.
+            {hyphenatePl(
+              'Zastanów się, co jest dla Ciebie naprawdę najważniejsze. Ustawienie takich samych ocen (np. samych "10") dla wszystkich czynników obniży precyzję dopasowania do Twoich preferencji.',
+            )}
           </span>
         </span>
       </p>
