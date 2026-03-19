@@ -59,7 +59,9 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       </div>
     </div>
 
-    <label className="consent-step-checkbox flex items-center p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+    <label
+      className={`consent-step-checkbox ${agreed ? "consent-step-checkbox--checked" : "consent-step-checkbox--required"} flex items-center p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors`}
+    >
       <input
         type="checkbox"
         checked={agreed}
@@ -69,13 +71,16 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       <span className="consent-step-checkbox-circle" aria-hidden="true">
         <IoCheckmarkSharp className="consent-step-checkbox-icon" />
       </span>
-      <span
-        className="consent-step-checkbox-text text-sm font-medium text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
-        lang="pl"
-      >
-        {hyphenatePl(
-          "Oświadczam, że zapoznałem/am się z informacją o badaniu, mam ukończone 18 lat i wyrażam dobrowolną zgodę na udział w badaniu naukowym.",
-        )}
+      <span className="consent-step-checkbox-content">
+        <span
+          className="consent-step-checkbox-text text-sm font-medium text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
+          {hyphenatePl(
+            "Oświadczam, że zapoznałem/am się z informacją o badaniu, mam ukończone 18 lat i wyrażam dobrowolną zgodę na udział w badaniu naukowym.",
+          )}
+        </span>
+        {!agreed && <span className="consent-step-checkbox-required">Wymagane</span>}
       </span>
     </label>
   </div>
