@@ -1,7 +1,18 @@
 import React from "react";
 
+const COLOR_HEX_MAP = {
+  "text-amber-600": "#d97706",
+  "text-cyan-500": "#06b6d4",
+  "text-emerald-600": "#059669",
+  "text-slate-600": "#475569",
+  "text-yellow-500": "#eab308",
+  "text-indigo-600": "#4f46e5",
+};
+
 const CustomSlider = ({ value, onChange, colorClass }) => {
   const marks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const percentage = (value / 10) * 100;
+  const sliderColor = COLOR_HEX_MAP[colorClass] || "#3b82f6"; // domyślnie niebieski
 
   return (
     <div className="relative pt-2 pb-2">
@@ -46,13 +57,16 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
         step="1"
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value))}
-        className={`block w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer relative z-10
+        className={`custom-slider block w-full h-3 rounded-lg appearance-none cursor-pointer relative z-10 outline-none
           [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 
-          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-[4px] 
-          [&::-webkit-slider-thumb]:shadow-md transition-all
-          ${colorClass.replace("text-", "[&::-webkit-slider-thumb]:border-")}
-          focus:outline-none focus:ring-4 focus:ring-opacity-30 ${colorClass.replace("text-", "focus:ring-")}
+          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-0
+          transition-all
+          focus:outline-none focus-visible:outline-none focus:ring-0 focus:ring-transparent
         `}
+        style={{
+          outline: "none",
+          background: `linear-gradient(to right, ${sliderColor} 0%, ${sliderColor} ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`,
+        }}
       />
     </div>
   );
