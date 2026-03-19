@@ -178,7 +178,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
       {/* HEADER & NEW STEPPER */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+      <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <h1 className="text-lg font-bold text-blue-900 text-center mb-6">
             Badanie Naukowe PWr
