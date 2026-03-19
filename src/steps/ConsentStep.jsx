@@ -1,5 +1,6 @@
 import React from "react";
 import { Info } from "lucide-react";
+import { IoCheckmarkSharp } from "react-icons/io5";
 import Hypher from "hypher";
 import polish from "hyphenation.pl";
 
@@ -58,15 +59,18 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       </div>
     </div>
 
-    <label className="consent-step-checkbox flex items-center gap-4 p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+    <label className="consent-step-checkbox flex items-center p-4 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
       <input
         type="checkbox"
         checked={agreed}
         onChange={(e) => setAgreed(e.target.checked)}
-        className="w-6 h-6 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+        className="consent-step-checkbox-input"
       />
+      <span className="consent-step-checkbox-circle" aria-hidden="true">
+        <IoCheckmarkSharp className="consent-step-checkbox-icon" />
+      </span>
       <span
-        className="text-sm font-medium text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="consent-step-checkbox-text text-sm font-medium text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         {hyphenatePl(

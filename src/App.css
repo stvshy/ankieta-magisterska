@@ -223,6 +223,118 @@
   margin-top: 18px;
   margin-bottom: 6px;
   border-color: #d1d5db;
+  position: relative;
+  align-items: flex-start;
+}
+
+.consent-step-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.consent-step-checkbox-circle {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 18px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid #9ca3af;
+  background: radial-gradient(
+    circle at center,
+    #16a34a 0%,
+    #16a34a 0%,
+    #ffffff 0%
+  );
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: inset 0 0 0 0 rgba(22, 163, 74, 0.18);
+  margin-top: 4.5px;
+  margin-left: -3px;
+}
+
+.consent-step-checkbox-icon {
+  width: 10px;
+  height: 10px;
+  color: #ffffff;
+  opacity: 0;
+  transform: scale(0.35);
+}
+
+.consent-step-checkbox-text {
+  line-height: 1.45;
+}
+
+.consent-step-checkbox {
+  gap: 0.8rem;
+}
+
+.consent-step-checkbox-input:focus-visible + .consent-step-checkbox-circle {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.consent-step-checkbox-input:checked + .consent-step-checkbox-circle {
+  border-color: #16a34a;
+  animation: consent-checkbox-fill 0.3s ease-out forwards;
+}
+
+.consent-step-checkbox-input:checked
+  + .consent-step-checkbox-circle
+  .consent-step-checkbox-icon {
+  animation: consent-checkbox-checkmark-pop 0.36s cubic-bezier(0.2, 0.9, 0.2, 1)
+    0.12s forwards;
+}
+
+.consent-step-checkbox-input:not(:checked) + .consent-step-checkbox-circle {
+  background: radial-gradient(
+    circle at center,
+    #16a34a 0%,
+    #16a34a 0%,
+    #ffffff 0%
+  );
+}
+
+@keyframes consent-checkbox-fill {
+  from {
+    background: radial-gradient(
+      circle at center,
+      #16a34a 0%,
+      #16a34a 0%,
+      #ffffff 0%
+    );
+  }
+  to {
+    background: radial-gradient(
+      circle at center,
+      #16a34a 100%,
+      #16a34a 100%,
+      #16a34a 100%
+    );
+  }
+}
+
+@keyframes consent-checkbox-checkmark-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.22);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @media (min-width: 1024px) {
