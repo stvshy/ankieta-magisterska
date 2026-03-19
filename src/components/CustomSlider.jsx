@@ -58,8 +58,9 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value))}
         className={`custom-slider block w-full h-3 rounded-lg appearance-none cursor-pointer relative z-10 outline-none
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 
-          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-0
+          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 
+          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-gray-300
+          [&::-webkit-slider-thumb]:shadow-sm hover:[&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:border-gray-400
           transition-all
           focus:outline-none focus-visible:outline-none focus:ring-0 focus:ring-transparent
         `}
