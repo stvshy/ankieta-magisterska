@@ -9,15 +9,6 @@ import {
 } from "lucide-react";
 import CustomSlider from "../components/CustomSlider.jsx";
 
-const BORDER_COLOR_CLASS_MAP = {
-  "text-amber-600": "border-amber-600",
-  "text-cyan-500": "border-cyan-500",
-  "text-emerald-600": "border-emerald-600",
-  "text-slate-600": "border-slate-600",
-  "text-yellow-500": "border-yellow-500",
-  "text-indigo-600": "border-indigo-600",
-};
-
 const ProfilingStep = ({
   demographics,
   setDemographics,
@@ -164,11 +155,7 @@ const ProfilingStep = ({
           >
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-3 font-semibold text-gray-800 text-lg">
-                <div
-                  className={`p-2 rounded-lg bg-gray-50 border ${
-                    BORDER_COLOR_CLASS_MAP[colorClass] || ""
-                  }`}
-                >
+                <div className="p-2 rounded-lg bg-gray-50 border border-gray-200">
                   {icon}
                 </div>{" "}
                 {label}
