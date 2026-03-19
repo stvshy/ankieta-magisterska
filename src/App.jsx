@@ -131,7 +131,7 @@ export default function App() {
         window.scrollTo(0, 0);
       }
     },
-    [currentStep]
+    [currentStep],
   );
 
   // --- RENDEROWANIE KROKÓW ---
@@ -253,7 +253,7 @@ export default function App() {
             <button
               onClick={handlePrev}
               disabled={currentStep === 0}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all
+              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-4 pr-8 py-3 rounded-xl font-medium transition-all
                 ${currentStep === 0 ? "opacity-0 cursor-default" : "text-gray-600 bg-gray-100 hover:bg-gray-200"}`}
             >
               <ChevronLeft className="w-5 h-5" /> Wstecz
@@ -262,7 +262,7 @@ export default function App() {
             <button
               onClick={handleNext}
               disabled={!canProceed()}
-              className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold transition-all shadow-sm
+              className={`w-[130px] sm:w-[150px] flex items-center justify-center gap-2 pl-8 pr-4 py-3 rounded-xl font-bold transition-all shadow-sm
                 ${
                   canProceed()
                     ? "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
