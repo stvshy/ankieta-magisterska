@@ -105,13 +105,13 @@ const ProfilingStep = ({
       <h2 className="text-2xl font-bold text-gray-900 mb-3">
         Twoje preferencje podróżnicze
       </h2>
-      <p className="text-sm text-gray-500 mb-4">
+      <p className="text-[15px] text-gray-500 mb-4">
         Proszę określić ważność poniższych czynników przy wyborze destynacji
         turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 –
         „kluczowe”.
       </p>
-      <p className="flex items-center text-[13px] text-gray-500 mb-8">
-        <span className="mr-3 text-base leading-none flex items-center">
+      <p className="flex items-center text-[14px] text-gray-500 mb-8">
+        <span className="mr-3 text-[13.5px] leading-none flex items-center">
           💡
         </span>
         <span>
