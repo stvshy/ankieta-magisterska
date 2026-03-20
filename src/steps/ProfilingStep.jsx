@@ -115,7 +115,7 @@ const ProfilingStep = ({
         Twoje preferencje podróżnicze
       </h2>
       <p
-        className="sm:text-[14.5px] text-[14.0px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="sm:text-[14.5px] lg:text-[15.5px] text-[14.0px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         {hyphenatePl(
@@ -123,13 +123,13 @@ const ProfilingStep = ({
         )}
       </p>
       <p
-        className="text-[13.6px] sm:text-[14.2px] text-gray-600 mb-[20px] md:mb-8 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="text-[13.6px] sm:text-[14.2px] lg:text-[15.2px] text-gray-600 mb-[20px] md:mb-8 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         <span className="font-semibold text-[#e6a715]">
           <span
             aria-hidden="true"
-            className="inline-block align-baseline text-[9.7px] sm:text-[11.0px]"
+            className="inline-block align-baseline text-[9.7px] sm:text-[11.0px] lg:text-[12px]"
             style={{ transform: "translateY(-2.0px)" }}
           >
             💡
@@ -146,37 +146,49 @@ const ProfilingStep = ({
           {
             key: "monuments",
             label: "Zabytki i historia",
-            icon: <Landmark className="w-[30px] h-[30px] text-amber-600" />,
+            icon: (
+              <Landmark className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-amber-600" />
+            ),
             colorClass: "text-amber-600",
           },
           {
             key: "beaches",
             label: "Plaże i morze",
-            icon: <Umbrella className="w-[30px] h-[30px]  text-cyan-500" />,
+            icon: (
+              <Umbrella className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-cyan-500" />
+            ),
             colorClass: "text-cyan-500",
           },
           {
             key: "mountains",
             label: "Góry i natura",
-            icon: <Tent className="w-[30px] h-[30px]  text-emerald-600" />,
+            icon: (
+              <Tent className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-emerald-600" />
+            ),
             colorClass: "text-emerald-600",
           },
           {
             key: "infrastructure",
             label: "Infrastruktura",
-            icon: <Building2 className="w-[30px] h-[30px]  text-slate-600" />,
+            icon: (
+              <Building2 className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-slate-600" />
+            ),
             colorClass: "text-slate-600",
           },
           {
             key: "costs",
             label: "Niskie Koszty",
-            icon: <Coins className="w-[30px] h-[30px]  text-yellow-500" />,
+            icon: (
+              <Coins className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-yellow-500" />
+            ),
             colorClass: "text-yellow-500",
           },
           {
             key: "safety",
             label: "Bezpieczeństwo",
-            icon: <ShieldCheck className="w-[31px] h-[31px] text-indigo-600" />,
+            icon: (
+              <ShieldCheck className="w-[30.5px] h-[30.5px] lg:w-[31.5px] lg:h-[31.5px] text-indigo-600" />
+            ),
             colorClass: "text-indigo-600",
           },
         ].map(({ key, label, icon, colorClass }) => (
@@ -185,17 +197,21 @@ const ProfilingStep = ({
             className="bg-white p-4 rounded-xl shadow-sm border border-gray-100"
           >
             <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-2.5 font-semibold text-gray-800 text-base md:text-[17px]">
-                <div className="p-1.5 rounded-md bg-gray-50 border border-gray-200">
+              <div className="flex items-center gap-2.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
+                <div className="p-[5.5px] lg:p-[7px] rounded-[5.5px] lg:rounded-[6.5px] bg-gray-50 border border-gray-200">
                   {icon}
                 </div>{" "}
                 {label}
               </div>
               <div className="flex items-baseline gap-1">
-                <span className={`font-bold text-[24px] ${colorClass}`}>
+                <span
+                  className={`font-bold text-[23.5px] lg:text-[25px] ${colorClass}`}
+                >
                   {preferences[key]}
                 </span>
-                <span className="text-xs text-black font-medium">/ 10</span>
+                <span className="text-xs lg:text-[13px] text-black font-medium">
+                  / 10
+                </span>
               </div>
             </div>
 
@@ -205,7 +221,7 @@ const ProfilingStep = ({
               colorClass={colorClass}
             />
 
-            <div className="flex justify-between text-[12px] text-gray-400 mt-3 font-medium px-1">
+            <div className="flex justify-between text-[12px] lg:text-[13px] text-gray-400 mt-3 font-medium px-1">
               <span>Nieważne (0)</span>
               <span>Kluczowe (10)</span>
             </div>

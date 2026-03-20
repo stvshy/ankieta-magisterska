@@ -508,6 +508,22 @@
     justify-content: center;
     transform: translateY(-75px);
   }
+
+  .consent-step-note-content {
+    font-size: calc(0.875rem + 1px);
+  }
+
+  .consent-step-note h2 {
+    font-size: 17.5px !important;
+  }
+
+  .consent-step-checkbox-text {
+    font-size: 14.5px !important;
+  }
+
+  .consent-step-checkbox-required {
+    font-size: calc(0.76rem + 1px);
+  }
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
