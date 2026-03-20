@@ -122,21 +122,23 @@ const ProfilingStep = ({
           "Proszę określić ważność poniższych czynników przy wyborze destynacji turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 – „kluczowe”.",
         )}
       </p>
-      <p className="flex items-start text-[13.6px] sm:text-[14.2px] text-gray-600 mb-[20px] md:mb-8">
-        <span className="-ml-[2.5px] sm:-ml-0 mr-1.5 sm:mr-2 flex h-[21px] items-center text-[9.9px] sm:text-[11.2px] leading-none">
-          💡
-        </span>
-        <span
-          className="block text-justify [hyphens:auto] [-webkit-hyphens:auto]"
-          lang="pl"
-        >
-          <span className="font-semibold text-[#e6a715] mr-2">Wskazówka:</span>
-          <span>
-            {hyphenatePl(
-              'Zastanów się, co jest dla Ciebie naprawdę najważniejsze. Ustawienie takich samych ocen (np. samych "10") dla wszystkich czynników obniży precyzję dopasowania do Twoich preferencji.',
-            )}
-          </span>
-        </span>
+      <p
+        className="text-[13.6px] sm:text-[14.2px] text-gray-600 mb-[20px] md:mb-8 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        lang="pl"
+      >
+        <span className="font-semibold text-[#e6a715]">
+          <span
+            aria-hidden="true"
+            className="inline-block align-baseline text-[9.7px] sm:text-[11.0px]"
+            style={{ transform: "translateY(-2.0px)" }}
+          >
+            💡
+          </span>{" "}
+          Wskazówka:
+        </span>{" "}
+        {hyphenatePl(
+          'Zastanów się, co jest dla Ciebie naprawdę najważniejsze. Ustawienie takich samych ocen (np. samych "10") dla wszystkich czynników obniży precyzję dopasowania do Twoich preferencji.',
+        )}
       </p>
 
       <div className="space-y-6 md:space-y-8 pb-3 md:pb-4">

@@ -80,7 +80,7 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
           setHoveredMark(getHoveredMarkFromPointer(e.clientX, e.currentTarget))
         }
         onMouseLeave={() => setHoveredMark(null)}
-        className={`custom-slider block w-full h-[8.5px] sm:h-[9.8px] rounded-lg appearance-none cursor-pointer relative z-10 outline-none
+        className={`custom-slider block w-full h-[8.8px] sm:h-[9.8px] rounded-lg appearance-none cursor-pointer relative z-10 outline-none
           [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
           [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-gray-300
           [&::-webkit-slider-thumb]:shadow-sm hover:[&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:border-gray-400

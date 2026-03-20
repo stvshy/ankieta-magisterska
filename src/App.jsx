@@ -242,15 +242,15 @@ export default function App() {
                                 index === 0
                                   ? "translate(-0.2px, -0.6px)"
                                   : index === 1
-                                    ? "translate(0.3px, -0.6px)"
+                                    ? "translate(0.2px, -0.6px)"
                                     : index === 2
-                                      ? "translateY(-0.6px)"
+                                      ? "translate(0.5px, -0.8px)"
                                       : index === 3
-                                        ? "translate(-0.6px, -0.5px)"
+                                        ? "translate(-0.18px, -0.8px)"
                                         : index === 4
-                                          ? "translate(0.3px, -0.6px)"
+                                          ? "translate(0.02px, -0.5px)"
                                           : index === 5
-                                            ? "translate(-0.3px, -0.6px)"
+                                            ? "translate(0.31px, -0.5px)"
                                             : "none",
                             }}
                           >
@@ -259,7 +259,7 @@ export default function App() {
                         )}
                       </span>
                       <span
-                        className={`ankieta-stepper-label text-[10px] sm:text-xs font-semibold mt-2 text-center whitespace-nowrap ${
+                        className={`ankieta-stepper-label text-[10px] sm:text-xs font-medium mt-2 text-center whitespace-nowrap ${
                           isCurrent || isCompleted
                             ? "ankieta-accent-text"
                             : "text-gray-400"
@@ -288,7 +288,7 @@ export default function App() {
             <button
               onClick={handlePrev}
               disabled={currentStep === 0}
-              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-4 pr-8 py-3 rounded-xl font-medium transition-all
+              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-4 pr-8 py-3 rounded-xl !font-medium transition-all
                 ${currentStep === 0 ? "opacity-0 cursor-default" : "text-gray-600 bg-gray-100 hover:bg-gray-200"}`}
             >
               <ChevronLeft className="w-5 h-5" /> Wstecz
@@ -297,7 +297,7 @@ export default function App() {
             <button
               onClick={handleNext}
               disabled={!canProceed()}
-              className={`w-[130px] sm:w-[150px] flex items-center justify-center gap-2 pl-8 pr-4 py-3 rounded-xl font-bold transition-all shadow-sm
+              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-8 pr-4 py-3 rounded-xl !font-medium transition-all shadow-sm
                 ${
                   canProceed()
                     ? "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
