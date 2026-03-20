@@ -240,17 +240,17 @@ export default function App() {
                             style={{
                               transform:
                                 index === 0
-                                  ? "translate(-0.2px, -0.6px)"
+                                  ? "translateX(-0.2px)"
                                   : index === 1
-                                    ? "translate(0.2px, -0.6px)"
+                                    ? "translateX(0.2px)"
                                     : index === 2
-                                      ? "translate(0.5px, -0.8px)"
+                                      ? "translateX(0.5px)"
                                       : index === 3
-                                        ? "translate(-0.18px, -0.8px)"
+                                        ? "translateX(-0.18px)"
                                         : index === 4
-                                          ? "translate(0.02px, -0.5px)"
+                                          ? "translateX(0.02px)"
                                           : index === 5
-                                            ? "translate(0.31px, -0.5px)"
+                                            ? "translateX(0.31px)"
                                             : "none",
                             }}
                           >

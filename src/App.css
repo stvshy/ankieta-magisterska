@@ -561,6 +561,10 @@
     margin-top: -12px;
   }
 
+  .consent-step-note {
+    margin-top: -5px;
+  }
+
   .consent-step-note-content {
     max-height: none;
     overflow-y: visible;
