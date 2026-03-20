@@ -10,11 +10,17 @@ const hyphenatePl = (text) => plHypher.hyphenateText(text);
 const ConsentStep = ({ agreed, setAgreed }) => (
   <div className="consent-step-layout animate-fadeIn">
     <div className="consent-step-note p-6 rounded-xl">
-      <h2 className="ankieta-accent-text text-[16.5px] font-semibold mb-4 flex items-center gap-2">
-        <Info className="w-4 h-4" /> Informacja dla uczestnika badania
+      <h2 className="ankieta-accent-text text-[16.5px] font-semibold mb-[16.5px] flex items-center gap-2">
+        <Info className="w-4 h-4" />
+        <span className="sm:hidden">Informacja</span>
+        <span className="hidden sm:inline">
+          Informacja dla uczestnika badania
+        </span>
       </h2>
       <div className="text-sm text-gray-700 overflow-y-auto pr-2 custom-scrollbar consent-step-note-content">
-        <p className="mb-3 text-gray-800">Szanowna Pani/Szanowny Panie,</p>
+        <p className="mb-3 text-gray-800 font-medium">
+          Szanowna Pani/Szanowny Panie,
+        </p>
         <p
           className="mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
           lang="pl"
@@ -23,18 +29,18 @@ const ConsentStep = ({ agreed, setAgreed }) => (
             "Nazywam się Mateusz Staszków i jestem studentem Informatyki Stosowanej na Politechnice Wrocławskiej. Zapraszam do udziału w badaniu naukowym, które stanowi część mojej pracy magisterskiej, realizowanej pod opieką dr inż. Bernadetty Maleszki.",
           )}
         </p>
-        <h3 className="font-semibold text-gray-900 mt-[17px] mb-2">
+        <h3 className="font-semibold text-gray-900 mt-[16px] mb-[6px]">
           1. Cel i przebieg badania
         </h3>
         <p
-          className="text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          className="text-justify [hyphens:auto] [-webkit-hyphens:auto] "
           lang="pl"
         >
           {hyphenatePl(
-            "Celem badania jest ocena trafności i użyteczności różnych metod rekomendacji podróżniczych w opinii użytkowników. Badanie realizowane jest w formie interaktywnej sesji, a jej wypełnienie zajmie około 5-10 minut.",
+            "Celem badania jest ocena trafności i użyteczności różnych metod rekomendacji podróżniczych w opinii użytkowników. Badanie realizowane jest w formie interaktywnej sesji, a jej wypełnienie zajmie około\u2009 5-10 minut.",
           )}
         </p>
-        <h3 className="font-semibold text-gray-900 mt-[17px] mb-2">
+        <h3 className="font-semibold text-gray-900 mt-[16px] mb-[6px]">
           2. Dobrowolność i anonimowość
         </h3>
         <p
@@ -45,7 +51,7 @@ const ConsentStep = ({ agreed, setAgreed }) => (
             "Udział w badaniu jest w pełni dobrowolny. Badanie jest w pełni anonimowe. Nie zbieramy żadnych danych, które mogłyby pozwolić na Pana/Pani identyfikację (takich jak imię, nazwisko, adres e-mail czy adres IP urządzenia).",
           )}
         </p>
-        <h3 className="font-semibold text-gray-900 mt-[17px] mb-2">
+        <h3 className="font-semibold text-gray-900 mt-[16px] mb-[6px]">
           3. Przetwarzanie danych
         </h3>
         <p
@@ -73,7 +79,7 @@ const ConsentStep = ({ agreed, setAgreed }) => (
       </span>
       <span className="consent-step-checkbox-content">
         <span
-          className="consent-step-checkbox-text text-sm font-medium text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          className="consent-step-checkbox-text text-[13.5px] font-regular text-gray-800 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
           lang="pl"
         >
           {hyphenatePl(
