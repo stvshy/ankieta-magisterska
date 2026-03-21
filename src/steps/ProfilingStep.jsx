@@ -1,15 +1,13 @@
 import React from "react";
-import {
-  Landmark,
-  Umbrella,
-  Tent,
-  Building2,
-  Coins,
-  ShieldCheck,
-} from "lucide-react";
 import Hypher from "hypher";
 import polish from "hyphenation.pl";
 import CustomSlider from "../components/CustomSlider.jsx";
+import zabytki1 from "../assets/zabytki1.svg";
+import morza1 from "../assets/morza1.svg";
+import gory1 from "../assets/gory1.svg";
+import infrastruktura1 from "../assets/infrastruktura1.svg";
+import koszty1 from "../assets/koszty1.svg";
+import bezpieczenstwo1 from "../assets/bezpieczenstwo1.svg";
 
 const plHypher = new Hypher(polish);
 const hyphenatePl = (text) => plHypher.hyphenateText(text);
@@ -147,7 +145,12 @@ const ProfilingStep = ({
             key: "monuments",
             label: "Zabytki i historia",
             icon: (
-              <Landmark className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-amber-600" />
+              <img
+                src={zabytki1}
+                alt=""
+                aria-hidden="true"
+                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+              />
             ),
             colorClass: "text-amber-600",
           },
@@ -155,7 +158,12 @@ const ProfilingStep = ({
             key: "beaches",
             label: "Plaże i morze",
             icon: (
-              <Umbrella className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-cyan-500" />
+              <img
+                src={morza1}
+                alt=""
+                aria-hidden="true"
+                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+              />
             ),
             colorClass: "text-cyan-500",
           },
@@ -163,7 +171,12 @@ const ProfilingStep = ({
             key: "mountains",
             label: "Góry i natura",
             icon: (
-              <Tent className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-emerald-600" />
+              <img
+                src={gory1}
+                alt=""
+                aria-hidden="true"
+                className="w-[31px] h-[31px] lg:w-[32.5px] lg:h-[32.5px]"
+              />
             ),
             colorClass: "text-emerald-600",
           },
@@ -171,7 +184,12 @@ const ProfilingStep = ({
             key: "infrastructure",
             label: "Infrastruktura",
             icon: (
-              <Building2 className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-slate-600" />
+              <img
+                src={infrastruktura1}
+                alt=""
+                aria-hidden="true"
+                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+              />
             ),
             colorClass: "text-slate-600",
           },
@@ -179,7 +197,12 @@ const ProfilingStep = ({
             key: "costs",
             label: "Niskie Koszty",
             icon: (
-              <Coins className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px] text-yellow-500" />
+              <img
+                src={koszty1}
+                alt=""
+                aria-hidden="true"
+                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+              />
             ),
             colorClass: "text-yellow-500",
           },
@@ -187,7 +210,12 @@ const ProfilingStep = ({
             key: "safety",
             label: "Bezpieczeństwo",
             icon: (
-              <ShieldCheck className="w-[30.5px] h-[30.5px] lg:w-[31.5px] lg:h-[31.5px] text-indigo-600" />
+              <img
+                src={bezpieczenstwo1}
+                alt=""
+                aria-hidden="true"
+                className="w-[30.5px] h-[30.5px] lg:w-[31.5px] lg:h-[31.5px]"
+              />
             ),
             colorClass: "text-indigo-600",
           },
