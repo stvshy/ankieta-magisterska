@@ -149,7 +149,7 @@ const ProfilingStep = ({
                 src={zabytki1}
                 alt=""
                 aria-hidden="true"
-                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+                className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
               />
             ),
             colorClass: "text-amber-600",
@@ -162,7 +162,7 @@ const ProfilingStep = ({
                 src={morza1}
                 alt=""
                 aria-hidden="true"
-                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+                className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
               />
             ),
             colorClass: "text-cyan-500",
@@ -175,7 +175,7 @@ const ProfilingStep = ({
                 src={gory1}
                 alt=""
                 aria-hidden="true"
-                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+                className="block w-[29.5px] h-[29.5px] lg:w-[34px] lg:h-[34px] object-contain object-center translate-y-[2px] lg:translate-y-[2.0px]"
               />
             ),
             colorClass: "text-emerald-600",
@@ -188,7 +188,7 @@ const ProfilingStep = ({
                 src={infrastruktura1}
                 alt=""
                 aria-hidden="true"
-                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+                className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
               />
             ),
             colorClass: "text-slate-600",
@@ -201,7 +201,7 @@ const ProfilingStep = ({
                 src={koszty1}
                 alt=""
                 aria-hidden="true"
-                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
+                className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
               />
             ),
             colorClass: "text-yellow-500",
@@ -214,7 +214,7 @@ const ProfilingStep = ({
                 src={bezpieczenstwo1}
                 alt=""
                 aria-hidden="true"
-                className="w-[30.5px] h-[30.5px] lg:w-[31.5px] lg:h-[31.5px]"
+                className="block w-[30.5px] h-[30.5px] lg:w-[34px] lg:h-[34px]"
               />
             ),
             colorClass: "text-indigo-600",
@@ -225,8 +225,8 @@ const ProfilingStep = ({
             className="bg-white p-4 rounded-xl shadow-sm border border-gray-100"
           >
             <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-2.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
-                <div className="p-[5.5px] lg:p-[7px] rounded-[5.5px] lg:rounded-[6.5px] bg-gray-50 border border-gray-200">
+              <div className="flex items-center gap-2.5 lg:gap-3.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
+                <div className="flex items-center justify-center p-[5.5px] lg:p-[8.5px] rounded-[5.5px] lg:rounded-[8px] bg-gray-50 border border-gray-200">
                   {icon}
                 </div>{" "}
                 {label}
