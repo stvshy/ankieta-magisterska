@@ -12,6 +12,8 @@ const COLOR_HEX_MAP = {
 const CustomSlider = ({ value, onChange, colorClass }) => {
   const [hoveredMark, setHoveredMark] = useState(null);
   const marks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const thumbSizePx = 16;
+  const thumbRadiusPx = thumbSizePx / 2;
   const percentage = (value / 10) * 100;
   const sliderColor = COLOR_HEX_MAP[colorClass] || "#3b82f6"; // domyślnie niebieski
   const getHoveredMarkFromPointer = (clientX, target) => {
@@ -26,7 +28,7 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
       <div className="relative h-[33px] w-full mb-1">
         {marks.map((mark) => {
           const percent = (mark / 10) * 100;
-          const leftPos = `calc(${percent}% + ${12 - (percent * 24) / 100}px)`;
+          const leftPos = `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
           const isActive = value === mark;
           const isHovered = hoveredMark === mark;
 
