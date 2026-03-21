@@ -175,7 +175,7 @@ const ProfilingStep = ({
                 src={gory1}
                 alt=""
                 aria-hidden="true"
-                className="w-[31px] h-[31px] lg:w-[32.5px] lg:h-[32.5px]"
+                className="w-[29.5px] h-[29.5px] lg:w-[30.5px] lg:h-[30.5px]"
               />
             ),
             colorClass: "text-emerald-600",
