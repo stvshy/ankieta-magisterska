@@ -4,7 +4,7 @@ import polish from "hyphenation.pl";
 import CustomSlider from "../components/CustomSlider.jsx";
 import zabytki1 from "../assets/zabytki1.svg";
 import morza1 from "../assets/morza1.svg";
-import gory1 from "../assets/gory1.svg";
+import gory1 from "../assets/gory3.svg";
 import infrastruktura1 from "../assets/infrastruktura1.svg";
 import koszty1 from "../assets/koszty1.svg";
 import bezpieczenstwo1 from "../assets/bezpieczenstwo2.svg";
