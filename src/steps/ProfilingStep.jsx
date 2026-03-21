@@ -7,7 +7,7 @@ import morza1 from "../assets/morza1.svg";
 import gory1 from "../assets/gory1.svg";
 import infrastruktura1 from "../assets/infrastruktura1.svg";
 import koszty1 from "../assets/koszty1.svg";
-import bezpieczenstwo1 from "../assets/bezpieczenstwo1.svg";
+import bezpieczenstwo1 from "../assets/bezpieczenstwo2.svg";
 
 const plHypher = new Hypher(polish);
 const hyphenatePl = (text) => plHypher.hyphenateText(text);
