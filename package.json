@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",
+    "country-flag-icons": "^1.6.15",
     "hyphenation.pl": "^0.2.1",
     "hypher": "^0.2.5",
     "lucide-react": "^0.577.0",

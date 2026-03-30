@@ -6,6 +6,7 @@ import ProfilingStep from "./steps/ProfilingStep.jsx";
 import ListEvaluationStep from "./steps/ListEvaluationStep.jsx";
 import SummaryStep from "./steps/SummaryStep.jsx";
 import ThankYouStep from "./steps/ThankYouStep.jsx";
+import { LISTA_1_MARZENIA, LISTA_2_RZECZYWISTOSC } from "./data/staticRankings.js";
 import "./App.css";
 
 // --- MOCK DATA (PLACEHOLDERY DLA LIST) ---
@@ -158,7 +159,11 @@ export default function App() {
             currentStep={currentStep}
             evaluations={evaluations}
             setEvaluations={setEvaluations}
-            lists={MOCK_LISTS}
+            lists={{
+              ...MOCK_LISTS,
+              A: LISTA_1_MARZENIA,
+              B: LISTA_2_RZECZYWISTOSC,
+            }}
           />
         );
       case 5:
