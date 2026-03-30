@@ -20,7 +20,7 @@ const ProfilingStep = ({
 }) => (
   <div className="space-y-8 animate-fadeIn">
     <div>
-      <h2 className="-mt-[14px] md:mt-0 text-[18.5px] md:text-[21.5px] font-bold text-[#316de5] mb-[15px] md:mb-6 ">
+      <h2 className="-mt-[14px] md:mt-0 text-[18.5px] md:text-[21.5px] font-bold text-[#316de5] mb-[18px] md:mb-7 ">
         Metryczka użytkownika
       </h2>
 
@@ -113,7 +113,7 @@ const ProfilingStep = ({
         Twoje preferencje podróżnicze
       </h2>
       <p
-        className="sm:text-[14.5px] lg:text-[15.5px] text-[14.0px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="sm:text-[14.1px] lg:text-[15.1px] text-[13.6px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         {hyphenatePl(
@@ -121,13 +121,13 @@ const ProfilingStep = ({
         )}
       </p>
       <p
-        className="text-[13.6px] sm:text-[14.2px] lg:text-[15.2px] text-gray-600 mb-[20px] md:mb-8 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+        className="text-[13.2px] sm:text-[13.8px] lg:text-[14.8px] text-gray-600 mb-[20px] md:mb-8 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
         lang="pl"
       >
         <span className="font-semibold text-[#e6a715]">
           <span
             aria-hidden="true"
-            className="inline-block align-baseline text-[9.7px] sm:text-[11.0px] lg:text-[12px]"
+            className="inline-block align-baseline text-[9.3px] sm:text-[10.6px] lg:text-[12px]"
             style={{ transform: "translateY(-2.0px)" }}
           >
             💡
