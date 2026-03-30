@@ -112,32 +112,48 @@ const ProfilingStep = ({
       <h2 className="text-[18.5px] md:text-[21.6px] font-bold text-[#316de5] mb-2.5 md:mb-3">
         Twoje preferencje podróżnicze
       </h2>
-      <p
-        className="sm:text-[14.1px] lg:text-[15.1px] text-[13.6px] text-gray-600 mb-4 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
-        lang="pl"
-      >
-        {hyphenatePl(
-          "Proszę określić ważność poniższych czynników przy wyborze destynacji turystycznej, gdzie 0 oznacza wartość „zupełnie nieważne”, a 10 – „kluczowe”.",
-        )}
-      </p>
-      <p
-        className="text-[13.2px] sm:text-[13.8px] lg:text-[14.8px] text-gray-600 mb-[20px] md:mb-8 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
-        lang="pl"
-      >
-        <span className="font-semibold text-[#e6a715]">
-          <span
-            aria-hidden="true"
-            className="inline-block align-baseline text-[9.3px] sm:text-[10.6px] lg:text-[12px]"
-            style={{ transform: "translateY(-2.0px)" }}
-          >
-            💡
+      <div className="profiling-preferences-intro rounded-xl p-[15.9px] md:p-[19.5px] lg:p-[20.9px] mb-5 md:mb-8">
+        <p
+          className="sm:text-[14.1px] lg:text-[15.1px] text-[13.6px] text-gray-700 mb-3.5 md:mb-4 text-justify  [word-spacing:0.04em] tracking-[-0.049em] [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
+          {hyphenatePl("Proszę określić ")}{" "}
+          <span className="font-medium">{hyphenatePl("ważność")}</span>
+          {hyphenatePl(
+            " poniższych czynników przy wyborze destynacji turystycznej, gdzie ",
+          )}{" "}
+          <span className="font-medium">{hyphenatePl("0")}</span>
+          {hyphenatePl(" oznacza wartość ")}{" "}
+          <span className="font-medium">
+            {hyphenatePl("„zupełnie nieważne”")}
+          </span>
+          {hyphenatePl(", a ")}{" "}
+          <span className="font-medium">{hyphenatePl("10 – „kluczowe”")}</span>
+          {hyphenatePl(".")}
+        </p>
+        <p
+          className="text-[13.2px] sm:text-[13.8px] lg:text-[14.8px] text-gray-600 text-justify [word-spacing:0.04em] tracking-[-0.049em] [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
+          <span className="font-semibold text-[#e6a715]">
+            <span
+              aria-hidden="true"
+              className="inline-block align-baseline text-[9.3px] sm:text-[10.6px] lg:text-[12px]"
+              style={{ transform: "translateY(-2.0px)" }}
+            >
+              💡
+            </span>{" "}
+            Wskazówka:
           </span>{" "}
-          Wskazówka:
-        </span>{" "}
-        {hyphenatePl(
-          'Zastanów się, co jest dla Ciebie naprawdę najważniejsze. Ustawienie takich samych ocen (np. samych "10") dla wszystkich czynników obniży precyzję dopasowania do Twoich preferencji.',
-        )}
-      </p>
+          {hyphenatePl("Zastanów się, co jest dla Ciebie naprawdę ")}{" "}
+          <span className="font-medium">{hyphenatePl("najważniejsze")}</span>
+          {hyphenatePl('. Ustawienie takich samych ocen (np. samych "')}
+          <span className="font-medium">{hyphenatePl("10")}</span>
+          {hyphenatePl('") dla wszystkich czynników ')}{" "}
+          <span className="font-medium">{hyphenatePl("obniży precyzję")}</span>
+          {hyphenatePl(" dopasowania do Twoich preferencji.")}
+        </p>
+      </div>
 
       <div className="space-y-6 md:space-y-8 pb-3 md:pb-4">
         {[
