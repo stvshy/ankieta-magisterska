@@ -159,6 +159,7 @@ export default function App() {
             currentStep={currentStep}
             evaluations={evaluations}
             setEvaluations={setEvaluations}
+            gender={demographics.gender}
             lists={{
               ...MOCK_LISTS,
               A: LISTA_1_MARZENIA,

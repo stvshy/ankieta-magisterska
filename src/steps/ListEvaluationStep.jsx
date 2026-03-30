@@ -1,23 +1,44 @@
 import React from "react";
+import Hypher from "hypher";
+import polish from "hyphenation.pl";
 import CountryList from "../components/CountryList.jsx";
 import RatingScale from "../components/RatingScale.jsx";
+
+const plHypher = new Hypher(polish);
+const hyphenatePl = (text) => plHypher.hyphenateText(text);
 
 const ListEvaluationStep = ({
   currentStep,
   evaluations,
   setEvaluations,
   lists,
+  gender,
 }) => {
   const listLetter = currentStep === 2 ? "A" : currentStep === 3 ? "B" : "C";
   const currentList = lists[listLetter];
+  const genderWordForDla =
+    gender === "Kobieta"
+      ? "Pani"
+      : gender === "Mężczyzna"
+        ? "Pana"
+        : "Pani/Pana";
+  const genderWordForPrzez =
+    gender === "Kobieta"
+      ? "Panią"
+      : gender === "Mężczyzna"
+        ? "Pana"
+        : "Panią/Pana";
+  const personalizedIntroText = `System przygotował dla ${genderWordForDla} 3 zestawienia kierunków podróży. Dwa z nich oparto na trendach rynkowych (odzwierciedlających marzenia oraz faktyczne wybory Polaków), natomiast jedno zostało wygenerowane w sposób spersonalizowany, na podstawie udzielonych przez ${genderWordForPrzez} w poprzednim kroku odpowiedzi. Źródła pochodzenia poszczególnych list nie są na tym etapie ujawniane. Prosimy o zapoznanie się z poniższym rankingiem i jego obiektywną ocenę.`;
 
   return (
     <div className="space-y-6 animate-fadeIn">
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 rounded-xl text-white shadow-lg">
-        <h2 className="text-2xl font-bold mb-2">Ranking {listLetter}</h2>
-        <p className="text-blue-100 text-sm">
-          Na podstawie Twoich preferencji (lub innych algorytmów)
-          wygenerowaliśmy tę listę. Zapoznaj się z nią i oceń poniżej.
+        <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
+        <p
+          className="text-blue-100 text-[13px] tracking-[-0.023em] [word-spacing:0.02em] text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+          lang="pl"
+        >
+          {hyphenatePl(personalizedIntroText)}
         </p>
       </div>
 
