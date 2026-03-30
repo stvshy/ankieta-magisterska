@@ -2,7 +2,7 @@ import React from "react";
 import * as Flags from "country-flag-icons/react/3x2";
 
 const CountryList = ({ list }) => (
-  <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+  <div className="grid grid-cols-2 gap-3 mb-6 w-full">
     {list.map((country, idx) => (
       <div
         key={idx}
@@ -19,6 +19,7 @@ const CountryList = ({ list }) => (
           <span className="w-7 h-5 rounded-sm bg-gray-300 shrink-0" />
         )}
         <span className="text-sm font-medium text-gray-700 truncate">
+          <span className="font-bold text-gray-600 mr-1">{idx + 1}.</span>
           {country.name}
         </span>
       </div>
