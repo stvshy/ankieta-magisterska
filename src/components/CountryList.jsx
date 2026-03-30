@@ -11,7 +11,7 @@ const CountryList = ({ list }) => (
         {Flags[country.code] ? (
           React.createElement(Flags[country.code], {
             title: country.name,
-            className: "w-7 h-5 rounded-sm object-cover shrink-0",
+            className: "w-7 h-5 rounded-sm object-cover shrink-0 border border-gray-200",
           })
         ) : country.flag ? (
           <span className="text-2xl shrink-0">{country.flag}</span>

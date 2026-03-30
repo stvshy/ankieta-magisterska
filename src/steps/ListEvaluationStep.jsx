@@ -2,7 +2,12 @@ import React from "react";
 import CountryList from "../components/CountryList.jsx";
 import RatingScale from "../components/RatingScale.jsx";
 
-const ListEvaluationStep = ({ currentStep, evaluations, setEvaluations, lists }) => {
+const ListEvaluationStep = ({
+  currentStep,
+  evaluations,
+  setEvaluations,
+  lists,
+}) => {
   const listLetter = currentStep === 2 ? "A" : currentStep === 3 ? "B" : "C";
   const currentList = lists[listLetter];
 
@@ -19,7 +24,7 @@ const ListEvaluationStep = ({ currentStep, evaluations, setEvaluations, lists })
       <CountryList list={currentList} />
 
       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm space-y-2">
-        <h3 className="text-lg font-bold text-gray-900 mb-4 border-b pb-2">
+        <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-400 pb-2">
           Twoja ocena Listy {listLetter}:
         </h3>
 
@@ -68,4 +73,3 @@ const ListEvaluationStep = ({ currentStep, evaluations, setEvaluations, lists })
 };
 
 export default ListEvaluationStep;
-
