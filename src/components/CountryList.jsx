@@ -9,9 +9,7 @@ const CountryList = ({ list, layout = "grid" }) => (
     className="grid gap-3 mb-6 w-full [contain:layout] transition-[grid-template-columns] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
     style={{
       gridTemplateColumns:
-        layout === "list"
-          ? "minmax(0, 1fr)"
-          : "repeat(2, minmax(0, 1fr))",
+        layout === "list" ? "minmax(0, 1fr)" : "repeat(2, minmax(0, 1fr))",
     }}
   >
     {list.map((country, idx) => (
@@ -26,7 +24,9 @@ const CountryList = ({ list, layout = "grid" }) => (
               "w-[27.5px] h-[19.5px] rounded-sm object-cover shrink-0 border border-gray-200",
           })
         ) : country.flag ? (
-          <span className="text-[24.5px] leading-none shrink-0">{country.flag}</span>
+          <span className="text-[24.5px] leading-none shrink-0">
+            {country.flag}
+          </span>
         ) : (
           <span className="w-[29.5px] h-[19.5px] rounded-sm bg-gray-300 shrink-0" />
         )}
@@ -40,4 +40,3 @@ const CountryList = ({ list, layout = "grid" }) => (
 );
 
 export default CountryList;
-

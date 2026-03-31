@@ -87,11 +87,12 @@ const ListEvaluationStep = ({
 
         <div className="flex items-center justify-end gap-2 sm:justify-between">
           <p className="text-xs font-medium leading-tight text-gray-500">
-            Układ rankingu
+            <span className="sm:hidden">Układ</span>
+            <span className="hidden sm:inline">Układ rankingu</span>
           </p>
           <button
             type="button"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-200/90 bg-white text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-[0.97] sm:hidden"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200/90 bg-transparent text-gray-700 shadow-none transition-colors hover:bg-gray-50/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-[0.97] sm:hidden"
             onClick={() =>
               setCountryListLayout((prev) =>
                 prev === "grid" ? "list" : "grid",
