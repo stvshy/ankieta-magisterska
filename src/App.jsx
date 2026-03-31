@@ -86,6 +86,9 @@ export default function App() {
   });
   const [finalChoice, setFinalChoice] = useState("");
 
+  // Czy na mobile pokazaliśmy już opis „Układ” obok przycisku zmiany widoku?
+  const [showMobileLayoutLabel, setShowMobileLayoutLabel] = useState(true);
+
   /** Układ listy krajów: siatka 2× lub jedna kolumna — wspólny dla kroków A/B/C. */
   const [countryListLayout, setCountryListLayout] = useState(() => {
     if (typeof window === "undefined") return "grid";
@@ -182,6 +185,8 @@ export default function App() {
             setEvaluations={setEvaluations}
             countryListLayout={countryListLayout}
             setCountryListLayout={setCountryListLayout}
+            showMobileLayoutLabel={showMobileLayoutLabel}
+            onMobileLayoutLabelDismiss={() => setShowMobileLayoutLabel(false)}
             lists={{
               ...MOCK_LISTS,
               A: LISTA_1_MARZENIA,

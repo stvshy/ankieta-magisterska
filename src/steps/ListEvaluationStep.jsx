@@ -36,10 +36,14 @@ const ListEvaluationStep = ({
   lists,
   countryListLayout,
   setCountryListLayout,
+  showMobileLayoutLabel,
+  onMobileLayoutLabelDismiss,
 }) => {
   const listLetter = currentStep === 2 ? "A" : currentStep === 3 ? "B" : "C";
   const currentList = lists[listLetter];
   const [introExpanded, setIntroExpanded] = useState(false);
+  const [isMobileLabelAnimatingOut, setIsMobileLabelAnimatingOut] =
+    useState(false);
 
   return (
     <div className="space-y-6 animate-fadeIn">
@@ -87,17 +91,39 @@ const ListEvaluationStep = ({
 
         <div className="flex items-center justify-end gap-2 sm:justify-between">
           <p className="text-xs font-medium leading-tight text-gray-500">
-            <span className="sm:hidden">Układ</span>
+            {showMobileLayoutLabel && (
+              <span
+                className={`sm:hidden inline-block origin-right transition-all duration-200 ${
+                  isMobileLabelAnimatingOut
+                    ? "scale-x-0 opacity-0 translate-x-1"
+                    : ""
+                }`}
+              >
+                Układ
+              </span>
+            )}
             <span className="hidden sm:inline">Układ rankingu</span>
           </p>
           <button
             type="button"
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200/90 bg-transparent text-gray-700 shadow-none transition-colors hover:bg-gray-50/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-[0.97] sm:hidden"
-            onClick={() =>
+            onClick={() => {
               setCountryListLayout((prev) =>
                 prev === "grid" ? "list" : "grid",
-              )
-            }
+              );
+
+              // Tylko pierwsze kliknięcie w danej sesji na mobile:
+              if (
+                showMobileLayoutLabel &&
+                typeof window !== "undefined" &&
+                window.innerWidth < 640
+              ) {
+                setIsMobileLabelAnimatingOut(true);
+                window.setTimeout(() => {
+                  onMobileLayoutLabelDismiss?.();
+                }, 220);
+              }
+            }}
             aria-label={
               countryListLayout === "grid"
                 ? "Przełącz na widok listy"
