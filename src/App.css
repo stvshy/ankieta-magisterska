@@ -575,12 +575,13 @@
 
 @media (min-width: 1024px) {
   .consent-step-layout {
-    justify-content: center;
-    transform: translateY(-75px);
+    justify-content: flex-start;
+    transform: none;
   }
 
   .consent-step-note-content {
     font-size: calc(0.875rem + 1px);
+    max-height: calc(100dvh - 430px);
   }
 
   .consent-step-note h2 {
