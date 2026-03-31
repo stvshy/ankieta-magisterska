@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { LayoutGrid, List } from "lucide-react";
 import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 import Hypher from "hypher";
 import polish from "hyphenation.pl";
@@ -33,6 +34,8 @@ const ListEvaluationStep = ({
   evaluations,
   setEvaluations,
   lists,
+  countryListLayout,
+  setCountryListLayout,
 }) => {
   const listLetter = currentStep === 2 ? "A" : currentStep === 3 ? "B" : "C";
   const currentList = lists[listLetter];
@@ -40,48 +43,110 @@ const ListEvaluationStep = ({
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 pb-[calc(0.75rem+0.7px)] md:p-6 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible">
-        <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
+      <div className="space-y-1.5">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 pb-[calc(0.75rem+0.7px)] md:p-6 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible">
+          <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
 
-        <div className="hidden md:block">
-          <FullIntroParagraph />
+          <div className="hidden md:block">
+            <FullIntroParagraph />
+          </div>
+
+          <div className="md:hidden">
+            {introExpanded ? (
+              <FullIntroParagraph />
+            ) : (
+              <p className={`${introParagraphClass} font-medium`} lang="pl">
+                {hyphenatePl(shortIntroText)}
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={() => setIntroExpanded((v) => !v)}
+              className="mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center rounded-lg py-0 text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
+              aria-expanded={introExpanded}
+              aria-label={
+                introExpanded
+                  ? "Zwiń pełny opis listy"
+                  : "Rozwiń pełny opis listy"
+              }
+            >
+              {introExpanded ? (
+                <BsChevronCompactUp
+                  className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                  aria-hidden
+                />
+              ) : (
+                <BsChevronCompactDown
+                  className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                  aria-hidden
+                />
+              )}
+            </button>
+          </div>
         </div>
 
-        <div className="md:hidden">
-          {introExpanded ? (
-            <FullIntroParagraph />
-          ) : (
-            <p className={`${introParagraphClass} font-medium`} lang="pl">
-              {hyphenatePl(shortIntroText)}
-            </p>
-          )}
+        <div className="flex items-center justify-end gap-2 sm:justify-between">
+          <p className="text-xs font-medium leading-tight text-gray-500">
+            Układ rankingu
+          </p>
           <button
             type="button"
-            onClick={() => setIntroExpanded((v) => !v)}
-            className="mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center rounded-lg py-0 text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
-            aria-expanded={introExpanded}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-200/90 bg-white text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-[0.97] sm:hidden"
+            onClick={() =>
+              setCountryListLayout((prev) =>
+                prev === "grid" ? "list" : "grid",
+              )
+            }
             aria-label={
-              introExpanded
-                ? "Zwiń pełny opis listy"
-                : "Rozwiń pełny opis listy"
+              countryListLayout === "grid"
+                ? "Przełącz na widok listy"
+                : "Przełącz na widok siatki"
             }
           >
-            {introExpanded ? (
-              <BsChevronCompactUp
-                className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
-                aria-hidden
-              />
+            {countryListLayout === "grid" ? (
+              <LayoutGrid className="h-4 w-4" aria-hidden />
             ) : (
-              <BsChevronCompactDown
-                className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
-                aria-hidden
-              />
+              <List className="h-4 w-4" aria-hidden />
             )}
           </button>
+          <div
+            className="hidden sm:inline-flex shrink-0 rounded-md border border-gray-200/90 bg-white p-0.5 shadow-sm"
+            role="group"
+            aria-label="Układ rankingu"
+          >
+            <button
+              type="button"
+              onClick={() => setCountryListLayout("grid")}
+              aria-pressed={countryListLayout === "grid"}
+              title="Dwie kolumny"
+              className={`flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium leading-tight transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-500 ${
+                countryListLayout === "grid"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-600 hover:bg-gray-50"
+              }`}
+            >
+              <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              <span>Siatka</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setCountryListLayout("list")}
+              aria-pressed={countryListLayout === "list"}
+              title="Lista w jednej kolumnie"
+              className={`flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium leading-tight transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-500 ${
+                countryListLayout === "list"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-600 hover:bg-gray-50"
+              }`}
+            >
+              <List className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              <span>Lista</span>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <CountryList list={currentList} />
+        <CountryList list={currentList} layout={countryListLayout} />
+      </div>
 
       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm space-y-2">
         <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-400 pb-2">

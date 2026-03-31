@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { IoCheckmarkSharp, IoCheckmarkDoneSharp } from "react-icons/io5";
 import ConsentStep from "./steps/ConsentStep.jsx";
@@ -86,6 +86,26 @@ export default function App() {
   });
   const [finalChoice, setFinalChoice] = useState("");
 
+  /** Układ listy krajów: siatka 2× lub jedna kolumna — wspólny dla kroków A/B/C. */
+  const [countryListLayout, setCountryListLayout] = useState(() => {
+    if (typeof window === "undefined") return "grid";
+    try {
+      const s = window.localStorage.getItem("ankieta-country-list-layout");
+      if (s === "grid" || s === "list") return s;
+    } catch {
+      /* ignore */
+    }
+    return "grid";
+  });
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("ankieta-country-list-layout", countryListLayout);
+    } catch {
+      /* ignore */
+    }
+  }, [countryListLayout]);
+
   // --- WALIDACJA KROKÓW ---
   const canProceed = useCallback(() => {
     if (currentStep === 0) return agreed;
@@ -160,6 +180,8 @@ export default function App() {
             currentStep={currentStep}
             evaluations={evaluations}
             setEvaluations={setEvaluations}
+            countryListLayout={countryListLayout}
+            setCountryListLayout={setCountryListLayout}
             lists={{
               ...MOCK_LISTS,
               A: LISTA_1_MARZENIA,

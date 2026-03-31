@@ -6,12 +6,8 @@ body {
     Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
+/* Nie ustawiaj tu `font: inherit` na button — Tailwind preflight już to robi,
+   a powtórzenie po warstwie utilities nadpisuje m.in. text-[…px] na przyciskach. */
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
