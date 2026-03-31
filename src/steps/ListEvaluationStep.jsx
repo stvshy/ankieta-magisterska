@@ -181,7 +181,7 @@ const ListEvaluationStep = ({
         </h3>
 
         <RatingScale
-          label="1. Jak oceniasz trafność tej listy dla Ciebie?"
+          label="1. Ta lista jest trafna dla Twoich potrzeb i upodobań."
           value={evaluations[listLetter].relevance}
           onChange={(val) =>
             setEvaluations({
@@ -194,7 +194,7 @@ const ListEvaluationStep = ({
           }
         />
         <RatingScale
-          label="2. Czy te kierunki są dla Ciebie osiągalne (finansowo/logistycznie)?"
+          label="2. Wymienione kierunki są dla Ciebie osiągalne (finansowo/logistycznie)."
           value={evaluations[listLetter].achievable}
           onChange={(val) =>
             setEvaluations({
@@ -207,7 +207,7 @@ const ListEvaluationStep = ({
           }
         />
         <RatingScale
-          label="3. Czy ta lista Cię inspiruje?"
+          label="3. Ta lista jest dla Ciebie inspirująca."
           value={evaluations[listLetter].inspiring}
           onChange={(val) =>
             setEvaluations({
