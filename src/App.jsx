@@ -156,6 +156,7 @@ export default function App() {
       case 4:
         return (
           <ListEvaluationStep
+            key={currentStep}
             currentStep={currentStep}
             evaluations={evaluations}
             setEvaluations={setEvaluations}

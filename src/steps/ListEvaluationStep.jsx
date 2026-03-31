@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 import Hypher from "hypher";
 import polish from "hyphenation.pl";
 import CountryList from "../components/CountryList.jsx";
@@ -6,6 +7,26 @@ import RatingScale from "../components/RatingScale.jsx";
 
 const plHypher = new Hypher(polish);
 const hyphenatePl = (text) => plHypher.hyphenateText(text);
+
+const introHead =
+  "System przygotował dla Ciebie 3 zestawienia kierunków podróży. ";
+const introMiddle =
+  "Dwa z nich oparto na trendach rynkowych (odzwierciedlających marzenia oraz faktyczne wybory Polaków), natomiast jedno zostało wygenerowane w sposób spersonalizowany, na podstawie udzielonych przez Ciebie w poprzednim kroku odpowiedzi. ";
+const introTail =
+  "Źródła pochodzenia poszczególnych list nie są na tym etapie ujawniane. Zapoznaj się z rankingiem i oceń go poniżej.";
+
+const shortIntroText = introHead + introTail;
+
+const introParagraphClass =
+  "text-blue-100 text-[13px] font-normal tracking-[-0.03em] [word-spacing:0.05em] text-justify [hyphens:auto] [-webkit-hyphens:auto]";
+
+const FullIntroParagraph = () => (
+  <p className={introParagraphClass} lang="pl">
+    <span className="font-medium">{hyphenatePl(introHead)}</span>
+    <span className="font-normal">{hyphenatePl(introMiddle)}</span>
+    <span className="font-medium">{hyphenatePl(introTail)}</span>
+  </p>
+);
 
 const ListEvaluationStep = ({
   currentStep,
@@ -15,19 +36,49 @@ const ListEvaluationStep = ({
 }) => {
   const listLetter = currentStep === 2 ? "A" : currentStep === 3 ? "B" : "C";
   const currentList = lists[listLetter];
-  const personalizedIntroText =
-    "System przygotował dla Ciebie 3 zestawienia kierunków podróży. Dwa z nich oparto na trendach rynkowych (odzwierciedlających marzenia oraz faktyczne wybory Polaków), natomiast jedno zostało wygenerowane w sposób spersonalizowany, na podstawie udzielonych przez Ciebie w poprzednim kroku odpowiedzi. Źródła pochodzenia poszczególnych list nie są na tym etapie ujawniane. Zapoznaj się z rankingiem i oceń go poniżej.";
+  const [introExpanded, setIntroExpanded] = useState(false);
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 rounded-xl text-white shadow-lg">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 pb-[calc(0.75rem+0.7px)] md:p-6 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible">
         <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
-        <p
-          className="text-blue-100 text-[13px] tracking-[-0.03em] [word-spacing:0.05em] text-justify [hyphens:auto] [-webkit-hyphens:auto]"
-          lang="pl"
-        >
-          {hyphenatePl(personalizedIntroText)}
-        </p>
+
+        <div className="hidden md:block">
+          <FullIntroParagraph />
+        </div>
+
+        <div className="md:hidden">
+          {introExpanded ? (
+            <FullIntroParagraph />
+          ) : (
+            <p className={`${introParagraphClass} font-medium`} lang="pl">
+              {hyphenatePl(shortIntroText)}
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={() => setIntroExpanded((v) => !v)}
+            className="mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center rounded-lg py-0 text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
+            aria-expanded={introExpanded}
+            aria-label={
+              introExpanded
+                ? "Zwiń pełny opis listy"
+                : "Rozwiń pełny opis listy"
+            }
+          >
+            {introExpanded ? (
+              <BsChevronCompactUp
+                className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                aria-hidden
+              />
+            ) : (
+              <BsChevronCompactDown
+                className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                aria-hidden
+              />
+            )}
+          </button>
+        </div>
       </div>
 
       <CountryList list={currentList} />
