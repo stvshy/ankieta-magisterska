@@ -577,11 +577,13 @@
   .consent-step-layout {
     justify-content: flex-start;
     transform: none;
+    margin-top: -12px;
   }
 
   .consent-step-note-content {
     font-size: calc(0.875rem + 1px);
-    max-height: calc(100dvh - 430px);
+    max-height: none;
+    overflow-y: visible;
   }
 
   .consent-step-note h2 {
