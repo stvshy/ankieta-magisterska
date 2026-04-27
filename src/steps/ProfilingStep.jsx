@@ -201,14 +201,17 @@ const ProfilingStep = ({
   React.useEffect(() => {
     const budgetNumber = budgetNumberRef.current;
     if (!budgetNumber) return undefined;
+    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
+    const revealOffsetPx = isDesktop ? 126 : 0;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         setShowFloatingBudget(
-          !entry.isIntersecting && entry.boundingClientRect.top < 0,
+          !entry.isIntersecting &&
+            entry.boundingClientRect.top < revealOffsetPx,
         );
       },
-      { threshold: 0 },
+      { rootMargin: `-${revealOffsetPx}px 0px 0px 0px`, threshold: 0 },
     );
 
     observer.observe(budgetNumber);
@@ -219,7 +222,7 @@ const ProfilingStep = ({
   return (
     <div className="space-y-8 animate-fadeIn">
       <div
-        className={`fixed left-1/2 top-3 sm:top-[132px] z-30 -translate-x-1/2 transition-all duration-200 ${
+        className={`fixed left-1/2 top-3 sm:top-[149px] z-50 -translate-x-1/2 transition-all duration-200 ${
           showFloatingBudget
             ? "translate-y-0 opacity-100"
             : "-translate-y-2 opacity-0 pointer-events-none"
