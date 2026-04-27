@@ -202,16 +202,19 @@ const ProfilingStep = ({
     const budgetNumber = budgetNumberRef.current;
     if (!budgetNumber) return undefined;
     const isDesktop = window.matchMedia("(min-width: 640px)").matches;
-    const revealOffsetPx = isDesktop ? 126 : 0;
+    const revealOffsetPx = isDesktop ? 170 : 0;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         setShowFloatingBudget(
           !entry.isIntersecting &&
-            entry.boundingClientRect.top < revealOffsetPx,
+            entry.boundingClientRect.bottom < revealOffsetPx,
         );
       },
-      { rootMargin: `-${revealOffsetPx}px 0px 0px 0px`, threshold: 0 },
+      {
+        rootMargin: `${-revealOffsetPx}px 0px 0px 0px`,
+        threshold: 0,
+      },
     );
 
     observer.observe(budgetNumber);
@@ -222,7 +225,7 @@ const ProfilingStep = ({
   return (
     <div className="space-y-8 animate-fadeIn">
       <div
-        className={`fixed left-1/2 top-3 sm:top-[149px] z-50 -translate-x-1/2 transition-all duration-200 ${
+        className={`fixed left-1/2 top-3 z-50 -translate-x-1/2 transition-all duration-200 sm:hidden ${
           showFloatingBudget
             ? "translate-y-0 opacity-100"
             : "-translate-y-2 opacity-0 pointer-events-none"
@@ -244,6 +247,28 @@ const ProfilingStep = ({
           </span>
           <span className="text-[13px] font-bold text-gray-600">pkt</span>
         </div>
+      </div>
+
+      <div
+        className={`fixed -bottom-[16px] left-1/2 z-30 hidden h-12 -translate-x-1/2 items-center justify-center gap-2 rounded-xl border px-5 shadow-md transition-all duration-200 sm:flex ${
+          showFloatingBudget
+            ? "translate-y-0 opacity-100"
+            : "translate-y-2 opacity-0 pointer-events-none"
+        } ${
+          isBudgetComplete
+            ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+            : "bg-blue-50 border-blue-200 text-blue-800"
+        }`}
+        aria-hidden={!showFloatingBudget}
+        aria-live="polite"
+      >
+        <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-gray-500">
+          Pozostało
+        </span>
+        <span className="text-[24px] leading-none font-extrabold tabular-nums">
+          {remainingPoints}
+        </span>
+        <span className="text-[13px] font-bold text-gray-600">pkt</span>
       </div>
 
       <div>
