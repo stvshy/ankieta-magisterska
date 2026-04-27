@@ -16,7 +16,7 @@ const PREFERENCE_BUDGET = 100;
 const SLIDER_MARKS = [0, 25, 50, 75, 100];
 const DESKTOP_SLIDER_MARKS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 const DESKTOP_MINOR_MARKS = Array.from(
-  { length: PREFERENCE_BUDGET - 10 },
+  { length: PREFERENCE_BUDGET - 1 },
   (_, index) => index + 1,
 ).filter((mark) => mark % 10 !== 0);
 
