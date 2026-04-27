@@ -121,21 +121,22 @@ const PreferenceCard = React.memo(function PreferenceCard({
           : "bg-white border-gray-100"
       }`}
     >
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
-        <div className="flex items-center gap-2.5 lg:gap-3.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
-          <div className="flex items-center justify-center p-[5.5px] lg:p-[8.5px] rounded-[5.5px] lg:rounded-[8px] bg-gray-50 border border-gray-200">
+      <div className="flex flex-row items-center justify-between gap-3 mb-3">
+        <div className="flex items-center gap-2.5 lg:gap-3.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px] min-w-0">
+          <div className="flex items-center justify-center p-[5.5px] lg:p-[8.5px] rounded-[5.5px] lg:rounded-[8px] bg-gray-50 border border-gray-200 shrink-0">
             {icon}
           </div>{" "}
-          {label}
+          <span className="truncate">{label}</span>
         </div>
-        <div className="flex items-baseline gap-1">
+        <div className="flex items-baseline gap-1 shrink-0">
           <span
             className={`font-bold text-[23.5px] lg:text-[25px] ${colorClass}`}
           >
             {value}
           </span>
           <span className="text-xs lg:text-[13px] text-black font-medium">
-            / 100 pkt
+            / 100
+            <span className="hidden sm:inline"> pkt</span>
           </span>
         </div>
       </div>
@@ -208,22 +209,24 @@ const ProfilingStep = ({
               1. Płeć
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 tracking-wide text-[14px] sm:text-[14.8px] font-medium">
-              {["Kobieta", "Mężczyzna", "Inna", "Nie chcę podawać"].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() =>
-                    setDemographics({ ...demographics, gender: opt })
-                  }
-                  className={`p-3 rounded-lg border text-sm font-medium transition-all
+              {["Kobieta", "Mężczyzna", "Inna", "Nie chcę podawać"].map(
+                (opt) => (
+                  <button
+                    key={opt}
+                    onClick={() =>
+                      setDemographics({ ...demographics, gender: opt })
+                    }
+                    className={`p-3 rounded-lg border text-sm font-medium transition-all
                             ${
                               demographics.gender === opt
                                 ? "bg-blue-600 text-white border-blue-600"
                                 : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400 hover:shadow-sm"
                             }`}
-                >
-                  {opt}
-                </button>
-              ))}
+                  >
+                    {opt}
+                  </button>
+                ),
+              )}
             </div>
           </div>
 

@@ -1,4 +1,6 @@
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useMemo, useRef, useState } from "react";
+
+const TOUCH_THUMB_TOLERANCE_PX = 28;
 
 const COLOR_HEX_MAP = {
   "text-amber-600": "#d97706",
@@ -20,6 +22,8 @@ const CustomSlider = memo(function CustomSlider({
   maxSelectable = max,
 }) {
   const [hoveredMark, setHoveredMark] = useState(null);
+  const [isTouchActive, setIsTouchActive] = useState(false);
+  const allowTouchChangeRef = useRef(true);
   const visibleMarks = useMemo(
     () => marks || Array.from({ length: max + 1 }, (_, index) => index),
     [marks, max],
@@ -33,6 +37,33 @@ const CustomSlider = memo(function CustomSlider({
   const getMarkLeftPosition = (mark) => {
     const percent = (mark / max) * 100;
     return `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
+  };
+
+  const handleTouchStart = (e) => {
+    if (e.touches.length !== 1) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const touchX = e.touches[0].clientX - rect.left;
+    const ratio = max === 0 ? 0 : value / max;
+    const thumbCenterX =
+      thumbRadiusPx + ratio * (rect.width - thumbSizePx);
+    const distance = Math.abs(touchX - thumbCenterX);
+
+    if (distance <= TOUCH_THUMB_TOLERANCE_PX) {
+      allowTouchChangeRef.current = true;
+      setIsTouchActive(true);
+    } else {
+      allowTouchChangeRef.current = false;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    allowTouchChangeRef.current = true;
+    setIsTouchActive(false);
+  };
+
+  const handleInputChange = (e) => {
+    if (!allowTouchChangeRef.current) return;
+    onChange(parseInt(e.target.value, 10));
   };
   const renderMinorMarks = (markValues) => (
     <div className="absolute inset-0 pointer-events-none">
@@ -128,17 +159,25 @@ const CustomSlider = memo(function CustomSlider({
         max={max}
         step="1"
         value={value}
-        onChange={(e) => onChange(parseInt(e.target.value, 10))}
+        onChange={handleInputChange}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         onMouseLeave={() => setHoveredMark(null)}
         className={`custom-slider block w-full h-[8.8px] sm:h-[9.8px] lg:h-[10.8px] rounded-lg appearance-none cursor-pointer relative z-10 outline-none
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
-          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-gray-300
-          [&::-webkit-slider-thumb]:shadow-sm hover:[&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:border-gray-400
-          transition-all
+          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border
+          [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-150
+          ${
+            isTouchActive
+              ? "[&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-gray-400"
+              : "[&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:border-gray-300"
+          }
+          hover:[&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:border-gray-400
           focus:outline-none focus-visible:outline-none focus:ring-0 focus:ring-transparent
         `}
         style={{
           outline: "none",
+          touchAction: "pan-y",
           background: `linear-gradient(to right, ${sliderColor} 0%, ${sliderColor} ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`,
         }}
       />
