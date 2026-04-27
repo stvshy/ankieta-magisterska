@@ -118,7 +118,7 @@ const PreferenceCard = React.memo(function PreferenceCard({
     <div
       className={`p-4 rounded-xl shadow-sm border transition-colors ${
         isBudgetComplete
-          ? "bg-emerald-50 border-emerald-200"
+          ? "bg-emerald-50/45 border-emerald-100"
           : "bg-white border-gray-100"
       }`}
     >
@@ -200,7 +200,7 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
     <div
       className={`rounded-2xl border p-4 md:p-5 shadow-sm transition-colors ${
         isBudgetComplete
-          ? "bg-emerald-50 border-emerald-200"
+          ? "bg-emerald-50/45 border-emerald-100"
           : "bg-white border-gray-100"
       }`}
     >
@@ -456,7 +456,7 @@ const ProfilingStep = ({
         <div
           className={`flex items-center gap-2 rounded-full border px-4 py-2.5 shadow-lg backdrop-blur-md ${
             isBudgetComplete
-              ? "bg-emerald-50/45 border-emerald-200/45 text-emerald-800/60"
+              ? "bg-emerald-50/30 border-emerald-200/30 text-emerald-800/45"
               : "bg-blue-50/95 border-blue-200 text-blue-800"
           }`}
         >
@@ -481,7 +481,7 @@ const ProfilingStep = ({
             : "translate-y-2 opacity-0 pointer-events-none"
         } ${
           isBudgetComplete
-            ? "bg-emerald-50/45 border-emerald-200/45 text-emerald-800/60"
+            ? "bg-emerald-50/30 border-emerald-200/30 text-emerald-800/45"
             : "bg-blue-50 border-blue-200 text-blue-800"
         }`}
         aria-hidden={!isFloatingBudgetVisible}
@@ -635,7 +635,7 @@ const ProfilingStep = ({
         <div
           className={`rounded-2xl border p-4 md:p-5 mb-6 md:mb-8 shadow-sm transition-colors ${
             isBudgetComplete
-              ? "bg-emerald-50 border-emerald-200"
+              ? "bg-emerald-50/45 border-emerald-100"
               : "bg-blue-50 border-blue-200"
           }`}
           aria-live="polite"
