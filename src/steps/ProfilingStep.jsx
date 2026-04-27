@@ -456,7 +456,7 @@ const ProfilingStep = ({
         <div
           className={`flex items-center gap-2 rounded-full border px-4 py-2.5 shadow-lg backdrop-blur-md ${
             isBudgetComplete
-              ? "bg-emerald-50/95 border-emerald-200 text-emerald-800"
+              ? "bg-emerald-50/45 border-emerald-200/45 text-emerald-800/60"
               : "bg-blue-50/95 border-blue-200 text-blue-800"
           }`}
         >
@@ -481,7 +481,7 @@ const ProfilingStep = ({
             : "translate-y-2 opacity-0 pointer-events-none"
         } ${
           isBudgetComplete
-            ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+            ? "bg-emerald-50/45 border-emerald-200/45 text-emerald-800/60"
             : "bg-blue-50 border-blue-200 text-blue-800"
         }`}
         aria-hidden={!isFloatingBudgetVisible}
@@ -659,7 +659,13 @@ const ProfilingStep = ({
             </div>
             <div className="text-[13px] md:text-[14px] font-medium text-gray-600 sm:text-right">
               Rozdysponowano{" "}
-              <span className="font-bold text-gray-900">{allocatedPoints}</span>{" "}
+              <span
+                className={`font-bold ${
+                  isBudgetComplete ? "text-emerald-700" : "text-gray-900"
+                }`}
+              >
+                {allocatedPoints}
+              </span>{" "}
               / {PREFERENCE_BUDGET} pkt
             </div>
           </div>
