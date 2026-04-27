@@ -290,7 +290,7 @@ const ProfilingStep = ({
     0,
   );
   const remainingPoints = PREFERENCE_BUDGET - allocatedPoints;
-  const remainingPercentage = (remainingPoints / PREFERENCE_BUDGET) * 100;
+  const allocatedPercentage = (allocatedPoints / PREFERENCE_BUDGET) * 100;
   const isBudgetComplete = remainingPoints === 0;
 
   const handlePreferenceChange = React.useCallback(
@@ -616,16 +616,16 @@ const ProfilingStep = ({
           <div
             className="h-3 md:h-3.5 rounded-full bg-white border border-gray-200 overflow-hidden"
             role="progressbar"
-            aria-label="Pozostałe punkty do rozdysponowania"
+            aria-label="Rozdysponowane punkty"
             aria-valuemin={0}
             aria-valuemax={PREFERENCE_BUDGET}
-            aria-valuenow={remainingPoints}
+            aria-valuenow={allocatedPoints}
           >
             <div
               className={`h-full rounded-full transition-all duration-300 ${
                 isBudgetComplete ? "bg-emerald-500" : "bg-blue-500"
               }`}
-              style={{ width: `${remainingPercentage}%` }}
+              style={{ width: `${allocatedPercentage}%` }}
             />
           </div>
 
@@ -635,7 +635,7 @@ const ProfilingStep = ({
             }`}
           >
             {isBudgetComplete
-              ? "Budżet jest kompletny - możesz przejść dalej."
+              ? "Poprawnie przydzielono wszystkie punkty - możesz przejść dalej."
               : "Przesuwaj suwaki aż liczba pozostałych punktów spadnie do 0."}
           </p>
         </div>
