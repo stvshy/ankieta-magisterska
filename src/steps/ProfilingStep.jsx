@@ -193,12 +193,12 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
             Kliknij ikonę edycji, aby wpisać wartość ręcznie.
           </p>
         </div>
-        <div
-          className={`text-[12.5px] md:text-[13px] font-semibold ${
-            isBudgetComplete ? "text-emerald-700" : "text-blue-700"
-          }`}
-        >
-          Pozostało: {remainingPoints} pkt
+        <div className="flex items-baseline gap-1.5 text-[12.5px] md:text-[13px] font-semibold text-gray-600">
+          <span>Pozostało:</span>
+          <span className="translate-y-[1.2px] text-[20px] md:text-[22px] leading-none font-extrabold tabular-nums text-blue-700">
+            {remainingPoints}
+          </span>
+          <span>pkt</span>
         </div>
       </div>
 
@@ -273,6 +273,7 @@ const ProfilingStep = ({
 }) => {
   const budgetNumberRef = React.useRef(null);
   const [showFloatingBudget, setShowFloatingBudget] = React.useState(false);
+  const [isNearMobileBottom, setIsNearMobileBottom] = React.useState(false);
   const allocatedPoints = Object.values(preferences).reduce(
     (sum, value) => sum + value,
     0,
@@ -327,15 +328,45 @@ const ProfilingStep = ({
     return () => observer.disconnect();
   }, []);
 
+  React.useEffect(() => {
+    const mobileQuery = window.matchMedia("(max-width: 639.98px)");
+
+    const updateMobileBottomState = () => {
+      if (!mobileQuery.matches) {
+        setIsNearMobileBottom(false);
+        return;
+      }
+
+      const scrollElement = document.documentElement;
+      const distanceToBottom =
+        scrollElement.scrollHeight - window.innerHeight - window.scrollY;
+
+      setIsNearMobileBottom(distanceToBottom <= 50);
+    };
+
+    updateMobileBottomState();
+    window.addEventListener("scroll", updateMobileBottomState, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateMobileBottomState);
+
+    return () => {
+      window.removeEventListener("scroll", updateMobileBottomState);
+      window.removeEventListener("resize", updateMobileBottomState);
+    };
+  }, []);
+
+  const showMobileFloatingBudget = showFloatingBudget && !isNearMobileBottom;
+
   return (
     <div className="space-y-8 animate-fadeIn">
       <div
         className={`fixed left-1/2 top-3 z-50 -translate-x-1/2 transition-all duration-200 sm:hidden ${
-          showFloatingBudget
+          showMobileFloatingBudget
             ? "translate-y-0 opacity-100"
             : "-translate-y-2 opacity-0 pointer-events-none"
         }`}
-        aria-hidden={!showFloatingBudget}
+        aria-hidden={!showMobileFloatingBudget}
       >
         <div
           className={`flex items-center gap-2 rounded-full border px-4 py-2.5 shadow-lg backdrop-blur-md ${
@@ -347,7 +378,7 @@ const ProfilingStep = ({
           <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-gray-500">
             Pozostało
           </span>
-          <span className="text-[24px] leading-none font-extrabold tabular-nums">
+          <span className="-translate-y-[2px] text-[24px] leading-none font-extrabold tabular-nums">
             {remainingPoints}
           </span>
           <span className="text-[13px] font-bold text-gray-600">pkt</span>
@@ -370,7 +401,7 @@ const ProfilingStep = ({
         <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-gray-500">
           Pozostało
         </span>
-        <span className="text-[24px] leading-none font-extrabold tabular-nums">
+        <span className="-translate-y-[2px] text-[24px] leading-none font-extrabold tabular-nums">
           {remainingPoints}
         </span>
         <span className="text-[13px] font-bold text-gray-600">pkt</span>
