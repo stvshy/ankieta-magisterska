@@ -72,12 +72,12 @@ export default function App() {
     frequency: "",
   });
   const [preferences, setPreferences] = useState({
-    monuments: 5,
-    beaches: 5,
-    mountains: 5,
-    infrastructure: 5,
-    costs: 5,
-    safety: 5,
+    monuments: 0,
+    beaches: 0,
+    mountains: 0,
+    infrastructure: 0,
+    costs: 0,
+    safety: 0,
   });
   const [evaluations, setEvaluations] = useState({
     A: { relevance: null, achievable: null, inspiring: null },
@@ -113,7 +113,12 @@ export default function App() {
   const canProceed = useCallback(() => {
     if (currentStep === 0) return agreed;
     if (currentStep === 1)
-      return demographics.gender && demographics.age && demographics.frequency;
+      return (
+        demographics.gender &&
+        demographics.age &&
+        demographics.frequency &&
+        Object.values(preferences).reduce((sum, value) => sum + value, 0) === 100
+      );
     if (currentStep === 2)
       return (
         evaluations.A.relevance &&
@@ -134,7 +139,7 @@ export default function App() {
       );
     if (currentStep === 5) return finalChoice !== "";
     return true;
-  }, [currentStep, agreed, demographics, evaluations, finalChoice]);
+  }, [currentStep, agreed, demographics, preferences, evaluations, finalChoice]);
 
   const handleNext = useCallback(() => {
     if (canProceed() && currentStep < STEPS.length - 1) {

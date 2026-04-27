@@ -9,25 +9,25 @@ const COLOR_HEX_MAP = {
   "text-indigo-600": "#4f46e5",
 };
 
-const CustomSlider = ({ value, onChange, colorClass }) => {
+const CustomSlider = ({ value, onChange, colorClass, max = 10, marks }) => {
   const [hoveredMark, setHoveredMark] = useState(null);
-  const marks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const visibleMarks = marks || Array.from({ length: max + 1 }, (_, index) => index);
   const thumbSizePx = 16;
   const thumbRadiusPx = thumbSizePx / 2;
-  const percentage = (value / 10) * 100;
+  const percentage = (value / max) * 100;
   const sliderColor = COLOR_HEX_MAP[colorClass] || "#3b82f6"; // domyślnie niebieski
   const getHoveredMarkFromPointer = (clientX, target) => {
     const rect = target.getBoundingClientRect();
     const relativeX = clientX - rect.left;
     const ratio = Math.min(Math.max(relativeX / rect.width, 0), 1);
-    return Math.round(ratio * 10);
+    return Math.round(ratio * max);
   };
 
   return (
     <div className="relative pt-1.5 pb-1.5">
       <div className="relative h-[33px] w-full mb-1">
-        {marks.map((mark) => {
-          const percent = (mark / 10) * 100;
+        {visibleMarks.map((mark) => {
+          const percent = (mark / max) * 100;
           const leftPos = `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
           const isActive = value === mark;
           const isHovered = hoveredMark === mark;
@@ -74,7 +74,7 @@ const CustomSlider = ({ value, onChange, colorClass }) => {
       <input
         type="range"
         min="0"
-        max="10"
+        max={max}
         step="1"
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value, 10))}
