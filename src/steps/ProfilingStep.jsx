@@ -243,8 +243,8 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
               className="flex items-center justify-between gap-3 rounded-xl border border-gray-100 bg-white px-3 py-2.5"
             >
               <div className="flex items-center gap-2 min-w-0">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-50 border border-gray-200 shrink-0">
-                  {icon}
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-50 shrink-0">
+                  <span className="block scale-[0.92]">{icon}</span>
                 </div>
                 <span className="truncate text-[13px] md:text-[13.8px] font-semibold text-gray-700">
                   {label}
@@ -687,7 +687,7 @@ const ProfilingStep = ({
           >
             {isBudgetComplete
               ? "Poprawnie przydzielono wszystkie punkty - możesz przejść dalej."
-              : "Przesuwaj suwaki aż liczba pozostałych punktów spadnie do 0."}
+              : "Przesuwaj suwaki aż liczba punktów do rozdysponowania spadnie do 0."}
           </p>
         </div>
 
