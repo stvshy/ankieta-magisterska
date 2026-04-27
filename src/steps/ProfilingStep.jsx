@@ -317,7 +317,11 @@ const ProfilingStep = ({
             return (
               <div
                 key={key}
-                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100"
+                className={`p-4 rounded-xl shadow-sm border transition-colors ${
+                  isBudgetComplete
+                    ? "bg-emerald-50 border-emerald-200"
+                    : "bg-white border-gray-100"
+                }`}
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
                   <div className="flex items-center gap-2.5 lg:gap-3.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
