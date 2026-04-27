@@ -1,6 +1,7 @@
 import React from "react";
 import Hypher from "hypher";
 import polish from "hyphenation.pl";
+import { Pencil } from "lucide-react";
 import CustomSlider from "../components/CustomSlider.jsx";
 import zabytki1 from "../assets/zabytki1.svg";
 import morza1 from "../assets/morza1.svg";
@@ -155,6 +156,110 @@ const PreferenceCard = React.memo(function PreferenceCard({
       <div className="flex justify-between text-[12px] lg:text-[13px] text-gray-400 mt-3 font-medium px-1">
         <span>Nieistotne</span>
         <span>Najważniejsze</span>
+      </div>
+    </div>
+  );
+});
+
+const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
+  preferences,
+  remainingPoints,
+  isBudgetComplete,
+  onPreferenceChange,
+}) {
+  const [editingKey, setEditingKey] = React.useState(null);
+
+  const handleManualChange = (key, rawValue) => {
+    const numericValue = Number(rawValue.replace(/\D/g, ""));
+    const nextValue = Number.isNaN(numericValue) ? 0 : numericValue;
+
+    onPreferenceChange(key, nextValue);
+  };
+
+  return (
+    <div
+      className={`rounded-2xl border p-4 md:p-5 shadow-sm transition-colors ${
+        isBudgetComplete
+          ? "bg-emerald-50 border-emerald-200"
+          : "bg-white border-gray-100"
+      }`}
+    >
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
+        <div>
+          <h3 className="text-[15.5px] md:text-[17px] font-bold text-gray-800">
+            Podsumowanie punktów
+          </h3>
+          <p className="text-[12.5px] md:text-[13px] text-gray-500 font-medium">
+            Kliknij ikonę edycji, aby wpisać wartość ręcznie.
+          </p>
+        </div>
+        <div
+          className={`text-[12.5px] md:text-[13px] font-semibold ${
+            isBudgetComplete ? "text-emerald-700" : "text-blue-700"
+          }`}
+        >
+          Pozostało: {remainingPoints} pkt
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        {PREFERENCE_ITEMS.map(({ key, label, icon, colorClass }) => {
+          const value = preferences[key];
+          const maxAvailableValue = value + remainingPoints;
+          const isEditing = editingKey === key;
+
+          return (
+            <div
+              key={key}
+              className="flex items-center justify-between gap-3 rounded-xl border border-gray-100 bg-white px-3 py-2.5"
+            >
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-50 border border-gray-200 shrink-0">
+                  {icon}
+                </div>
+                <span className="truncate text-[13px] md:text-[13.8px] font-semibold text-gray-700">
+                  {label}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                {isEditing ? (
+                  <input
+                    autoFocus
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={value}
+                    onChange={(e) => handleManualChange(key, e.target.value)}
+                    onBlur={() => setEditingKey(null)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === "Escape") {
+                        e.currentTarget.blur();
+                      }
+                    }}
+                    aria-label={`Zmień liczbę punktów dla: ${label}`}
+                    className="w-16 rounded-lg border border-blue-200 bg-blue-50 px-2 py-1 text-center text-[15px] font-bold text-gray-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                  />
+                ) : (
+                  <span
+                    className={`min-w-9 text-right text-[16px] font-extrabold ${colorClass}`}
+                  >
+                    {value}
+                  </span>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setEditingKey(isEditing ? null : key)}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 text-gray-500 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+                  aria-label={`Edytuj punkty dla: ${label}. Maksymalnie teraz ${maxAvailableValue}.`}
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -478,6 +583,15 @@ const ProfilingStep = ({
               />
             );
           })}
+        </div>
+
+        <div className="mt-6 md:mt-8">
+          <PreferenceSummaryCard
+            preferences={preferences}
+            remainingPoints={remainingPoints}
+            isBudgetComplete={isBudgetComplete}
+            onPreferenceChange={handlePreferenceChange}
+          />
         </div>
       </div>
     </div>
