@@ -298,7 +298,7 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
                   disabled={isEditDisabled}
                   className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
                     isEditing
-                      ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-300 hover:bg-emerald-100"
+                      ? "border-emerald-600 bg-emerald-600 text-white hover:border-emerald-700 hover:bg-emerald-700"
                       : isEditDisabled
                         ? "cursor-not-allowed border-gray-100 bg-gray-50 text-gray-300"
                         : "border-gray-200 bg-gray-50 text-gray-500 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
