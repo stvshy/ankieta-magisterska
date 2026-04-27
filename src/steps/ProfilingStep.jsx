@@ -285,6 +285,11 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
 
                 <button
                   type="button"
+                  onPointerDown={(e) => {
+                    if (isEditing) {
+                      e.preventDefault();
+                    }
+                  }}
                   onClick={() => {
                     if (!isEditDisabled) {
                       setEditingKey(isEditing ? null : key);
