@@ -1,7 +1,7 @@
 import React from "react";
 import Hypher from "hypher";
 import polish from "hyphenation.pl";
-import { Pencil } from "lucide-react";
+import { Check, Pencil } from "lucide-react";
 import CustomSlider from "../components/CustomSlider.jsx";
 import zabytki1 from "../assets/zabytki1.svg";
 import morza1 from "../assets/morza1.svg";
@@ -169,13 +169,32 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
   budgetRef,
 }) {
   const [editingKey, setEditingKey] = React.useState(null);
+  const [invalidKey, setInvalidKey] = React.useState(null);
+  const invalidTimeoutRef = React.useRef(null);
 
-  const handleManualChange = (key, rawValue) => {
+  const flashInvalidInput = (key) => {
+    window.clearTimeout(invalidTimeoutRef.current);
+    setInvalidKey(key);
+    invalidTimeoutRef.current = window.setTimeout(() => {
+      setInvalidKey(null);
+    }, 450);
+  };
+
+  const handleManualChange = (key, rawValue, maxAvailableValue) => {
     const numericValue = Number(rawValue.replace(/\D/g, ""));
     const nextValue = Number.isNaN(numericValue) ? 0 : numericValue;
 
+    if (nextValue > maxAvailableValue) {
+      flashInvalidInput(key);
+    }
+
     onPreferenceChange(key, nextValue);
   };
+
+  React.useEffect(
+    () => () => window.clearTimeout(invalidTimeoutRef.current),
+    [],
+  );
 
   return (
     <div
@@ -215,6 +234,8 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
           const value = preferences[key];
           const maxAvailableValue = value + remainingPoints;
           const isEditing = editingKey === key;
+          const isEditDisabled = value === 0 && remainingPoints === 0;
+          const isInvalid = invalidKey === key;
 
           return (
             <div
@@ -238,7 +259,9 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
                     inputMode="numeric"
                     pattern="[0-9]*"
                     value={value}
-                    onChange={(e) => handleManualChange(key, e.target.value)}
+                    onChange={(e) =>
+                      handleManualChange(key, e.target.value, maxAvailableValue)
+                    }
                     onBlur={() => setEditingKey(null)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === "Escape") {
@@ -246,7 +269,11 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
                       }
                     }}
                     aria-label={`Zmień liczbę punktów dla: ${label}`}
-                    className="w-16 rounded-lg border border-blue-200 bg-blue-50 px-2 py-1 text-center text-[15px] font-bold text-gray-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                    className={`w-16 rounded-lg border px-2 py-1 text-center text-[15px] font-bold text-gray-900 outline-none transition-colors ${
+                      isInvalid
+                        ? "border-red-400 bg-red-50 ring-2 ring-red-100"
+                        : "border-blue-200 bg-blue-50 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                    }`}
                   />
                 ) : (
                   <span
@@ -258,11 +285,30 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
 
                 <button
                   type="button"
-                  onClick={() => setEditingKey(isEditing ? null : key)}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 text-gray-500 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
-                  aria-label={`Edytuj punkty dla: ${label}. Maksymalnie teraz ${maxAvailableValue}.`}
+                  onClick={() => {
+                    if (!isEditDisabled) {
+                      setEditingKey(isEditing ? null : key);
+                    }
+                  }}
+                  disabled={isEditDisabled}
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
+                    isEditing
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-300 hover:bg-emerald-100"
+                      : isEditDisabled
+                        ? "cursor-not-allowed border-gray-100 bg-gray-50 text-gray-300"
+                        : "border-gray-200 bg-gray-50 text-gray-500 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+                  }`}
+                  aria-label={
+                    isEditing
+                      ? `Zatwierdź punkty dla: ${label}.`
+                      : `Edytuj punkty dla: ${label}. Maksymalnie teraz ${maxAvailableValue}.`
+                  }
                 >
-                  <Pencil className="h-3.5 w-3.5" />
+                  {isEditing ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <Pencil className="h-3.5 w-3.5" />
+                  )}
                 </button>
               </div>
             </div>
