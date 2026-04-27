@@ -225,7 +225,12 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
           >
             {remainingPoints}
           </span>
-          <span>pkt</span>
+          <span className="inline-flex items-center gap-1.5">
+            pkt
+            {isBudgetComplete && (
+              <Check className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+            )}
+          </span>
         </div>
       </div>
 
@@ -652,8 +657,14 @@ const ProfilingStep = ({
                 }`}
               >
                 {remainingPoints}
-                <span className="ml-2 text-[16px] md:text-[18px] font-bold text-gray-600">
+                <span className="ml-2 inline-flex items-center gap-2 text-[16px] md:text-[18px] font-bold text-gray-600">
                   pkt
+                  {isBudgetComplete && (
+                    <Check
+                      className="h-5 w-5 text-emerald-600 md:h-6 md:w-6"
+                      aria-hidden="true"
+                    />
+                  )}
                 </span>
               </p>
             </div>
