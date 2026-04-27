@@ -44,8 +44,7 @@ const CustomSlider = memo(function CustomSlider({
     const rect = e.currentTarget.getBoundingClientRect();
     const touchX = e.touches[0].clientX - rect.left;
     const ratio = max === 0 ? 0 : value / max;
-    const thumbCenterX =
-      thumbRadiusPx + ratio * (rect.width - thumbSizePx);
+    const thumbCenterX = thumbRadiusPx + ratio * (rect.width - thumbSizePx);
     const distance = Math.abs(touchX - thumbCenterX);
 
     if (distance <= TOUCH_THUMB_TOLERANCE_PX) {

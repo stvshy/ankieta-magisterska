@@ -75,7 +75,7 @@ const PREFERENCE_ITEMS = [
   },
   {
     key: "costs",
-    label: "Niskie Koszty",
+    label: "Niskie koszty",
     icon: (
       <img
         src={koszty1}
@@ -201,7 +201,7 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
           <span>Pozostało:</span>
           <span
             className={`translate-y-[1.2px] text-[20px] md:text-[22px] leading-none font-extrabold tabular-nums ${
-              isBudgetComplete ? "text-emerald-700" : "text-blue-700"
+              isBudgetComplete ? "text-gray-600/55" : "text-blue-700"
             }`}
           >
             {remainingPoints}
@@ -388,8 +388,7 @@ const ProfilingStep = ({
     };
   }, []);
 
-  const isFloatingBudgetVisible =
-    showFloatingBudget && !isSummaryBudgetVisible;
+  const isFloatingBudgetVisible = showFloatingBudget && !isSummaryBudgetVisible;
   const showMobileFloatingBudget =
     isFloatingBudgetVisible && !isNearMobileBottom;
 
@@ -413,7 +412,11 @@ const ProfilingStep = ({
           <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-gray-500">
             Pozostało
           </span>
-          <span className="-translate-y-[2px] text-[24px] leading-none font-extrabold tabular-nums">
+          <span
+            className={`-translate-y-[2px] text-[24px] leading-none font-extrabold tabular-nums ${
+              isBudgetComplete ? "text-gray-600/55" : ""
+            }`}
+          >
             {remainingPoints}
           </span>
           <span className="text-[13px] font-bold text-gray-600">pkt</span>
@@ -436,7 +439,11 @@ const ProfilingStep = ({
         <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-gray-500">
           Pozostało
         </span>
-        <span className="-translate-y-[2px] text-[24px] leading-none font-extrabold tabular-nums">
+        <span
+          className={`-translate-y-[2px] text-[24px] leading-none font-extrabold tabular-nums ${
+            isBudgetComplete ? "text-gray-600/55" : ""
+          }`}
+        >
           {remainingPoints}
         </span>
         <span className="text-[13px] font-bold text-gray-600">pkt</span>
@@ -590,7 +597,7 @@ const ProfilingStep = ({
               <p
                 ref={budgetNumberRef}
                 className={`text-[42px] leading-none md:text-[52px] font-extrabold tracking-tight ${
-                  isBudgetComplete ? "text-emerald-700" : "text-blue-700"
+                  isBudgetComplete ? "text-gray-600/55" : "text-blue-700"
                 }`}
               >
                 {remainingPoints}
