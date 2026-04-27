@@ -166,6 +166,7 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
   remainingPoints,
   isBudgetComplete,
   onPreferenceChange,
+  budgetRef,
 }) {
   const [editingKey, setEditingKey] = React.useState(null);
 
@@ -193,9 +194,16 @@ const PreferenceSummaryCard = React.memo(function PreferenceSummaryCard({
             Kliknij ikonę edycji, aby wpisać wartość ręcznie.
           </p>
         </div>
-        <div className="flex items-baseline gap-1.5 text-[12.5px] md:text-[13px] font-semibold text-gray-600">
+        <div
+          ref={budgetRef}
+          className="flex items-baseline gap-1.5 text-[12.5px] md:text-[13px] font-semibold text-gray-600"
+        >
           <span>Pozostało:</span>
-          <span className="translate-y-[1.2px] text-[20px] md:text-[22px] leading-none font-extrabold tabular-nums text-blue-700">
+          <span
+            className={`translate-y-[1.2px] text-[20px] md:text-[22px] leading-none font-extrabold tabular-nums ${
+              isBudgetComplete ? "text-emerald-700" : "text-blue-700"
+            }`}
+          >
             {remainingPoints}
           </span>
           <span>pkt</span>
@@ -272,7 +280,10 @@ const ProfilingStep = ({
   setPreferences,
 }) => {
   const budgetNumberRef = React.useRef(null);
+  const summaryBudgetRef = React.useRef(null);
   const [showFloatingBudget, setShowFloatingBudget] = React.useState(false);
+  const [isSummaryBudgetVisible, setIsSummaryBudgetVisible] =
+    React.useState(false);
   const [isNearMobileBottom, setIsNearMobileBottom] = React.useState(false);
   const allocatedPoints = Object.values(preferences).reduce(
     (sum, value) => sum + value,
@@ -329,6 +340,27 @@ const ProfilingStep = ({
   }, []);
 
   React.useEffect(() => {
+    const summaryBudget = summaryBudgetRef.current;
+    if (!summaryBudget) return undefined;
+
+    const updateSummaryBudgetVisibility = () => {
+      const rect = summaryBudget.getBoundingClientRect();
+      setIsSummaryBudgetVisible(rect.top < window.innerHeight - 120);
+    };
+
+    updateSummaryBudgetVisibility();
+    window.addEventListener("scroll", updateSummaryBudgetVisibility, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateSummaryBudgetVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", updateSummaryBudgetVisibility);
+      window.removeEventListener("resize", updateSummaryBudgetVisibility);
+    };
+  }, []);
+
+  React.useEffect(() => {
     const mobileQuery = window.matchMedia("(max-width: 639.98px)");
 
     const updateMobileBottomState = () => {
@@ -356,7 +388,10 @@ const ProfilingStep = ({
     };
   }, []);
 
-  const showMobileFloatingBudget = showFloatingBudget && !isNearMobileBottom;
+  const isFloatingBudgetVisible =
+    showFloatingBudget && !isSummaryBudgetVisible;
+  const showMobileFloatingBudget =
+    isFloatingBudgetVisible && !isNearMobileBottom;
 
   return (
     <div className="space-y-8 animate-fadeIn">
@@ -387,7 +422,7 @@ const ProfilingStep = ({
 
       <div
         className={`fixed -bottom-[16px] left-1/2 z-30 hidden h-12 -translate-x-1/2 items-center justify-center gap-2 rounded-xl border px-5 shadow-md transition-all duration-200 sm:flex ${
-          showFloatingBudget
+          isFloatingBudgetVisible
             ? "translate-y-0 opacity-100"
             : "translate-y-2 opacity-0 pointer-events-none"
         } ${
@@ -395,7 +430,7 @@ const ProfilingStep = ({
             ? "bg-emerald-50 border-emerald-200 text-emerald-800"
             : "bg-blue-50 border-blue-200 text-blue-800"
         }`}
-        aria-hidden={!showFloatingBudget}
+        aria-hidden={!isFloatingBudgetVisible}
         aria-live="polite"
       >
         <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-gray-500">
@@ -622,6 +657,7 @@ const ProfilingStep = ({
             remainingPoints={remainingPoints}
             isBudgetComplete={isBudgetComplete}
             onPreferenceChange={handlePreferenceChange}
+            budgetRef={summaryBudgetRef}
           />
         </div>
       </div>
