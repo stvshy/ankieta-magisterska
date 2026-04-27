@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useMemo, useState } from "react";
 
 const COLOR_HEX_MAP = {
   "text-amber-600": "#d97706",
@@ -9,33 +9,55 @@ const COLOR_HEX_MAP = {
   "text-indigo-600": "#4f46e5",
 };
 
-const CustomSlider = ({
+const CustomSlider = memo(function CustomSlider({
   value,
   onChange,
   colorClass,
   max = 10,
   marks,
   desktopMarks,
+  desktopMinorMarks,
   maxSelectable = max,
-}) => {
+}) {
   const [hoveredMark, setHoveredMark] = useState(null);
-  const visibleMarks = marks || Array.from({ length: max + 1 }, (_, index) => index);
+  const visibleMarks = useMemo(
+    () => marks || Array.from({ length: max + 1 }, (_, index) => index),
+    [marks, max],
+  );
   const visibleDesktopMarks = desktopMarks || visibleMarks;
+  const visibleDesktopMinorMarks = desktopMinorMarks || [];
   const thumbSizePx = 16;
   const thumbRadiusPx = thumbSizePx / 2;
   const percentage = (value / max) * 100;
   const sliderColor = COLOR_HEX_MAP[colorClass] || "#3b82f6"; // domyślnie niebieski
-  const getHoveredMarkFromPointer = (clientX, target) => {
-    const rect = target.getBoundingClientRect();
-    const relativeX = clientX - rect.left;
-    const ratio = Math.min(Math.max(relativeX / rect.width, 0), 1);
-    return Math.round(ratio * max);
+  const getMarkLeftPosition = (mark) => {
+    const percent = (mark / max) * 100;
+    return `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
   };
+  const renderMinorMarks = (markValues) => (
+    <div className="absolute inset-0 pointer-events-none">
+      {markValues.map((mark) => {
+        const isSelectable = mark <= maxSelectable;
+
+        return (
+          <span
+            key={mark}
+            className={`absolute bottom-0 w-px rounded-full ${
+              isSelectable ? "h-1 bg-gray-300" : "h-1 bg-gray-200"
+            }`}
+            style={{
+              left: getMarkLeftPosition(mark),
+              transform: "translateX(-50%)",
+            }}
+            aria-hidden="true"
+          />
+        );
+      })}
+    </div>
+  );
   const renderMarks = (markValues, className) => (
     <div className={className}>
       {markValues.map((mark) => {
-        const percent = (mark / max) * 100;
-        const leftPos = `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
         const isActive = value === mark;
         const isSelectable = mark <= maxSelectable;
         const isHovered = hoveredMark === mark && isSelectable;
@@ -46,7 +68,10 @@ const CustomSlider = ({
             className={`absolute bottom-0 flex flex-col items-center pointer-events-auto ${
               isSelectable ? "cursor-pointer" : "cursor-default"
             }`}
-            style={{ left: leftPos, transform: "translateX(-50%)" }}
+            style={{
+              left: getMarkLeftPosition(mark),
+              transform: "translateX(-50%)",
+            }}
             onMouseEnter={() => setHoveredMark(mark)}
             onMouseLeave={() => setHoveredMark(null)}
             onClick={() => {
@@ -75,7 +100,7 @@ const CustomSlider = ({
               {mark}
             </span>
             <div
-              className={`w-[2px] transition-all ${
+              className={`w-px rounded-full transition-all ${
                 isActive
                   ? "h-2.5 " + colorClass.replace("text-", "bg-")
                   : isSelectable
@@ -92,10 +117,10 @@ const CustomSlider = ({
   return (
     <div className="relative pt-1.5 pb-1.5">
       {renderMarks(visibleMarks, "relative h-[33px] w-full mb-1 lg:hidden")}
-      {renderMarks(
-        visibleDesktopMarks,
-        "relative hidden lg:block h-[38px] w-full mb-1.5",
-      )}
+      <div className="relative hidden lg:block h-[38px] w-full mb-1.5">
+        {renderMinorMarks(visibleDesktopMinorMarks)}
+        {renderMarks(visibleDesktopMarks, "absolute inset-0")}
+      </div>
 
       <input
         type="range"
@@ -104,9 +129,6 @@ const CustomSlider = ({
         step="1"
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value, 10))}
-        onMouseMove={(e) =>
-          setHoveredMark(getHoveredMarkFromPointer(e.clientX, e.currentTarget))
-        }
         onMouseLeave={() => setHoveredMark(null)}
         className={`custom-slider block w-full h-[8.8px] sm:h-[9.8px] lg:h-[10.8px] rounded-lg appearance-none cursor-pointer relative z-10 outline-none
           [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
@@ -122,6 +144,6 @@ const CustomSlider = ({
       />
     </div>
   );
-};
+});
 
 export default CustomSlider;

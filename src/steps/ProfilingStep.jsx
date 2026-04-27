@@ -12,6 +12,152 @@ import bezpieczenstwo1 from "../assets/bezpieczenstwo2.svg";
 const plHypher = new Hypher(polish);
 const hyphenatePl = (text) => plHypher.hyphenateText(text);
 const PREFERENCE_BUDGET = 100;
+const SLIDER_MARKS = [0, 25, 50, 75, 100];
+const DESKTOP_SLIDER_MARKS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+const DESKTOP_MINOR_MARKS = Array.from(
+  { length: PREFERENCE_BUDGET - 10 },
+  (_, index) => index + 1,
+).filter((mark) => mark % 10 !== 0);
+
+const PREFERENCE_ITEMS = [
+  {
+    key: "monuments",
+    label: "Zabytki i historia",
+    icon: (
+      <img
+        src={zabytki1}
+        alt=""
+        aria-hidden="true"
+        className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
+      />
+    ),
+    colorClass: "text-amber-600",
+  },
+  {
+    key: "beaches",
+    label: "Plaże i morze",
+    icon: (
+      <img
+        src={morza1}
+        alt=""
+        aria-hidden="true"
+        className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
+      />
+    ),
+    colorClass: "text-cyan-500",
+  },
+  {
+    key: "mountains",
+    label: "Góry i natura",
+    icon: (
+      <img
+        src={gory1}
+        alt=""
+        aria-hidden="true"
+        className="block w-[29.5px] h-[29.5px] lg:w-[34px] lg:h-[34px] object-contain object-center translate-y-[2px] lg:translate-y-[2.0px]"
+      />
+    ),
+    colorClass: "text-emerald-600",
+  },
+  {
+    key: "infrastructure",
+    label: "Infrastruktura",
+    icon: (
+      <img
+        src={infrastruktura1}
+        alt=""
+        aria-hidden="true"
+        className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
+      />
+    ),
+    colorClass: "text-slate-600",
+  },
+  {
+    key: "costs",
+    label: "Niskie Koszty",
+    icon: (
+      <img
+        src={koszty1}
+        alt=""
+        aria-hidden="true"
+        className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
+      />
+    ),
+    colorClass: "text-yellow-500",
+  },
+  {
+    key: "safety",
+    label: "Bezpieczeństwo",
+    icon: (
+      <img
+        src={bezpieczenstwo1}
+        alt=""
+        aria-hidden="true"
+        className="block w-[30.5px] h-[30.5px] lg:w-[34px] lg:h-[34px]"
+      />
+    ),
+    colorClass: "text-indigo-600",
+  },
+];
+
+const PreferenceCard = React.memo(function PreferenceCard({
+  item,
+  value,
+  maxAvailableValue,
+  isBudgetComplete,
+  onPreferenceChange,
+}) {
+  const { key, label, icon, colorClass } = item;
+  const handleSliderChange = React.useCallback(
+    (nextValue) => onPreferenceChange(key, nextValue),
+    [key, onPreferenceChange],
+  );
+
+  return (
+    <div
+      className={`p-4 rounded-xl shadow-sm border transition-colors ${
+        isBudgetComplete
+          ? "bg-emerald-50 border-emerald-200"
+          : "bg-white border-gray-100"
+      }`}
+    >
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
+        <div className="flex items-center gap-2.5 lg:gap-3.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
+          <div className="flex items-center justify-center p-[5.5px] lg:p-[8.5px] rounded-[5.5px] lg:rounded-[8px] bg-gray-50 border border-gray-200">
+            {icon}
+          </div>{" "}
+          {label}
+        </div>
+        <div className="flex items-baseline gap-1">
+          <span
+            className={`font-bold text-[23.5px] lg:text-[25px] ${colorClass}`}
+          >
+            {value}
+          </span>
+          <span className="text-xs lg:text-[13px] text-black font-medium">
+            / 100 pkt
+          </span>
+        </div>
+      </div>
+
+      <CustomSlider
+        value={value}
+        onChange={handleSliderChange}
+        colorClass={colorClass}
+        max={PREFERENCE_BUDGET}
+        marks={SLIDER_MARKS}
+        desktopMarks={DESKTOP_SLIDER_MARKS}
+        desktopMinorMarks={DESKTOP_MINOR_MARKS}
+        maxSelectable={maxAvailableValue}
+      />
+
+      <div className="flex justify-between text-[12px] lg:text-[13px] text-gray-400 mt-3 font-medium px-1">
+        <span>Nieistotne</span>
+        <span>Najważniejsze</span>
+      </div>
+    </div>
+  );
+});
 
 const ProfilingStep = ({
   demographics,
@@ -27,97 +173,27 @@ const ProfilingStep = ({
   const remainingPercentage = (remainingPoints / PREFERENCE_BUDGET) * 100;
   const isBudgetComplete = remainingPoints === 0;
 
-  const preferenceItems = [
-    {
-      key: "monuments",
-      label: "Zabytki i historia",
-      icon: (
-        <img
-          src={zabytki1}
-          alt=""
-          aria-hidden="true"
-          className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
-        />
-      ),
-      colorClass: "text-amber-600",
-    },
-    {
-      key: "beaches",
-      label: "Plaże i morze",
-      icon: (
-        <img
-          src={morza1}
-          alt=""
-          aria-hidden="true"
-          className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
-        />
-      ),
-      colorClass: "text-cyan-500",
-    },
-    {
-      key: "mountains",
-      label: "Góry i natura",
-      icon: (
-        <img
-          src={gory1}
-          alt=""
-          aria-hidden="true"
-          className="block w-[29.5px] h-[29.5px] lg:w-[34px] lg:h-[34px] object-contain object-center translate-y-[2px] lg:translate-y-[2.0px]"
-        />
-      ),
-      colorClass: "text-emerald-600",
-    },
-    {
-      key: "infrastructure",
-      label: "Infrastruktura",
-      icon: (
-        <img
-          src={infrastruktura1}
-          alt=""
-          aria-hidden="true"
-          className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
-        />
-      ),
-      colorClass: "text-slate-600",
-    },
-    {
-      key: "costs",
-      label: "Niskie Koszty",
-      icon: (
-        <img
-          src={koszty1}
-          alt=""
-          aria-hidden="true"
-          className="block w-[29.5px] h-[29.5px] lg:w-[33px] lg:h-[33px]"
-        />
-      ),
-      colorClass: "text-yellow-500",
-    },
-    {
-      key: "safety",
-      label: "Bezpieczeństwo",
-      icon: (
-        <img
-          src={bezpieczenstwo1}
-          alt=""
-          aria-hidden="true"
-          className="block w-[30.5px] h-[30.5px] lg:w-[34px] lg:h-[34px]"
-        />
-      ),
-      colorClass: "text-indigo-600",
-    },
-  ];
+  const handlePreferenceChange = React.useCallback(
+    (key, nextValue) => {
+      setPreferences((prevPreferences) => {
+        const allocated = Object.values(prevPreferences).reduce(
+          (sum, value) => sum + value,
+          0,
+        );
+        const currentValue = prevPreferences[key];
+        const maxAvailableValue = currentValue + PREFERENCE_BUDGET - allocated;
+        const clampedValue = Math.min(
+          Math.max(nextValue, 0),
+          Math.min(PREFERENCE_BUDGET, maxAvailableValue),
+        );
 
-  const handlePreferenceChange = (key, nextValue) => {
-    const currentValue = preferences[key];
-    const maxAvailableValue = currentValue + remainingPoints;
-    const clampedValue = Math.min(
-      Math.max(nextValue, 0),
-      Math.min(PREFERENCE_BUDGET, maxAvailableValue),
-    );
+        if (currentValue === clampedValue) return prevPreferences;
 
-    setPreferences({ ...preferences, [key]: clampedValue });
-  };
+        return { ...prevPreferences, [key]: clampedValue };
+      });
+    },
+    [setPreferences],
+  );
 
   return (
     <div className="space-y-8 animate-fadeIn">
@@ -310,59 +386,19 @@ const ProfilingStep = ({
         </div>
 
         <div className="space-y-6 md:space-y-8 pb-3 md:pb-4">
-          {preferenceItems.map(({ key, label, icon, colorClass }) => {
-            const value = preferences[key];
+          {PREFERENCE_ITEMS.map((item) => {
+            const value = preferences[item.key];
             const maxAvailableValue = value + remainingPoints;
 
             return (
-              <div
-                key={key}
-                className={`p-4 rounded-xl shadow-sm border transition-colors ${
-                  isBudgetComplete
-                    ? "bg-emerald-50 border-emerald-200"
-                    : "bg-white border-gray-100"
-                }`}
-              >
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
-                  <div className="flex items-center gap-2.5 lg:gap-3.5 font-semibold text-gray-800 text-[15.5px] md:text-[17px] lg:text-[17.5px]">
-                    <div className="flex items-center justify-center p-[5.5px] lg:p-[8.5px] rounded-[5.5px] lg:rounded-[8px] bg-gray-50 border border-gray-200">
-                      {icon}
-                    </div>{" "}
-                    {label}
-                  </div>
-                  <div className="flex items-baseline gap-1">
-                    <span
-                      className={`font-bold text-[23.5px] lg:text-[25px] ${colorClass}`}
-                    >
-                      {value}
-                    </span>
-                    <span className="text-xs lg:text-[13px] text-black font-medium">
-                      / 100 pkt
-                    </span>
-                  </div>
-                </div>
-
-                <CustomSlider
-                  value={value}
-                  onChange={(val) => handlePreferenceChange(key, val)}
-                  colorClass={colorClass}
-                  max={PREFERENCE_BUDGET}
-                  marks={[0, 25, 50, 75, 100]}
-                  desktopMarks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
-                  maxSelectable={maxAvailableValue}
-                />
-
-                <div className="flex justify-between text-[12px] lg:text-[13px] text-gray-400 mt-3 font-medium px-1">
-                  <span>0 pkt</span>
-                  <span>100 pkt</span>
-                </div>
-                <p className="mt-2 text-[12px] md:text-[13px] text-gray-500 font-medium">
-                  Maksymalnie teraz:{" "}
-                  <span className="font-bold text-gray-700">
-                    {maxAvailableValue} pkt
-                  </span>
-                </p>
-              </div>
+              <PreferenceCard
+                key={item.key}
+                item={item}
+                value={value}
+                maxAvailableValue={maxAvailableValue}
+                isBudgetComplete={isBudgetComplete}
+                onPreferenceChange={handlePreferenceChange}
+              />
             );
           })}
         </div>
