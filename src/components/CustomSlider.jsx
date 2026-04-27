@@ -9,9 +9,18 @@ const COLOR_HEX_MAP = {
   "text-indigo-600": "#4f46e5",
 };
 
-const CustomSlider = ({ value, onChange, colorClass, max = 10, marks }) => {
+const CustomSlider = ({
+  value,
+  onChange,
+  colorClass,
+  max = 10,
+  marks,
+  desktopMarks,
+  maxSelectable = max,
+}) => {
   const [hoveredMark, setHoveredMark] = useState(null);
   const visibleMarks = marks || Array.from({ length: max + 1 }, (_, index) => index);
+  const visibleDesktopMarks = desktopMarks || visibleMarks;
   const thumbSizePx = 16;
   const thumbRadiusPx = thumbSizePx / 2;
   const percentage = (value / max) * 100;
@@ -22,54 +31,71 @@ const CustomSlider = ({ value, onChange, colorClass, max = 10, marks }) => {
     const ratio = Math.min(Math.max(relativeX / rect.width, 0), 1);
     return Math.round(ratio * max);
   };
+  const renderMarks = (markValues, className) => (
+    <div className={className}>
+      {markValues.map((mark) => {
+        const percent = (mark / max) * 100;
+        const leftPos = `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
+        const isActive = value === mark;
+        const isSelectable = mark <= maxSelectable;
+        const isHovered = hoveredMark === mark && isSelectable;
+
+        return (
+          <div
+            key={mark}
+            className={`absolute bottom-0 flex flex-col items-center pointer-events-auto ${
+              isSelectable ? "cursor-pointer" : "cursor-default"
+            }`}
+            style={{ left: leftPos, transform: "translateX(-50%)" }}
+            onMouseEnter={() => setHoveredMark(mark)}
+            onMouseLeave={() => setHoveredMark(null)}
+            onClick={() => {
+              if (isSelectable) onChange(mark);
+            }}
+            role="button"
+            tabIndex={isSelectable ? 0 : -1}
+            onKeyDown={(e) => {
+              if (isSelectable && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                onChange(mark);
+              }
+            }}
+            aria-disabled={!isSelectable}
+            aria-label={`Ustaw wartość ${mark}`}
+          >
+            <span
+              className={`text-[11px] sm:text-[12.5px] lg:text-[12px] xl:text-[12.5px] font-bold mb-1 transition-all duration-150 ${
+                isActive || isHovered
+                  ? "text-gray-900 scale-125"
+                  : isSelectable
+                    ? "text-gray-400 scale-100"
+                    : "text-gray-300 scale-100"
+              }`}
+            >
+              {mark}
+            </span>
+            <div
+              className={`w-[2px] transition-all ${
+                isActive
+                  ? "h-2.5 " + colorClass.replace("text-", "bg-")
+                  : isSelectable
+                    ? "h-1.5 bg-gray-300"
+                    : "h-1.5 bg-gray-200"
+              }`}
+            ></div>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   return (
     <div className="relative pt-1.5 pb-1.5">
-      <div className="relative h-[33px] w-full mb-1">
-        {visibleMarks.map((mark) => {
-          const percent = (mark / max) * 100;
-          const leftPos = `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
-          const isActive = value === mark;
-          const isHovered = hoveredMark === mark;
-
-          return (
-            <div
-              key={mark}
-              className="absolute bottom-0 flex flex-col items-center pointer-events-auto cursor-pointer"
-              style={{ left: leftPos, transform: "translateX(-50%)" }}
-              onMouseEnter={() => setHoveredMark(mark)}
-              onMouseLeave={() => setHoveredMark(null)}
-              onClick={() => onChange(mark)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  onChange(mark);
-                }
-              }}
-              aria-label={`Ustaw wartość ${mark}`}
-            >
-              <span
-                className={`text-[11px] sm:text-[12.5px] font-bold mb-1 transition-all duration-150 ${
-                  isActive || isHovered
-                    ? "text-gray-900 scale-125"
-                    : "text-gray-400 scale-100"
-                }`}
-              >
-                {mark}
-              </span>
-              <div
-                className={`w-[2px] transition-all ${
-                  isActive
-                    ? "h-2.5 " + colorClass.replace("text-", "bg-")
-                    : "h-1.5 bg-gray-300"
-                }`}
-              ></div>
-            </div>
-          );
-        })}
-      </div>
+      {renderMarks(visibleMarks, "relative h-[33px] w-full mb-1 lg:hidden")}
+      {renderMarks(
+        visibleDesktopMarks,
+        "relative hidden lg:block h-[38px] w-full mb-1.5",
+      )}
 
       <input
         type="range"

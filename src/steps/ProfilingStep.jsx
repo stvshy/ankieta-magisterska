@@ -299,7 +299,7 @@ const ProfilingStep = ({
           </div>
 
           <p
-            className={`mt-2.5 text-[12.5px] md:text-[13.5px] font-medium ${
+            className={`mt-2.5 min-h-[38px] sm:min-h-0 text-[12.5px] md:text-[13.5px] font-medium ${
               isBudgetComplete ? "text-emerald-700" : "text-blue-700"
             }`}
           >
@@ -348,6 +348,8 @@ const ProfilingStep = ({
                   colorClass={colorClass}
                   max={PREFERENCE_BUDGET}
                   marks={[0, 25, 50, 75, 100]}
+                  desktopMarks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+                  maxSelectable={maxAvailableValue}
                 />
 
                 <div className="flex justify-between text-[12px] lg:text-[13px] text-gray-400 mt-3 font-medium px-1">
