@@ -610,6 +610,7 @@
 @media (max-width: 640px) {
   .consent-step-checkbox {
     gap: 0.65rem;
+    margin-bottom: 0;
   }
 
   .consent-step-checkbox-circle {
@@ -648,6 +649,8 @@
   .consent-step-layout {
     min-height: auto;
     margin-top: -12px;
+    /* Mniejszy odstęp checkboxa „Oświadczam…” od dolnego paska (Dalej) — tylko mobile */
+    margin-bottom: -26px;
   }
 
   .consent-step-note {
