@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, Loader2 } from "lucide-react";
 import { IoCheckmarkSharp, IoCheckmarkDoneSharp } from "react-icons/io5";
 import ConsentStep from "./steps/ConsentStep.jsx";
 import ProfilingStep from "./steps/ProfilingStep.jsx";
@@ -10,46 +10,19 @@ import {
   LISTA_1_MARZENIA,
   LISTA_2_RZECZYWISTOSC,
 } from "./data/staticRankings.js";
+import KRAJE_DB from "./data/personalizedRanking.json";
+import { calculateWsmTopN } from "./utils/wsm.js";
+import { submitSurveyResult } from "./utils/surveyApi.js";
 import "./App.css";
 
-// --- MOCK DATA (PLACEHOLDERY DLA LIST) ---
-const MOCK_LISTS = {
-  A: [
-    { name: "Nowa Zelandia", flag: "🇳🇿" },
-    { name: "Islandia", flag: "🇮🇸" },
-    { name: "Norwegia", flag: "🇳🇴" },
-    { name: "Szwajcaria", flag: "🇨🇭" },
-    { name: "Kanada", flag: "🇨🇦" },
-    { name: "Japonia", flag: "🇯🇵" },
-    { name: "Peru", flag: "🇵🇪" },
-    { name: "Chile", flag: "🇨🇱" },
-    { name: "Nepal", flag: "🇳🇵" },
-    { name: "Szkocja", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
-  ],
-  B: [
-    { name: "Malediwy", flag: "🇲🇻" },
-    { name: "ZEA (Dubaj)", flag: "🇦🇪" },
-    { name: "Seszele", flag: "🇸🇨" },
-    { name: "Bahamy", flag: "🇧🇸" },
-    { name: "Bora Bora", flag: "🇵🇫" },
-    { name: "Mauritius", flag: "🇲🇺" },
-    { name: "Singapur", flag: "🇸🇬" },
-    { name: "Hawaje (USA)", flag: "🇺🇸" },
-    { name: "Fidżi", flag: "🇫🇯" },
-    { name: "Katar", flag: "🇶🇦" },
-  ],
-  C: [
-    { name: "Chorwacja", flag: "🇭🇷" },
-    { name: "Grecja", flag: "🇬🇷" },
-    { name: "Włochy", flag: "🇮🇹" },
-    { name: "Hiszpania", flag: "🇪🇸" },
-    { name: "Turcja", flag: "🇹🇷" },
-    { name: "Bułgaria", flag: "🇧🇬" },
-    { name: "Egipt", flag: "🇪🇬" },
-    { name: "Tunezja", flag: "🇹🇳" },
-    { name: "Czechy", flag: "🇨🇿" },
-    { name: "Słowacja", flag: "🇸🇰" },
-  ],
+// Tasowanie Fisher-Yates (dla losowego przypisania list do literek A/B/C).
+const shuffle = (arr) => {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 };
 
 export const STEPS = [
@@ -88,6 +61,22 @@ export default function App() {
     C: { relevance: null, achievable: null, inspiring: null },
   });
   const [finalChoice, setFinalChoice] = useState("");
+
+  // --- WSM + losowe przypisanie list do literek A/B/C (order bias control) ---
+  // wsmTop10        - pelne TOP 10 z polami { name, code, score, matchPct } (zapis do bazy)
+  // randomizedLists - { A, B, C } => konkretne tablice krajow (do wyswietlenia w ListEvaluationStep)
+  // listMapping     - { A, B, C } => 'wsm' | 'aspirations' | 'reality' (do mapowania ocen przy zapisie)
+  const [wsmTop10, setWsmTop10] = useState([]);
+  const [listMapping, setListMapping] = useState({ A: null, B: null, C: null });
+  const [randomizedLists, setRandomizedLists] = useState({
+    A: [],
+    B: [],
+    C: [],
+  });
+
+  // --- Stany wysylania do Supabase ---
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   // Czy na mobile pokazaliśmy już opis „Układ” obok przycisku zmiany widoku?
   const [showMobileLayoutLabel, setShowMobileLayoutLabel] = useState(true);
@@ -159,12 +148,101 @@ export default function App() {
     finalChoice,
   ]);
 
+  // Liczy WSM + losuje przypisanie list do literek A/B/C.
+  // Wywolywane raz, przy przejsciu z Profilowania (krok 1) do Listy A (krok 2),
+  // tak aby kolejne krotne klikniecia "Dalej/Wstecz" nie zmienialy tasowania.
+  const generateRankingsAndShuffle = useCallback(() => {
+    const top10 = calculateWsmTopN(KRAJE_DB, preferences, 10);
+    setWsmTop10(top10);
+
+    // 'wsm' -> Top 10 spersonalizowanego rankingu (z polami code do flag)
+    // 'aspirations' -> Lista marzen Polakow (statyczna)
+    // 'reality' -> Lista realnych wyborow Polakow (statyczna z PIT)
+    const sources = [
+      { id: "wsm", data: top10 },
+      { id: "aspirations", data: LISTA_1_MARZENIA },
+      { id: "reality", data: LISTA_2_RZECZYWISTOSC },
+    ];
+
+    const shuffled = shuffle(sources);
+    setListMapping({
+      A: shuffled[0].id,
+      B: shuffled[1].id,
+      C: shuffled[2].id,
+    });
+    setRandomizedLists({
+      A: shuffled[0].data,
+      B: shuffled[1].data,
+      C: shuffled[2].data,
+    });
+  }, [preferences]);
+
+  // Wysyla pelen rekord do Supabase i przechodzi do ekranu Dziekujemy.
+  const submitToDatabase = useCallback(async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      await submitSurveyResult({
+        demographics,
+        preferences,
+        evaluations,
+        finalChoice,
+        wsmTop10,
+        listMapping,
+        isSynthetic: false,
+      });
+      setCurrentStep((prev) => prev + 1);
+      window.scrollTo(0, 0);
+    } catch (err) {
+      console.error("[Supabase] Blad zapisu wyniku ankiety:", err);
+      setSubmitError(
+        err?.message ||
+          "Wystapil blad podczas zapisu wynikow. Sprobuj ponownie.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [
+    demographics,
+    preferences,
+    evaluations,
+    finalChoice,
+    wsmTop10,
+    listMapping,
+    isSubmitting,
+  ]);
+
   const handleNext = useCallback(() => {
-    if (canProceed() && currentStep < STEPS.length - 1) {
+    if (!canProceed() || isSubmitting) return;
+
+    // Profilowanie -> Lista A: licz WSM i losuj literki przed wejsciem.
+    if (currentStep === 1) {
+      generateRankingsAndShuffle();
+      setCurrentStep((prev) => prev + 1);
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    // Z ekranu Podsumowania (Wybor) wysylamy do Supabase i dopiero
+    // po sukcesie przechodzimy do Dziekujemy.
+    if (currentStep === STEPS.length - 2) {
+      submitToDatabase();
+      return;
+    }
+
+    if (currentStep < STEPS.length - 1) {
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     }
-  }, [canProceed, currentStep]);
+  }, [
+    canProceed,
+    currentStep,
+    isSubmitting,
+    generateRankingsAndShuffle,
+    submitToDatabase,
+  ]);
 
   const handlePrev = useCallback(() => {
     if (currentStep > 0) {
@@ -210,11 +288,7 @@ export default function App() {
             setCountryListLayout={setCountryListLayout}
             showMobileLayoutLabel={showMobileLayoutLabel}
             onMobileLayoutLabelDismiss={() => setShowMobileLayoutLabel(false)}
-            lists={{
-              ...MOCK_LISTS,
-              A: LISTA_1_MARZENIA,
-              B: LISTA_2_RZECZYWISTOSC,
-            }}
+            lists={randomizedLists}
           />
         );
       case 5:
@@ -340,28 +414,47 @@ export default function App() {
       {/* FOOTER Z PRZYCISKAMI NAWIGACJI */}
       {currentStep < STEPS.length - 1 && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+          {submitError && currentStep === STEPS.length - 2 && (
+            <div className="max-w-4xl mx-auto mb-2 px-0 sm:px-6 lg:px-10">
+              <p className="text-center text-[12.5px] font-medium text-red-600">
+                {submitError}
+              </p>
+            </div>
+          )}
           <div className="max-w-4xl mx-auto flex justify-between items-center gap-4 px-0 sm:px-6 lg:px-10">
             <button
               onClick={handlePrev}
-              disabled={currentStep === 0}
+              disabled={currentStep === 0 || isSubmitting}
               className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-4 pr-8 py-3 rounded-xl !font-medium transition-all
-                ${currentStep === 0 ? "opacity-0 cursor-default" : "text-gray-600 bg-gray-100 hover:bg-gray-200"}`}
+                ${currentStep === 0 ? "opacity-0 cursor-default" : "text-gray-600 bg-gray-100 hover:bg-gray-200"}
+                ${isSubmitting ? "opacity-60 cursor-not-allowed" : ""}`}
             >
               <ChevronLeft className="w-5 h-5" /> Wstecz
             </button>
 
             <button
               onClick={handleNext}
-              disabled={!canProceed()}
+              disabled={!canProceed() || isSubmitting}
               className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-8 pr-4 py-3 rounded-xl !font-medium transition-all shadow-sm
                 ${
-                  canProceed()
+                  canProceed() && !isSubmitting
                     ? "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
                     : "bg-blue-600 text-white opacity-40 cursor-not-allowed shadow-none ring-1 ring-blue-300"
                 }`}
             >
-              {currentStep === STEPS.length - 2 ? "Zakończ badanie" : "Dalej"}{" "}
-              <ChevronRight className="w-5 h-5" />
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Zapisuję…
+                </>
+              ) : (
+                <>
+                  {currentStep === STEPS.length - 2
+                    ? "Zakończ badanie"
+                    : "Dalej"}{" "}
+                  <ChevronRight className="w-5 h-5" />
+                </>
+              )}
             </button>
           </div>
         </div>

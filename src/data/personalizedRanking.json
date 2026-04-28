@@ -1,0 +1,542 @@
+[
+  {
+    "Nazwa destynacji": "Francja",
+    "Zabytki i historia": 0.78,
+    "Plaże i morza": 0.47,
+    "Góry i natura": 0.52,
+    "Infrastruktura": 0.95,
+    "Niskie koszty": 0.83,
+    "Bezpieczeństwo": 0.47
+  },
+  {
+    "Nazwa destynacji": "Hiszpania",
+    "Zabytki i historia": 0.59,
+    "Plaże i morza": 0.51,
+    "Góry i natura": 0.42,
+    "Infrastruktura": 0.97,
+    "Niskie koszty": 0.9,
+    "Bezpieczeństwo": 0.73
+  },
+  {
+    "Nazwa destynacji": "USA",
+    "Zabytki i historia": 0.36,
+    "Plaże i morza": 0.7,
+    "Góry i natura": 0.99,
+    "Infrastruktura": 0.96,
+    "Niskie koszty": 0.54,
+    "Bezpieczeństwo": 0.49
+  },
+  {
+    "Nazwa destynacji": "Turcja",
+    "Zabytki i historia": 0.28,
+    "Plaże i morza": 0.5,
+    "Góry i natura": 0.46,
+    "Infrastruktura": 0.77,
+    "Niskie koszty": 0.93,
+    "Bezpieczeństwo": 0.52
+  },
+  {
+    "Nazwa destynacji": "Włochy",
+    "Zabytki i historia": 1,
+    "Plaże i morza": 0.6,
+    "Góry i natura": 0.7,
+    "Infrastruktura": 0.88,
+    "Niskie koszty": 0.87,
+    "Bezpieczeństwo": 0.57
+  },
+  {
+    "Nazwa destynacji": "Meksyk",
+    "Zabytki i historia": 0.36,
+    "Plaże i morza": 0.78,
+    "Góry i natura": 0.61,
+    "Infrastruktura": 0.63,
+    "Niskie koszty": 0.62,
+    "Bezpieczeństwo": 0.08
+  },
+  {
+    "Nazwa destynacji": "Wielka Brytania",
+    "Zabytki i historia": 0.5,
+    "Plaże i morza": 0.18,
+    "Góry i natura": 0.36,
+    "Infrastruktura": 0.91,
+    "Niskie koszty": 0.84,
+    "Bezpieczeństwo": 0.53
+  },
+  {
+    "Nazwa destynacji": "Japonia",
+    "Zabytki i historia": 0.36,
+    "Plaże i morza": 0.53,
+    "Góry i natura": 0.62,
+    "Infrastruktura": 0.88,
+    "Niskie koszty": 0.57,
+    "Bezpieczeństwo": 0.88
+  },
+  {
+    "Nazwa destynacji": "Grecja",
+    "Zabytki i historia": 0.29,
+    "Plaże i morza": 0.82,
+    "Góry i natura": 0.35,
+    "Infrastruktura": 0.9,
+    "Niskie koszty": 0.89,
+    "Bezpieczeństwo": 0.51
+  },
+  {
+    "Nazwa destynacji": "Tajlandia",
+    "Zabytki i historia": 0.13,
+    "Plaże i morza": 0.86,
+    "Góry i natura": 0.41,
+    "Infrastruktura": 0.71,
+    "Niskie koszty": 0.7,
+    "Bezpieczeństwo": 0.56
+  },
+  {
+    "Nazwa destynacji": "Austria",
+    "Zabytki i historia": 0.1,
+    "Plaże i morza": 0,
+    "Góry i natura": 0.41,
+    "Infrastruktura": 0.9,
+    "Niskie koszty": 0.81,
+    "Bezpieczeństwo": 0.82
+  },
+  {
+    "Nazwa destynacji": "Portugalia",
+    "Zabytki i historia": 0.13,
+    "Plaże i morza": 0.21,
+    "Góry i natura": 0.28,
+    "Infrastruktura": 0.87,
+    "Niskie koszty": 0.9,
+    "Bezpieczeństwo": 0.84
+  },
+  {
+    "Nazwa destynacji": "Malezja",
+    "Zabytki i historia": 0.04,
+    "Plaże i morza": 0.65,
+    "Góry i natura": 0.51,
+    "Infrastruktura": 0.72,
+    "Niskie koszty": 0.69,
+    "Bezpieczeństwo": 0.57
+  },
+  {
+    "Nazwa destynacji": "Chiny",
+    "Zabytki i historia": 0.63,
+    "Plaże i morza": 0.41,
+    "Góry i natura": 1,
+    "Infrastruktura": 0.77,
+    "Niskie koszty": 0.71,
+    "Bezpieczeństwo": 0.95
+  },
+  {
+    "Nazwa destynacji": "Holandia",
+    "Zabytki i historia": 0.35,
+    "Plaże i morza": 0.11,
+    "Góry i natura": 0.09,
+    "Infrastruktura": 0.93,
+    "Niskie koszty": 0.81,
+    "Bezpieczeństwo": 0.88
+  },
+  {
+    "Nazwa destynacji": "Indie",
+    "Zabytki i historia": 0.53,
+    "Plaże i morza": 0.59,
+    "Góry i natura": 0.66,
+    "Infrastruktura": 0.62,
+    "Niskie koszty": 0.85,
+    "Bezpieczeństwo": 0.5
+  },
+  {
+    "Nazwa destynacji": "Kanada",
+    "Zabytki i historia": 0.1,
+    "Plaże i morza": 0.11,
+    "Góry i natura": 0.84,
+    "Infrastruktura": 0.83,
+    "Niskie koszty": 0.61,
+    "Bezpieczeństwo": 0.61
+  },
+  {
+    "Nazwa destynacji": "Wietnam",
+    "Zabytki i historia": 0.15,
+    "Plaże i morza": 0.6,
+    "Góry i natura": 0.46,
+    "Infrastruktura": 0.65,
+    "Niskie koszty": 0.72,
+    "Bezpieczeństwo": 0.71
+  },
+  {
+    "Nazwa destynacji": "Maroko",
+    "Zabytki i historia": 0.17,
+    "Plaże i morza": 0.22,
+    "Góry i natura": 0.29,
+    "Infrastruktura": 0.59,
+    "Niskie koszty": 0.98,
+    "Bezpieczeństwo": 0.57
+  },
+  {
+    "Nazwa destynacji": "Egipt",
+    "Zabytki i historia": 0.22,
+    "Plaże i morza": 0.47,
+    "Góry i natura": 0.14,
+    "Infrastruktura": 0.67,
+    "Niskie koszty": 1,
+    "Bezpieczeństwo": 0.52
+  },
+  {
+    "Nazwa destynacji": "Indonezja",
+    "Zabytki i historia": 0.05,
+    "Plaże i morza": 0.79,
+    "Góry i natura": 0.55,
+    "Infrastruktura": 0.65,
+    "Niskie koszty": 0.7,
+    "Bezpieczeństwo": 0.58
+  },
+  {
+    "Nazwa destynacji": "Węgry",
+    "Zabytki i historia": 0.06,
+    "Plaże i morza": 0,
+    "Góry i natura": 0.19,
+    "Infrastruktura": 0.73,
+    "Niskie koszty": 0.93,
+    "Bezpieczeństwo": 0.8
+  },
+  {
+    "Nazwa destynacji": "Singapur",
+    "Zabytki i historia": 0.01,
+    "Plaże i morza": 0.37,
+    "Góry i natura": 0.11,
+    "Infrastruktura": 1,
+    "Niskie koszty": 0.45,
+    "Bezpieczeństwo": 1
+  },
+  {
+    "Nazwa destynacji": "Albania",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.3,
+    "Góry i natura": 0.29,
+    "Infrastruktura": 0.62,
+    "Niskie koszty": 0.92,
+    "Bezpieczeństwo": 0.63
+  },
+  {
+    "Nazwa destynacji": "Kazachstan",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.22,
+    "Góry i natura": 0.35,
+    "Infrastruktura": 0.62,
+    "Niskie koszty": 0.85,
+    "Bezpieczeństwo": 0.58
+  },
+  {
+    "Nazwa destynacji": "Tunezja",
+    "Zabytki i historia": 0.07,
+    "Plaże i morza": 0.33,
+    "Góry i natura": 0.1,
+    "Infrastruktura": 0.54,
+    "Niskie koszty": 0.94,
+    "Bezpieczeństwo": 0.51
+  },
+  {
+    "Nazwa destynacji": "RPA",
+    "Zabytki i historia": 0.07,
+    "Plaże i morza": 0.5,
+    "Góry i natura": 0.41,
+    "Infrastruktura": 0.63,
+    "Niskie koszty": 0.71,
+    "Bezpieczeństwo": 0
+  },
+  {
+    "Nazwa destynacji": "Szwecja",
+    "Zabytki i historia": 0.21,
+    "Plaże i morza": 0.09,
+    "Góry i natura": 0.46,
+    "Infrastruktura": 0.83,
+    "Niskie koszty": 0.84,
+    "Bezpieczeństwo": 0.61
+  },
+  {
+    "Nazwa destynacji": "Bułgaria",
+    "Zabytki i historia": 0.06,
+    "Plaże i morza": 0.27,
+    "Góry i natura": 0.35,
+    "Infrastruktura": 0.69,
+    "Niskie koszty": 0.96,
+    "Bezpieczeństwo": 0.7
+  },
+  {
+    "Nazwa destynacji": "Republika Dominikany",
+    "Zabytki i historia": 0.01,
+    "Plaże i morza": 0.64,
+    "Góry i natura": 0.35,
+    "Infrastruktura": 0.67,
+    "Niskie koszty": 0.61,
+    "Bezpieczeństwo": 0.3
+  },
+  {
+    "Nazwa destynacji": "Australia",
+    "Zabytki i historia": 0.17,
+    "Plaże i morza": 0.81,
+    "Góry i natura": 0.48,
+    "Infrastruktura": 0.85,
+    "Niskie koszty": 0.39,
+    "Bezpieczeństwo": 0.59
+  },
+  {
+    "Nazwa destynacji": "Uzbekistan",
+    "Zabytki i historia": 0.13,
+    "Plaże i morza": 0,
+    "Góry i natura": 0.27,
+    "Infrastruktura": 0.56,
+    "Niskie koszty": 0.86,
+    "Bezpieczeństwo": 0.87
+  },
+  {
+    "Nazwa destynacji": "Brazylia",
+    "Zabytki i historia": 0.23,
+    "Plaże i morza": 0.64,
+    "Góry i natura": 0.67,
+    "Infrastruktura": 0.61,
+    "Niskie koszty": 0.63,
+    "Bezpieczeństwo": 0.17
+  },
+  {
+    "Nazwa destynacji": "Kolumbia",
+    "Zabytki i historia": 0.06,
+    "Plaże i morza": 0.59,
+    "Góry i natura": 0.59,
+    "Infrastruktura": 0.6,
+    "Niskie koszty": 0.59,
+    "Bezpieczeństwo": 0.08
+  },
+  {
+    "Nazwa destynacji": "Kambodża",
+    "Zabytki i historia": 0.18,
+    "Plaże i morza": 0.55,
+    "Góry i natura": 0.31,
+    "Infrastruktura": 0.51,
+    "Niskie koszty": 0.64,
+    "Bezpieczeństwo": 0.59
+  },
+  {
+    "Nazwa destynacji": "Argentyna",
+    "Zabytki i historia": 0.06,
+    "Plaże i morza": 0.16,
+    "Góry i natura": 0.51,
+    "Infrastruktura": 0.61,
+    "Niskie koszty": 0.5,
+    "Bezpieczeństwo": 0.28
+  },
+  {
+    "Nazwa destynacji": "Irlandia",
+    "Zabytki i historia": 0.1,
+    "Plaże i morza": 0.12,
+    "Góry i natura": 0.2,
+    "Infrastruktura": 0.85,
+    "Niskie koszty": 0.8,
+    "Bezpieczeństwo": 0.6
+  },
+  {
+    "Nazwa destynacji": "Filipiny",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.81,
+    "Góry i natura": 0.32,
+    "Infrastruktura": 0.54,
+    "Niskie koszty": 0.69,
+    "Bezpieczeństwo": 0.54
+  },
+  {
+    "Nazwa destynacji": "Portoryko",
+    "Zabytki i historia": 0.01,
+    "Plaże i morza": 0.48,
+    "Góry i natura": 0.33,
+    "Infrastruktura": 0.88,
+    "Niskie koszty": 0.47,
+    "Bezpieczeństwo": 0.28
+  },
+  {
+    "Nazwa destynacji": "Chile",
+    "Zabytki i historia": 0.05,
+    "Plaże i morza": 0.09,
+    "Góry i natura": 0.53,
+    "Infrastruktura": 0.71,
+    "Niskie koszty": 0.52,
+    "Bezpieczeństwo": 0.23
+  },
+  {
+    "Nazwa destynacji": "Gruzja",
+    "Zabytki i historia": 0.11,
+    "Plaże i morza": 0.3,
+    "Góry i natura": 0.45,
+    "Infrastruktura": 0.7,
+    "Niskie koszty": 0.98,
+    "Bezpieczeństwo": 0.87
+  },
+  {
+    "Nazwa destynacji": "Andora",
+    "Zabytki i historia": 0.01,
+    "Plaże i morza": 0,
+    "Góry i natura": 0.29,
+    "Infrastruktura": 0.96,
+    "Niskie koszty": 0.88,
+    "Bezpieczeństwo": 0.96
+  },
+  {
+    "Nazwa destynacji": "Cypr",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.39,
+    "Góry i natura": 0.17,
+    "Infrastruktura": 0.89,
+    "Niskie koszty": 0.86,
+    "Bezpieczeństwo": 0.73
+  },
+  {
+    "Nazwa destynacji": "Sri Lanka",
+    "Zabytki i historia": 0.14,
+    "Plaże i morza": 0.59,
+    "Góry i natura": 0.33,
+    "Infrastruktura": 0.56,
+    "Niskie koszty": 0.72,
+    "Bezpieczeństwo": 0.54
+  },
+  {
+    "Nazwa destynacji": "Nowa Zelandia",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.41,
+    "Góry i natura": 0.47,
+    "Infrastruktura": 0.8,
+    "Niskie koszty": 0.27,
+    "Bezpieczeństwo": 0.53
+  },
+  {
+    "Nazwa destynacji": "Rwanda",
+    "Zabytki i historia": 0.01,
+    "Plaże i morza": 0,
+    "Góry i natura": 0.26,
+    "Infrastruktura": 0.47,
+    "Niskie koszty": 0.67,
+    "Bezpieczeństwo": 0.89
+  },
+  {
+    "Nazwa destynacji": "Fidżi",
+    "Zabytki i historia": 0.01,
+    "Plaże i morza": 0.53,
+    "Góry i natura": 0.37,
+    "Infrastruktura": 0.69,
+    "Niskie koszty": 0.28,
+    "Bezpieczeństwo": 0.37
+  },
+  {
+    "Nazwa destynacji": "Finlandia",
+    "Zabytki i historia": 0.05,
+    "Plaże i morza": 0.09,
+    "Góry i natura": 0.47,
+    "Infrastruktura": 0.79,
+    "Niskie koszty": 0.83,
+    "Bezpieczeństwo": 0.92
+  },
+  {
+    "Nazwa destynacji": "Korea Południowa",
+    "Zabytki i historia": 0.14,
+    "Plaże i morza": 0.32,
+    "Góry i natura": 0.43,
+    "Infrastruktura": 0.83,
+    "Niskie koszty": 0.52,
+    "Bezpieczeństwo": 0.85
+  },
+  {
+    "Nazwa destynacji": "Bośnia i Hercegowina",
+    "Zabytki i historia": 0.11,
+    "Plaże i morza": 0.27,
+    "Góry i natura": 0.36,
+    "Infrastruktura": 0.55,
+    "Niskie koszty": 0.93,
+    "Bezpieczeństwo": 0.67
+  },
+  {
+    "Nazwa destynacji": "Czechy",
+    "Zabytki i historia": 0.15,
+    "Plaże i morza": 0,
+    "Góry i natura": 0.25,
+    "Infrastruktura": 0.79,
+    "Niskie koszty": 0.9,
+    "Bezpieczeństwo": 0.89
+  },
+  {
+    "Nazwa destynacji": "Malediwy",
+    "Zabytki i historia": 0,
+    "Plaże i morza": 0.59,
+    "Góry i natura": 0.05,
+    "Infrastruktura": 0.69,
+    "Niskie koszty": 0.61,
+    "Bezpieczeństwo": 0.42
+  },
+  {
+    "Nazwa destynacji": "Gwatemala",
+    "Zabytki i historia": 0.04,
+    "Plaże i morza": 0.49,
+    "Góry i natura": 0.35,
+    "Infrastruktura": 0.44,
+    "Niskie koszty": 0.55,
+    "Bezpieczeństwo": 0.34
+  },
+  {
+    "Nazwa destynacji": "Słowenia",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.27,
+    "Góry i natura": 0.5,
+    "Infrastruktura": 0.75,
+    "Niskie koszty": 0.84,
+    "Bezpieczeństwo": 0.93
+  },
+  {
+    "Nazwa destynacji": "Peru",
+    "Zabytki i historia": 0.23,
+    "Plaże i morza": 0.27,
+    "Góry i natura": 0.74,
+    "Infrastruktura": 0.56,
+    "Niskie koszty": 0.53,
+    "Bezpieczeństwo": 0.19
+  },
+  {
+    "Nazwa destynacji": "Tanzania",
+    "Zabytki i historia": 0.04,
+    "Plaże i morza": 0.48,
+    "Góry i natura": 0.64,
+    "Infrastruktura": 0.49,
+    "Niskie koszty": 0.71,
+    "Bezpieczeństwo": 0.46
+  },
+  {
+    "Nazwa destynacji": "Polinezja Francuska",
+    "Zabytki i historia": 0.02,
+    "Plaże i morza": 0.53,
+    "Góry i natura": 0.34,
+    "Infrastruktura": 0.78,
+    "Niskie koszty": 0.1,
+    "Bezpieczeństwo": 0.32
+  },
+  {
+    "Nazwa destynacji": "Seszele",
+    "Zabytki i historia": 0,
+    "Plaże i morza": 0.61,
+    "Góry i natura": 0.43,
+    "Infrastruktura": 0.69,
+    "Niskie koszty": 0.53,
+    "Bezpieczeństwo": 0.33
+  },
+  {
+    "Nazwa destynacji": "Malta",
+    "Zabytki i historia": 0.03,
+    "Plaże i morza": 0.33,
+    "Góry i natura": 0.02,
+    "Infrastruktura": 0.83,
+    "Niskie koszty": 0.87,
+    "Bezpieczeństwo": 0.68
+  },
+  {
+    "Nazwa destynacji": "Chorwacja",
+    "Zabytki i historia": 0.07,
+    "Plaże i morza": 0.34,
+    "Góry i natura": 0.34,
+    "Infrastruktura": 0.79,
+    "Niskie koszty": 0.89,
+    "Bezpieczeństwo": 0.9
+  }
+]
