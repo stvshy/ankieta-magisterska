@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Sparkles, ThumbsUp, ThumbsDown, HelpCircle } from "lucide-react";
+import {
+  Sparkles,
+  Heart,
+  BriefcaseBusiness,
+  ThumbsUp,
+  ThumbsDown,
+  HelpCircle,
+  CheckCircle2,
+} from "lucide-react";
 import CountryList from "../components/CountryList.jsx";
 
 // Definicje 3 typow rankingow - tytul, podtytul (zrodlo), opis,
@@ -9,33 +17,38 @@ import CountryList from "../components/CountryList.jsx";
 const RANKING_META = {
   wsm: {
     title: "Ranking spersonalizowany",
-    sourceLabel: "Źródło: Twoje preferencje ",
+    sourceLabel: "Twoje preferencje",
     description:
       "Wyliczony w czasie rzeczywistym specjalnie dla Ciebie - na podstawie Twoich wcześniejszych wyborów.",
     accent: "from-blue-600 to-indigo-700 text-white",
+    sourceGradient: "from-blue-600 to-indigo-700",
     coverGradient:
       "linear-gradient(135deg, #1e40af 0%, #4338ca 60%, #312e81 100%)",
     icon: <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />,
   },
   aspirations: {
     title: "Ranking marzeń",
-    sourceLabel: "Źródło: marzenia podróżnicze Polaków",
+    sourceLabel: "marzenia podróżnicze Polaków",
     description:
       "Zbudowany na podstawie analizy najczęściej wymarzonych kierunków podróży wśród Polaków.",
     accent: "from-fuchsia-500 to-rose-500 text-white",
+    sourceGradient: "from-fuchsia-500 to-rose-500",
     coverGradient:
       "linear-gradient(135deg, #c026d3 0%, #db2777 60%, #be123c 100%)",
-    icon: <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />,
+    icon: <Heart className="w-4 h-4 shrink-0" aria-hidden="true" />,
   },
   reality: {
     title: "Ranking rzeczywistości",
-    sourceLabel: "Źródło: rzeczywiste wybory Polaków",
+    sourceLabel: "rzeczywiste wybory Polaków",
     description:
       "Zbudowany w oparciu o twarde dane sprzedażowe biur podróży - czyli kierunki, które Polacy faktycznie najczęściej kupują.",
     accent: "from-emerald-600 to-teal-700 text-white",
+    sourceGradient: "from-emerald-600 to-teal-700",
     coverGradient:
       "linear-gradient(135deg, #047857 0%, #0f766e 60%, #064e3b 100%)",
-    icon: <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />,
+    icon: (
+      <BriefcaseBusiness className="w-4 h-4 shrink-0" aria-hidden="true" />
+    ),
   },
 };
 
@@ -86,17 +99,11 @@ const RevealStep = ({
 
   const renderChoiceBadge = () => {
     if (!finalChoice) return null;
-    if (finalChoice === "none") {
-      return (
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-[12.5px] md:text-[13px] font-semibold text-gray-700 shadow-sm">
-          Twój wybór: <span className="text-gray-900">Żadna z list</span>
-        </span>
-      );
-    }
     const type = listMapping?.[finalChoice];
     const meta = type ? RANKING_META[type] : null;
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-[12.5px] md:text-[13px] font-semibold text-blue-800 shadow-sm">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-300 bg-blue-100/90 px-3.5 py-1.5 text-[12.5px] md:text-[13px] font-semibold text-blue-900 shadow-[0_6px_16px_rgba(37,99,235,0.22)] ring-1 ring-blue-200">
+        <CheckCircle2 className="w-4 h-4 text-blue-700" aria-hidden="true" />
         Twój wybór:{" "}
         <span className="text-blue-900">
           Lista {finalChoice}
@@ -138,10 +145,10 @@ const RevealStep = ({
           return (
             <div
               key={letter}
-              className={`relative overflow-hidden rounded-2xl border bg-white shadow-sm transition-shadow ${
+              className={`relative overflow-hidden rounded-2xl border bg-white transition-shadow ${
                 isPickedByUser
-                  ? "border-blue-400 ring-2 ring-blue-200 shadow-md"
-                  : "border-gray-200"
+                  ? "border-blue-500 ring-[3px] ring-blue-300 shadow-[0_14px_34px_rgba(37,99,235,0.26)]"
+                  : "border-gray-200 shadow-sm"
               }`}
             >
               {/* Zawartosc karty (zawsze wyrenderowana, ale pojawia sie z animacja) */}
@@ -165,14 +172,29 @@ const RevealStep = ({
                     Lista {letter}
                   </span>
                 </div>
+                {isPickedByUser && (
+                  <div className="absolute top-[46px] right-2 z-20 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[10.8px] font-bold text-blue-700 shadow-sm">
+                    Twój wybór
+                  </div>
+                )}
                 <div className="px-4 pt-3 pb-4 space-y-3">
                   <div>
                     <p className="text-[12px] md:text-[12.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
+                      <span
+                        className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent`}
+                      >
+                        Źródło:
+                      </span>{" "}
                       {meta.sourceLabel}
                     </p>
                     <p className="mt-1 text-[12.5px] md:text-[13px] leading-snug text-gray-600">
                       {meta.description}
                     </p>
+                    {type === "wsm" && (
+                      <p className="mt-1.5 inline-flex items-center rounded-md border border-blue-200 bg-blue-50/75 px-2 py-1 text-[11.2px] md:text-[11.6px] font-semibold text-blue-700">
+                        % po prawej = dopasowanie kraju do Twoich preferencji
+                      </p>
+                    )}
                   </div>
                   <CountryList
                     list={list}

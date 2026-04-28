@@ -33,7 +33,7 @@ const CountryList = ({
           key={`${country.name}-${idx}`}
           className={`flex items-center bg-gray-50 rounded-lg border border-gray-100 shadow-sm transition-[transform,opacity,box-shadow] duration-300 ease-out motion-reduce:transition-none motion-reduce:duration-0 ${
             compact
-              ? "min-h-[34px] gap-2 px-2 py-1"
+              ? "min-h-[39px] gap-2.5 px-2.5 py-1.5 sm:min-h-[34px] sm:gap-2 sm:px-2 sm:py-1"
               : "min-h-12 gap-2.5 px-3.5"
           }`}
         >
@@ -41,13 +41,13 @@ const CountryList = ({
             React.createElement(FlagComp, {
               title: country.name,
               className: compact
-                ? "w-[20px] h-[14px] rounded-[2px] object-cover shrink-0 border border-gray-200"
+                ? "w-[23px] h-[16px] rounded-[2px] object-cover shrink-0 border border-gray-200 sm:w-[20px] sm:h-[14px]"
                 : "w-[27.5px] h-[19.5px] rounded-sm object-cover shrink-0 border border-gray-200",
             })
           ) : country.flag ? (
             <span
               className={`leading-none shrink-0 ${
-                compact ? "text-[16px]" : "text-[24.5px]"
+                compact ? "text-[18px] sm:text-[16px]" : "text-[24.5px]"
               }`}
             >
               {country.flag}
@@ -55,14 +55,16 @@ const CountryList = ({
           ) : (
             <span
               className={`rounded-sm bg-gray-300 shrink-0 ${
-                compact ? "w-[20px] h-[14px]" : "w-[29.5px] h-[19.5px]"
+                compact
+                  ? "w-[23px] h-[16px] sm:w-[20px] sm:h-[14px]"
+                  : "w-[29.5px] h-[19.5px]"
               }`}
             />
           )}
 
           <span
             className={`flex-1 min-w-0 font-medium text-gray-700 truncate leading-tight ${
-              compact ? "text-[12px]" : "text-[14.5px]"
+              compact ? "text-[12.8px] sm:text-[12px]" : "text-[14.5px]"
             }`}
           >
             <span
@@ -77,9 +79,9 @@ const CountryList = ({
 
           {showPct && (
             <span
-              className={`shrink-0 rounded-md bg-blue-50 text-blue-700 font-bold tabular-nums border border-blue-100 ${
+              className={`shrink-0 rounded-md bg-blue-200/35 text-blue-700 font-bold tabular-nums border border-blue-200/55 ${
                 compact
-                  ? "px-1.5 py-[1px] text-[10.5px]"
+                  ? "px-1.5 py-[1px] text-[10.8px]"
                   : "px-2 py-0.5 text-[11.5px]"
               }`}
               aria-label={`Dopasowanie ${country.matchPct}%`}
