@@ -23,20 +23,18 @@ const shortIntroTextBC = introHead + introTailBC;
 const introParagraphClass =
   "text-blue-100 text-[13px] font-normal tracking-[-0.03em] [word-spacing:0.05em] text-justify [hyphens:auto] [-webkit-hyphens:auto]";
 
-const FullIntroParagraph = ({ noEmphasis = false, listLetter }) => {
-  const tail = listLetter === "A" ? introTailA : introTailBC;
-  const fullText = introHead + introMiddle + tail;
+const FullIntroParagraph = ({ listLetter, mobileBCTail = false }) => {
+  const tail =
+    listLetter === "A"
+      ? introTailA
+      : mobileBCTail
+        ? introTailBC
+        : introTailA;
   return (
     <p className={introParagraphClass} lang="pl">
-      {noEmphasis ? (
-        hyphenatePl(fullText)
-      ) : (
-        <>
-          <span className="font-medium">{hyphenatePl(introHead)}</span>
-          <span className="font-normal">{hyphenatePl(introMiddle)}</span>
-          <span className="font-medium">{hyphenatePl(tail)}</span>
-        </>
-      )}
+      <span className="font-medium">{hyphenatePl(introHead)}</span>
+      <span className="font-normal">{hyphenatePl(introMiddle)}</span>
+      <span className="font-medium">{hyphenatePl(tail)}</span>
     </p>
   );
 };
@@ -70,19 +68,16 @@ const ListEvaluationStep = ({
           <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
 
           <div className="hidden md:block">
-            <FullIntroParagraph
-              noEmphasis={listLetter === "A"}
-              listLetter={listLetter}
-            />
+            <FullIntroParagraph listLetter={listLetter} />
           </div>
 
           <div className="md:hidden">
             {listLetter === "A" ? (
-              <FullIntroParagraph noEmphasis listLetter="A" />
+              <FullIntroParagraph listLetter="A" />
             ) : (
               <>
                 {introExpanded ? (
-                  <FullIntroParagraph listLetter={listLetter} />
+                  <FullIntroParagraph listLetter={listLetter} mobileBCTail />
                 ) : (
                   <p className={`${introParagraphClass} font-medium`} lang="pl">
                     {hyphenatePl(shortIntroTextBC)}
