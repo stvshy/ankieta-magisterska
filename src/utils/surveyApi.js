@@ -3,28 +3,37 @@ import { buildWeights, formatRankingText } from "./wsm.js";
 
 const SURVEY_TABLE = "survey_results";
 
-/**
- * Konwersja "Lista A" -> "A".
- */
-const letterFromFinalChoice = (finalChoice) => {
-  if (!finalChoice) return null;
-  if (finalChoice === "Żadna z nich") return "none";
-  const m = /Lista\s+([ABC])/i.exec(finalChoice);
-  return m ? m[1].toUpperCase() : null;
-};
+// Dozwolone wartosci pola personalization_useful w bazie.
+const USEFUL_VALUES = new Set(["tak", "nie", "trudno_powiedziec"]);
 
 /**
  * Buduje payload do tabeli `survey_results`.
+ *
  * Mapuje oceny z literek (A/B/C) na typy list (wsm / aspirations / reality)
- * w oparciu o zapisane mapowanie listMapping.
+ * w oparciu o zapisane mapowanie listMapping. Dzieki temu nawet gdy losowanie
+ * przesunie ranking spersonalizowany pod inna literke, w bazie wyladuje on
+ * zawsze pod kolumnami wsm_*.
+ *
+ * @param {object} input
+ * @param {object} input.demographics      - { gender, age, frequency }
+ * @param {object} input.preferences       - { monuments, beaches, mountains, infrastructure, costs, safety } (0..100)
+ * @param {object} input.evaluations       - { A: {relevance, achievable, inspiring}, B: {...}, C: {...} } (1..5)
+ * @param {string} input.finalChoice       - 'A' | 'B' | 'C' | 'none' | ''
+ * @param {string} [input.justification]   - otwarte uzasadnienie wyboru (opcjonalne)
+ * @param {string} [input.personalizationUseful] - 'tak' | 'nie' | 'trudno_powiedziec' | ''
+ * @param {Array}  input.wsmTop10          - Top 10 z calculateWsmTopN() [{name, code, score, matchPct}]
+ * @param {object} input.listMapping       - { A, B, C } => 'wsm' | 'aspirations' | 'reality'
+ * @param {boolean}[input.isSynthetic]     - flaga rekordu testowego
  */
 export const buildSurveyPayload = ({
   demographics,
   preferences,
   evaluations,
   finalChoice,
+  justification = "",
+  personalizationUseful = "",
   wsmTop10,
-  listMapping, // { A: 'wsm'|'aspirations'|'reality', B: ..., C: ... }
+  listMapping,
   isSynthetic = false,
 }) => {
   const weights = buildWeights(preferences);
@@ -40,9 +49,21 @@ export const buildSurveyPayload = ({
   const aspEval = evalFor("aspirations");
   const realEval = evalFor("reality");
 
-  const finalLetter = letterFromFinalChoice(finalChoice);
-  const finalType =
-    finalLetter && finalLetter !== "none" ? listMapping[finalLetter] : "none";
+  // finalChoice z UI: 'A' | 'B' | 'C' | 'none' | '' (puste niemozliwe na tym etapie - walidacja blokuje).
+  const isLetterChoice = ["A", "B", "C"].includes(finalChoice);
+  const finalLetter = isLetterChoice
+    ? finalChoice
+    : finalChoice === "none"
+      ? "none"
+      : null;
+  const finalType = isLetterChoice ? listMapping[finalChoice] : "none";
+
+  const trimmedJustification =
+    typeof justification === "string" ? justification.trim() : "";
+
+  const usefulValue = USEFUL_VALUES.has(personalizationUseful)
+    ? personalizationUseful
+    : null;
 
   return {
     gender: demographics.gender || null,
@@ -77,6 +98,9 @@ export const buildSurveyPayload = ({
 
     final_choice_letter: finalLetter,
     final_choice_type: finalType,
+
+    justification_text: trimmedJustification ? trimmedJustification : null,
+    personalization_useful: usefulValue,
 
     is_synthetic: isSynthetic,
   };

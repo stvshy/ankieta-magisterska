@@ -5,6 +5,7 @@ import ConsentStep from "./steps/ConsentStep.jsx";
 import ProfilingStep from "./steps/ProfilingStep.jsx";
 import ListEvaluationStep from "./steps/ListEvaluationStep.jsx";
 import SummaryStep from "./steps/SummaryStep.jsx";
+import RevealStep from "./steps/RevealStep.jsx";
 import ThankYouStep from "./steps/ThankYouStep.jsx";
 import {
   LISTA_1_MARZENIA,
@@ -32,8 +33,21 @@ export const STEPS = [
   { id: "evalB", title: "Lista B" },
   { id: "evalC", title: "Lista C" },
   { id: "summary", title: "Wybór" },
+  { id: "reveal", title: "Wyniki" },
   { id: "thanks", title: "Koniec" },
 ];
+
+// Indeksy krokow - latwiej sie czyta nawigacja niz porownania do magicznych liczb.
+const STEP = {
+  CONSENT: 0,
+  PROFILING: 1,
+  EVAL_A: 2,
+  EVAL_B: 3,
+  EVAL_C: 4,
+  SUMMARY: 5,
+  REVEAL: 6,
+  THANKS: 7,
+};
 
 // (komponenty pomocnicze i widoki są teraz w osobnych plikach)
 
@@ -60,7 +74,14 @@ export default function App() {
     B: { relevance: null, achievable: null, inspiring: null },
     C: { relevance: null, achievable: null, inspiring: null },
   });
+
+  // finalChoice: 'A' | 'B' | 'C' | 'none' | '' (brak wyboru)
   const [finalChoice, setFinalChoice] = useState("");
+  // Otwarte uzasadnienie wyboru (krok 5, opcjonalne)
+  const [justification, setJustification] = useState("");
+  // Odpowiedz na pytanie o przydatnosc personalizacji (krok 6, wymagane)
+  // 'tak' | 'nie' | 'trudno_powiedziec' | ''
+  const [personalizationUseful, setPersonalizationUseful] = useState("");
 
   // --- WSM + losowe przypisanie list do literek A/B/C (order bias control) ---
   // wsmTop10        - pelne TOP 10 z polami { name, code, score, matchPct } (zapis do bazy)
@@ -110,8 +131,8 @@ export default function App() {
 
   // --- WALIDACJA KROKÓW ---
   const canProceed = useCallback(() => {
-    if (currentStep === 0) return agreed;
-    if (currentStep === 1)
+    if (currentStep === STEP.CONSENT) return agreed;
+    if (currentStep === STEP.PROFILING)
       return (
         demographics.gender &&
         demographics.age &&
@@ -119,25 +140,26 @@ export default function App() {
         Object.values(preferences).reduce((sum, value) => sum + value, 0) ===
           100
       );
-    if (currentStep === 2)
+    if (currentStep === STEP.EVAL_A)
       return (
         evaluations.A.relevance &&
         evaluations.A.achievable &&
         evaluations.A.inspiring
       );
-    if (currentStep === 3)
+    if (currentStep === STEP.EVAL_B)
       return (
         evaluations.B.relevance &&
         evaluations.B.achievable &&
         evaluations.B.inspiring
       );
-    if (currentStep === 4)
+    if (currentStep === STEP.EVAL_C)
       return (
         evaluations.C.relevance &&
         evaluations.C.achievable &&
         evaluations.C.inspiring
       );
-    if (currentStep === 5) return finalChoice !== "";
+    if (currentStep === STEP.SUMMARY) return finalChoice !== "";
+    if (currentStep === STEP.REVEAL) return personalizationUseful !== "";
     return true;
   }, [
     currentStep,
@@ -146,6 +168,7 @@ export default function App() {
     preferences,
     evaluations,
     finalChoice,
+    personalizationUseful,
   ]);
 
   // Liczy WSM + losuje przypisanie list do literek A/B/C.
@@ -189,6 +212,8 @@ export default function App() {
         preferences,
         evaluations,
         finalChoice,
+        justification,
+        personalizationUseful,
         wsmTop10,
         listMapping,
         isSynthetic: false,
@@ -209,6 +234,8 @@ export default function App() {
     preferences,
     evaluations,
     finalChoice,
+    justification,
+    personalizationUseful,
     wsmTop10,
     listMapping,
     isSubmitting,
@@ -218,16 +245,16 @@ export default function App() {
     if (!canProceed() || isSubmitting) return;
 
     // Profilowanie -> Lista A: licz WSM i losuj literki przed wejsciem.
-    if (currentStep === 1) {
+    if (currentStep === STEP.PROFILING) {
       generateRankingsAndShuffle();
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
       return;
     }
 
-    // Z ekranu Podsumowania (Wybor) wysylamy do Supabase i dopiero
-    // po sukcesie przechodzimy do Dziekujemy.
-    if (currentStep === STEPS.length - 2) {
+    // Z ekranu Reveal (ostatni przed Dziekujemy) wysylamy do Supabase
+    // i dopiero po sukcesie przechodzimy na Dziekujemy.
+    if (currentStep === STEP.REVEAL) {
       submitToDatabase();
       return;
     }
@@ -264,9 +291,9 @@ export default function App() {
   // --- RENDEROWANIE KROKÓW ---
   const renderStep = () => {
     switch (currentStep) {
-      case 0:
+      case STEP.CONSENT:
         return <ConsentStep agreed={agreed} setAgreed={setAgreed} />;
-      case 1:
+      case STEP.PROFILING:
         return (
           <ProfilingStep
             demographics={demographics}
@@ -275,9 +302,9 @@ export default function App() {
             setPreferences={setPreferences}
           />
         );
-      case 2:
-      case 3:
-      case 4:
+      case STEP.EVAL_A:
+      case STEP.EVAL_B:
+      case STEP.EVAL_C:
         return (
           <ListEvaluationStep
             key={currentStep}
@@ -291,14 +318,28 @@ export default function App() {
             lists={randomizedLists}
           />
         );
-      case 5:
+      case STEP.SUMMARY:
         return (
           <SummaryStep
             finalChoice={finalChoice}
             setFinalChoice={setFinalChoice}
+            justification={justification}
+            setJustification={setJustification}
+            lists={randomizedLists}
           />
         );
-      case 6:
+      case STEP.REVEAL:
+        return (
+          <RevealStep
+            key={currentStep}
+            finalChoice={finalChoice}
+            listMapping={listMapping}
+            lists={randomizedLists}
+            personalizationUseful={personalizationUseful}
+            setPersonalizationUseful={setPersonalizationUseful}
+          />
+        );
+      case STEP.THANKS:
         return <ThankYouStep />;
       default:
         return null;
@@ -381,7 +422,9 @@ export default function App() {
                                           ? "translateX(0.02px)"
                                           : index === 5
                                             ? "translateX(0.31px)"
-                                            : "none",
+                                            : index === 6
+                                              ? "translateX(0.18px)"
+                                              : "none",
                             }}
                           >
                             {index + 1}

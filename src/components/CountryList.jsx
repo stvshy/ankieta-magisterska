@@ -2,40 +2,94 @@ import React from "react";
 import * as Flags from "country-flag-icons/react/3x2";
 
 /**
- * @param {'grid' | 'list'} layout — grid: 2 kolumny; list: jeden wiersz = cała szerokość (jak jedna komórka siatki).
+ * @param {object} props
+ * @param {Array<{name: string, code?: string, flag?: string, matchPct?: number}>} props.list
+ * @param {'grid' | 'list'} [props.layout='grid']  grid: 2 kolumny; list: 1 kolumna na pelnej szerokosci
+ * @param {boolean} [props.showMatchPct=false]    pokaz badge z % dopasowania (tylko gdy item ma pole matchPct)
+ * @param {boolean} [props.compact=false]         tryb kompaktowy (mniejsze flagi/text/padding) - dla widoku 3 list obok siebie
  */
-const CountryList = ({ list, layout = "grid" }) => (
+const CountryList = ({
+  list,
+  layout = "grid",
+  showMatchPct = false,
+  compact = false,
+}) => (
   <div
-    className="grid w-full gap-3.5 [contain:layout] transition-[grid-template-columns] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none sm:mb-6 sm:gap-3"
+    className={`grid w-full [contain:layout] transition-[grid-template-columns] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none ${
+      compact ? "gap-2" : "gap-3.5 sm:mb-6 sm:gap-3"
+    }`}
     style={{
       gridTemplateColumns:
         layout === "list" ? "minmax(0, 1fr)" : "repeat(2, minmax(0, 1fr))",
     }}
   >
-    {list.map((country, idx) => (
-      <div
-        key={idx}
-        className="flex min-h-12 items-center gap-2.5 bg-gray-50 px-3.5 rounded-lg border border-gray-100 shadow-sm transition-[transform,opacity,box-shadow] duration-300 ease-out motion-reduce:transition-none motion-reduce:duration-0"
-      >
-        {Flags[country.code] ? (
-          React.createElement(Flags[country.code], {
-            title: country.name,
-            className:
-              "w-[27.5px] h-[19.5px] rounded-sm object-cover shrink-0 border border-gray-200",
-          })
-        ) : country.flag ? (
-          <span className="text-[24.5px] leading-none shrink-0">
-            {country.flag}
+    {list.map((country, idx) => {
+      const FlagComp = country.code ? Flags[country.code] : null;
+      const showPct =
+        showMatchPct && typeof country.matchPct === "number";
+
+      return (
+        <div
+          key={`${country.name}-${idx}`}
+          className={`flex items-center bg-gray-50 rounded-lg border border-gray-100 shadow-sm transition-[transform,opacity,box-shadow] duration-300 ease-out motion-reduce:transition-none motion-reduce:duration-0 ${
+            compact
+              ? "min-h-[34px] gap-2 px-2 py-1"
+              : "min-h-12 gap-2.5 px-3.5"
+          }`}
+        >
+          {FlagComp ? (
+            React.createElement(FlagComp, {
+              title: country.name,
+              className: compact
+                ? "w-[20px] h-[14px] rounded-[2px] object-cover shrink-0 border border-gray-200"
+                : "w-[27.5px] h-[19.5px] rounded-sm object-cover shrink-0 border border-gray-200",
+            })
+          ) : country.flag ? (
+            <span
+              className={`leading-none shrink-0 ${
+                compact ? "text-[16px]" : "text-[24.5px]"
+              }`}
+            >
+              {country.flag}
+            </span>
+          ) : (
+            <span
+              className={`rounded-sm bg-gray-300 shrink-0 ${
+                compact ? "w-[20px] h-[14px]" : "w-[29.5px] h-[19.5px]"
+              }`}
+            />
+          )}
+
+          <span
+            className={`flex-1 min-w-0 font-medium text-gray-700 truncate leading-tight ${
+              compact ? "text-[12px]" : "text-[14.5px]"
+            }`}
+          >
+            <span
+              className={`font-bold text-gray-600 ${
+                compact ? "mr-1" : "mr-1.5"
+              }`}
+            >
+              {idx + 1}.
+            </span>
+            {country.name}
           </span>
-        ) : (
-          <span className="w-[29.5px] h-[19.5px] rounded-sm bg-gray-300 shrink-0" />
-        )}
-        <span className="text-[14.5px] font-medium text-gray-700 truncate leading-tight">
-          <span className="font-bold text-gray-600 mr-1.5">{idx + 1}.</span>
-          {country.name}
-        </span>
-      </div>
-    ))}
+
+          {showPct && (
+            <span
+              className={`shrink-0 rounded-md bg-blue-50 text-blue-700 font-bold tabular-nums border border-blue-100 ${
+                compact
+                  ? "px-1.5 py-[1px] text-[10.5px]"
+                  : "px-2 py-0.5 text-[11.5px]"
+              }`}
+              aria-label={`Dopasowanie ${country.matchPct}%`}
+            >
+              {Math.round(country.matchPct)}%
+            </span>
+          )}
+        </div>
+      );
+    })}
   </div>
 );
 
