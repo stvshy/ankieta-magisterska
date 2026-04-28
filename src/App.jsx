@@ -75,7 +75,7 @@ export default function App() {
     C: { relevance: null, achievable: null, inspiring: null },
   });
 
-  // finalChoice: 'A' | 'B' | 'C' | 'none' | '' (brak wyboru)
+  // finalChoice: 'A' | 'B' | 'C' | '' (brak wyboru)
   const [finalChoice, setFinalChoice] = useState("");
   // Otwarte uzasadnienie wyboru (krok 5, opcjonalne)
   const [justification, setJustification] = useState("");
@@ -158,7 +158,8 @@ export default function App() {
         evaluations.C.achievable &&
         evaluations.C.inspiring
       );
-    if (currentStep === STEP.SUMMARY) return finalChoice !== "";
+    if (currentStep === STEP.SUMMARY)
+      return ["A", "B", "C"].includes(finalChoice);
     if (currentStep === STEP.REVEAL) return personalizationUseful !== "";
     return true;
   }, [

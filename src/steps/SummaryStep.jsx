@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Star, ThumbsUp, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import CountryList from "../components/CountryList.jsx";
 
 const LIST_LETTERS = ["A", "B", "C"];
 const CHOICE_OPTIONS = [
-  { id: "A", label: "Lista A" },
-  { id: "B", label: "Lista B" },
-  { id: "C", label: "Lista C" },
-  { id: "none", label: "Żadna z nich" },
+  { id: "A", letter: "A" },
+  { id: "B", letter: "B" },
+  { id: "C", letter: "C" },
 ];
 
 const JUSTIFICATION_LIMIT = 600;
@@ -53,12 +52,16 @@ const SummaryStep = ({
         {LIST_LETTERS.map((letter) => {
           const isPicked = finalChoice === letter;
           return (
-            <div
+            <button
               key={letter}
+              type="button"
+              onClick={() => setFinalChoice(letter)}
+              aria-pressed={isPicked}
+              aria-label={`Wybierz Listę ${letter}`}
               className={`flex flex-col rounded-xl border bg-white shadow-sm overflow-hidden transition-all duration-200 ${
                 isPicked
                   ? "border-blue-500 ring-2 ring-blue-200"
-                  : "border-gray-200"
+                  : "border-gray-200 hover:border-blue-300"
               }`}
             >
               <div
@@ -75,7 +78,7 @@ const SummaryStep = ({
               <div className="p-1.5 sm:p-2 md:p-2.5">
                 <CountryList list={lists[letter] ?? []} layout="list" compact />
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -83,9 +86,9 @@ const SummaryStep = ({
       {/* Wybor jednokrotny */}
       <div className="space-y-3">
         <h3 className="text-[15.5px] md:text-[17px] font-bold text-gray-800 text-center">
-          Twój wybór
+          Twój wybór listy
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-3">
+        <div className="grid grid-cols-3 gap-2.5 md:gap-3">
           {CHOICE_OPTIONS.map((opt) => {
             const isSelected = finalChoice === opt.id;
             return (
@@ -93,19 +96,14 @@ const SummaryStep = ({
                 key={opt.id}
                 type="button"
                 onClick={() => setFinalChoice(opt.id)}
-                className={`p-4 md:p-5 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 ${
+                className={`px-2 py-4 sm:py-4.5 md:py-5 rounded-xl border-2 transition-all flex items-center justify-center ${
                   isSelected
                     ? "bg-blue-50 border-blue-600 text-blue-700 shadow-md scale-[1.015]"
                     : "bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-gray-50"
                 }`}
               >
-                {opt.id === "none" ? (
-                  <Star className="w-6 h-6 md:w-7 md:h-7 opacity-50" />
-                ) : (
-                  <ThumbsUp className="w-6 h-6 md:w-7 md:h-7" />
-                )}
-                <span className="font-bold text-[14px] md:text-[15.5px]">
-                  {opt.label}
+                <span className="font-extrabold text-[27px] sm:text-[31px] md:text-[35px] tracking-tight leading-none">
+                  {opt.letter}
                 </span>
               </button>
             );

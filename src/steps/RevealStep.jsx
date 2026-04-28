@@ -9,11 +9,10 @@ import CountryList from "../components/CountryList.jsx";
 const RANKING_META = {
   wsm: {
     title: "Ranking spersonalizowany",
-    sourceLabel: "Źródło: Twoje preferencje (algorytm WSM)",
+    sourceLabel: "Źródło: Twoje preferencje ",
     description:
-      "Wyliczony w czasie rzeczywistym specjalnie dla Ciebie - na podstawie wag, jakie nadał(a)eś czynnikom (zabytki, plaże, góry, infrastruktura, koszty, bezpieczeństwo).",
-    accent:
-      "from-blue-600 to-indigo-700 text-white",
+      "Wyliczony w czasie rzeczywistym specjalnie dla Ciebie - na podstawie Twoich wcześniejszych wyborów.",
+    accent: "from-blue-600 to-indigo-700 text-white",
     coverGradient:
       "linear-gradient(135deg, #1e40af 0%, #4338ca 60%, #312e81 100%)",
     icon: <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />,
@@ -23,19 +22,17 @@ const RANKING_META = {
     sourceLabel: "Źródło: marzenia podróżnicze Polaków",
     description:
       "Zbudowany na podstawie analizy najczęściej wymarzonych kierunków podróży wśród Polaków.",
-    accent:
-      "from-fuchsia-500 to-rose-500 text-white",
+    accent: "from-fuchsia-500 to-rose-500 text-white",
     coverGradient:
       "linear-gradient(135deg, #c026d3 0%, #db2777 60%, #be123c 100%)",
     icon: <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />,
   },
   reality: {
     title: "Ranking rzeczywistości",
-    sourceLabel: "Źródło: realne wybory Polaków (dane biur podróży)",
+    sourceLabel: "Źródło: rzeczywiste wybory Polaków",
     description:
       "Zbudowany w oparciu o twarde dane sprzedażowe biur podróży - czyli kierunki, które Polacy faktycznie najczęściej kupują.",
-    accent:
-      "from-emerald-600 to-teal-700 text-white",
+    accent: "from-emerald-600 to-teal-700 text-white",
     coverGradient:
       "linear-gradient(135deg, #047857 0%, #0f766e 60%, #064e3b 100%)",
     icon: <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />,

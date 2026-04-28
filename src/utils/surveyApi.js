@@ -18,7 +18,7 @@ const USEFUL_VALUES = new Set(["tak", "nie", "trudno_powiedziec"]);
  * @param {object} input.demographics      - { gender, age, frequency }
  * @param {object} input.preferences       - { monuments, beaches, mountains, infrastructure, costs, safety } (0..100)
  * @param {object} input.evaluations       - { A: {relevance, achievable, inspiring}, B: {...}, C: {...} } (1..5)
- * @param {string} input.finalChoice       - 'A' | 'B' | 'C' | 'none' | ''
+ * @param {string} input.finalChoice       - 'A' | 'B' | 'C' | ''
  * @param {string} [input.justification]   - otwarte uzasadnienie wyboru (opcjonalne)
  * @param {string} [input.personalizationUseful] - 'tak' | 'nie' | 'trudno_powiedziec' | ''
  * @param {Array}  input.wsmTop10          - Top 10 z calculateWsmTopN() [{name, code, score, matchPct}]
@@ -49,14 +49,10 @@ export const buildSurveyPayload = ({
   const aspEval = evalFor("aspirations");
   const realEval = evalFor("reality");
 
-  // finalChoice z UI: 'A' | 'B' | 'C' | 'none' | '' (puste niemozliwe na tym etapie - walidacja blokuje).
+  // finalChoice z UI: 'A' | 'B' | 'C' | '' (puste niemozliwe na tym etapie - walidacja blokuje).
   const isLetterChoice = ["A", "B", "C"].includes(finalChoice);
-  const finalLetter = isLetterChoice
-    ? finalChoice
-    : finalChoice === "none"
-      ? "none"
-      : null;
-  const finalType = isLetterChoice ? listMapping[finalChoice] : "none";
+  const finalLetter = isLetterChoice ? finalChoice : null;
+  const finalType = isLetterChoice ? listMapping[finalChoice] : null;
 
   const trimmedJustification =
     typeof justification === "string" ? justification.trim() : "";
