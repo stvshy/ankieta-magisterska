@@ -6,7 +6,10 @@ import ProfilingStep from "./steps/ProfilingStep.jsx";
 import ListEvaluationStep from "./steps/ListEvaluationStep.jsx";
 import SummaryStep from "./steps/SummaryStep.jsx";
 import ThankYouStep from "./steps/ThankYouStep.jsx";
-import { LISTA_1_MARZENIA, LISTA_2_RZECZYWISTOSC } from "./data/staticRankings.js";
+import {
+  LISTA_1_MARZENIA,
+  LISTA_2_RZECZYWISTOSC,
+} from "./data/staticRankings.js";
 import "./App.css";
 
 // --- MOCK DATA (PLACEHOLDERY DLA LIST) ---
@@ -89,7 +92,7 @@ export default function App() {
   // Czy na mobile pokazaliśmy już opis „Układ” obok przycisku zmiany widoku?
   const [showMobileLayoutLabel, setShowMobileLayoutLabel] = useState(true);
 
-  /** Układ listy krajów: siatka 2× lub jedna kolumna — wspólny dla kroków A/B/C. */
+  /** Układ listy krajów: siatka 2× lub jedna kolumna — wspólny dla kroków A/B/C. Domyślnie: lista na mobile (< sm), siatka na szerszych ekranach. */
   const [countryListLayout, setCountryListLayout] = useState(() => {
     if (typeof window === "undefined") return "grid";
     try {
@@ -98,12 +101,19 @@ export default function App() {
     } catch {
       /* ignore */
     }
-    return "grid";
+    try {
+      return window.matchMedia("(min-width: 640px)").matches ? "grid" : "list";
+    } catch {
+      return "list";
+    }
   });
 
   useEffect(() => {
     try {
-      window.localStorage.setItem("ankieta-country-list-layout", countryListLayout);
+      window.localStorage.setItem(
+        "ankieta-country-list-layout",
+        countryListLayout,
+      );
     } catch {
       /* ignore */
     }
@@ -117,7 +127,8 @@ export default function App() {
         demographics.gender &&
         demographics.age &&
         demographics.frequency &&
-        Object.values(preferences).reduce((sum, value) => sum + value, 0) === 100
+        Object.values(preferences).reduce((sum, value) => sum + value, 0) ===
+          100
       );
     if (currentStep === 2)
       return (
@@ -139,7 +150,14 @@ export default function App() {
       );
     if (currentStep === 5) return finalChoice !== "";
     return true;
-  }, [currentStep, agreed, demographics, preferences, evaluations, finalChoice]);
+  }, [
+    currentStep,
+    agreed,
+    demographics,
+    preferences,
+    evaluations,
+    finalChoice,
+  ]);
 
   const handleNext = useCallback(() => {
     if (canProceed() && currentStep < STEPS.length - 1) {
