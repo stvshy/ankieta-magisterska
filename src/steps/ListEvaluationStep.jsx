@@ -25,11 +25,7 @@ const introParagraphClass =
 
 const FullIntroParagraph = ({ listLetter, mobileBCTail = false }) => {
   const tail =
-    listLetter === "A"
-      ? introTailA
-      : mobileBCTail
-        ? introTailBC
-        : introTailA;
+    listLetter === "A" ? introTailA : mobileBCTail ? introTailBC : introTailA;
   return (
     <p className={introParagraphClass} lang="pl">
       <span className="font-medium">{hyphenatePl(introHead)}</span>
@@ -46,26 +42,43 @@ const ListEvaluationStep = ({
   lists,
   countryListLayout,
   setCountryListLayout,
-  showMobileLayoutLabel,
-  onMobileLayoutLabelDismiss,
 }) => {
   const listLetter = currentStep === 2 ? "A" : currentStep === 3 ? "B" : "C";
   const currentList = lists[listLetter];
   const [introExpanded, setIntroExpanded] = useState(false);
-  const [isMobileLabelAnimatingOut, setIsMobileLabelAnimatingOut] =
-    useState(false);
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="space-y-1.5">
+      <div className="space-y-4 sm:space-y-1.5">
         <div
           className={`bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible ${
-            listLetter === "A"
-              ? "p-6"
-              : "p-6 pb-[calc(0.75rem+0.7px)] md:p-6"
+            listLetter === "A" ? "p-6" : "p-6 pb-[calc(0.75rem+0.7px)] md:p-6"
           }`}
         >
-          <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <h2 className="text-2xl font-bold">Lista {listLetter}</h2>
+            <button
+              type="button"
+              className="-mr-1 -mt-1 flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-white/25 bg-white/12 px-2.5 text-[11px] font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/18 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 active:scale-[0.97] sm:hidden"
+              onClick={() => {
+                setCountryListLayout((prev) =>
+                  prev === "grid" ? "list" : "grid",
+                );
+              }}
+              aria-label={
+                countryListLayout === "grid"
+                  ? "Przełącz na widok listy"
+                  : "Przełącz na widok siatki"
+              }
+            >
+              {countryListLayout === "grid" ? (
+                <LayoutGrid className="h-3.5 w-3.5" aria-hidden />
+              ) : (
+                <List className="h-3.5 w-3.5" aria-hidden />
+              )}
+              <span>Układ</span>
+            </button>
+          </div>
 
           <div className="hidden md:block">
             <FullIntroParagraph listLetter={listLetter} />
@@ -111,53 +124,10 @@ const ListEvaluationStep = ({
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2 sm:justify-between">
+        <div className="hidden items-center justify-between gap-2 sm:flex">
           <p className="text-xs font-medium leading-tight text-gray-500">
-            {showMobileLayoutLabel && (
-              <span
-                className={`sm:hidden inline-block origin-right transition-all duration-200 ${
-                  isMobileLabelAnimatingOut
-                    ? "scale-x-0 opacity-0 translate-x-1"
-                    : ""
-                }`}
-              >
-                Układ
-              </span>
-            )}
-            <span className="hidden sm:inline">Układ rankingu</span>
+            <span>Układ rankingu</span>
           </p>
-          <button
-            type="button"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200/90 bg-transparent text-gray-700 shadow-none transition-colors hover:bg-gray-50/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:scale-[0.97] sm:hidden"
-            onClick={() => {
-              setCountryListLayout((prev) =>
-                prev === "grid" ? "list" : "grid",
-              );
-
-              // Tylko pierwsze kliknięcie w danej sesji na mobile:
-              if (
-                showMobileLayoutLabel &&
-                typeof window !== "undefined" &&
-                window.innerWidth < 640
-              ) {
-                setIsMobileLabelAnimatingOut(true);
-                window.setTimeout(() => {
-                  onMobileLayoutLabelDismiss?.();
-                }, 220);
-              }
-            }}
-            aria-label={
-              countryListLayout === "grid"
-                ? "Przełącz na widok listy"
-                : "Przełącz na widok siatki"
-            }
-          >
-            {countryListLayout === "grid" ? (
-              <LayoutGrid className="h-4 w-4" aria-hidden />
-            ) : (
-              <List className="h-4 w-4" aria-hidden />
-            )}
-          </button>
           <div
             className="hidden sm:inline-flex shrink-0 rounded-md border border-gray-200/90 bg-white p-0.5 shadow-sm"
             role="group"
