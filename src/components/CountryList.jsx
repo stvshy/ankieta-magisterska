@@ -6,7 +6,7 @@ import * as Flags from "country-flag-icons/react/3x2";
  */
 const CountryList = ({ list, layout = "grid" }) => (
   <div
-    className="grid gap-3 mb-6 w-full [contain:layout] transition-[grid-template-columns] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
+    className="grid w-full gap-3.5 [contain:layout] transition-[grid-template-columns] duration-[320ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none sm:mb-6 sm:gap-3"
     style={{
       gridTemplateColumns:
         layout === "list" ? "minmax(0, 1fr)" : "repeat(2, minmax(0, 1fr))",

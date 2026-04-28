@@ -48,8 +48,8 @@ const ListEvaluationStep = ({
   const [introExpanded, setIntroExpanded] = useState(false);
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div className="space-y-4 sm:space-y-1.5">
+    <div className="-mt-4 space-y-3.5 animate-fadeIn sm:mt-0 sm:space-y-6">
+      <div className="space-y-3.5 sm:space-y-1.5">
         <div
           className={`bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible ${
             listLetter === "A" ? "p-6" : "p-6 pb-[calc(0.75rem+0.7px)] md:p-6"
