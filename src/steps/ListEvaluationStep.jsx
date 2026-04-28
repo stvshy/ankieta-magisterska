@@ -13,21 +13,33 @@ const introHead =
   "System przygotował dla Ciebie 3 zestawienia kierunków podróży. ";
 const introMiddle =
   "Dwa z nich oparto na trendach rynkowych (odzwierciedlających marzenia oraz faktyczne wybory Polaków), natomiast jedno zostało wygenerowane w sposób spersonalizowany, na podstawie udzielonych przez Ciebie w poprzednim kroku odpowiedzi. ";
-const introTail =
+const introTailA =
+  "Kolejność poszczególnych list jest losowa, a ich źródło pochodzenia nie jest na tym etapie ujawniane. Zapoznaj się z rankingiem i oceń go poniżej.";
+const introTailBC =
   "Źródła pochodzenia poszczególnych list nie są na tym etapie ujawniane. Zapoznaj się z rankingiem i oceń go poniżej.";
 
-const shortIntroText = introHead + introTail;
+const shortIntroTextBC = introHead + introTailBC;
 
 const introParagraphClass =
   "text-blue-100 text-[13px] font-normal tracking-[-0.03em] [word-spacing:0.05em] text-justify [hyphens:auto] [-webkit-hyphens:auto]";
 
-const FullIntroParagraph = () => (
-  <p className={introParagraphClass} lang="pl">
-    <span className="font-medium">{hyphenatePl(introHead)}</span>
-    <span className="font-normal">{hyphenatePl(introMiddle)}</span>
-    <span className="font-medium">{hyphenatePl(introTail)}</span>
-  </p>
-);
+const FullIntroParagraph = ({ noEmphasis = false, listLetter }) => {
+  const tail = listLetter === "A" ? introTailA : introTailBC;
+  const fullText = introHead + introMiddle + tail;
+  return (
+    <p className={introParagraphClass} lang="pl">
+      {noEmphasis ? (
+        hyphenatePl(fullText)
+      ) : (
+        <>
+          <span className="font-medium">{hyphenatePl(introHead)}</span>
+          <span className="font-normal">{hyphenatePl(introMiddle)}</span>
+          <span className="font-medium">{hyphenatePl(tail)}</span>
+        </>
+      )}
+    </p>
+  );
+};
 
 const ListEvaluationStep = ({
   currentStep,
@@ -48,44 +60,59 @@ const ListEvaluationStep = ({
   return (
     <div className="space-y-6 animate-fadeIn">
       <div className="space-y-1.5">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 pb-[calc(0.75rem+0.7px)] md:p-6 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible">
+        <div
+          className={`bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl text-white shadow-lg overflow-hidden md:overflow-visible ${
+            listLetter === "A"
+              ? "p-6"
+              : "p-6 pb-[calc(0.75rem+0.7px)] md:p-6"
+          }`}
+        >
           <h2 className="text-2xl font-bold mb-2">Lista {listLetter}</h2>
 
           <div className="hidden md:block">
-            <FullIntroParagraph />
+            <FullIntroParagraph
+              noEmphasis={listLetter === "A"}
+              listLetter={listLetter}
+            />
           </div>
 
           <div className="md:hidden">
-            {introExpanded ? (
-              <FullIntroParagraph />
+            {listLetter === "A" ? (
+              <FullIntroParagraph noEmphasis listLetter="A" />
             ) : (
-              <p className={`${introParagraphClass} font-medium`} lang="pl">
-                {hyphenatePl(shortIntroText)}
-              </p>
+              <>
+                {introExpanded ? (
+                  <FullIntroParagraph listLetter={listLetter} />
+                ) : (
+                  <p className={`${introParagraphClass} font-medium`} lang="pl">
+                    {hyphenatePl(shortIntroTextBC)}
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIntroExpanded((v) => !v)}
+                  className="mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center rounded-lg py-0 text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
+                  aria-expanded={introExpanded}
+                  aria-label={
+                    introExpanded
+                      ? "Zwiń pełny opis listy"
+                      : "Rozwiń pełny opis listy"
+                  }
+                >
+                  {introExpanded ? (
+                    <BsChevronCompactUp
+                      className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                      aria-hidden
+                    />
+                  ) : (
+                    <BsChevronCompactDown
+                      className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                      aria-hidden
+                    />
+                  )}
+                </button>
+              </>
             )}
-            <button
-              type="button"
-              onClick={() => setIntroExpanded((v) => !v)}
-              className="mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center rounded-lg py-0 text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
-              aria-expanded={introExpanded}
-              aria-label={
-                introExpanded
-                  ? "Zwiń pełny opis listy"
-                  : "Rozwiń pełny opis listy"
-              }
-            >
-              {introExpanded ? (
-                <BsChevronCompactUp
-                  className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
-                  aria-hidden
-                />
-              ) : (
-                <BsChevronCompactDown
-                  className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
-                  aria-hidden
-                />
-              )}
-            </button>
           </div>
         </div>
 
