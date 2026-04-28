@@ -46,9 +46,7 @@ const RANKING_META = {
     sourceGradient: "from-emerald-600 to-teal-700",
     coverGradient:
       "linear-gradient(135deg, #047857 0%, #0f766e 60%, #064e3b 100%)",
-    icon: (
-      <BriefcaseBusiness className="w-4 h-4 shrink-0" aria-hidden="true" />
-    ),
+    icon: <BriefcaseBusiness className="w-4 h-4 shrink-0" aria-hidden="true" />,
   },
 };
 
@@ -145,10 +143,10 @@ const RevealStep = ({
           return (
             <div
               key={letter}
-              className={`relative overflow-hidden rounded-2xl border bg-white transition-shadow ${
+              className={`relative rounded-2xl border bg-white transition-shadow ${
                 isPickedByUser
-                  ? "border-blue-500 ring-[3px] ring-blue-300 shadow-[0_14px_34px_rgba(37,99,235,0.26)]"
-                  : "border-gray-200 shadow-sm"
+                  ? "z-20 overflow-visible rounded-[1.25rem] rounded-tr-none border-[#2563eb] ring-[2px] ring-[#2563eb] shadow-[0_6px_14px_#2563eb]"
+                  : "z-10 overflow-hidden border-gray-200 shadow-sm"
               }`}
             >
               {/* Zawartosc karty (zawsze wyrenderowana, ale pojawia sie z animacja) */}
@@ -160,7 +158,11 @@ const RevealStep = ({
                 }}
               >
                 <div
-                  className={`px-4 py-3 bg-gradient-to-r ${meta.accent} flex items-center justify-between gap-2`}
+                  className={`px-4 py-3 bg-gradient-to-r ${meta.accent} flex items-center justify-between gap-2 ${
+                    isPickedByUser
+                      ? "rounded-tl-[1.25rem] rounded-tr-none"
+                      : "rounded-t-2xl"
+                  }`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     {meta.icon}
@@ -173,7 +175,7 @@ const RevealStep = ({
                   </span>
                 </div>
                 {isPickedByUser && (
-                  <div className="absolute top-[46px] right-2 z-20 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[10.8px] font-bold text-blue-700 shadow-sm">
+                  <div className="absolute right-[-2.54px] top-[-21px] z-[60] rounded-t-md rounded-b-none bg-blue-600 px-2 py-[3px] text-[9.8px] font-extrabold tracking-wide text-white shadow-[0_8px_16px_rgba(37,99,235,0.38)]">
                     Twój wybór
                   </div>
                 )}
