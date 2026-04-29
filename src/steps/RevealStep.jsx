@@ -126,7 +126,7 @@ const RevealStep = ({
       <div className="text-center space-y-3">
         <div className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 px-3.5 py-1.5 text-[12.5px] md:text-[13px] font-semibold text-blue-700">
           <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-          AHA! Moment
+          Odkrywamy karty
         </div>
         <h2 className="text-2xl md:text-[26px] font-bold text-gray-900">
           Oto co kryło się pod listami
