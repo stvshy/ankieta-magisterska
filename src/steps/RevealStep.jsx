@@ -33,7 +33,7 @@ const RANKING_META = {
   },
   aspirations: {
     title: "Ranking marzeń",
-    sourceLabel: "marzenia podróżnicze Polaków",
+    sourceLabel: "marzenia Polaków",
     description:
       "Zbudowany na podstawie analizy kierunków podróży, o których Polacy marzą najczęściej",
     accent: "from-fuchsia-500 to-rose-500 text-white",
@@ -46,7 +46,7 @@ const RANKING_META = {
     title: "Ranking rzeczywistości",
     sourceLabel: "rzeczywiste wybory Polaków",
     description:
-      "Oparty na twardych danych sprzedażowych biur podróży - czyli kierunki, które Polacy faktycznie najczęściej wybierają.",
+      "Oparty na twardych danych sprzedażowych biur podróży - czyli kraje, do których Polacy faktycznie najczęściej podróżują.",
     accent: "from-emerald-600 to-teal-700 text-white",
     sourceGradient: "from-emerald-600 to-teal-700",
     coverGradient:
@@ -113,7 +113,9 @@ const RevealStep = ({
             className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent font-bold`}
           >
             <span className="md:hidden">{meta.title}</span>
-            <span className="hidden md:inline">Lista {finalChoice} — {meta.title}</span>
+            <span className="hidden md:inline">
+              Lista {finalChoice} — {meta.title}
+            </span>
           </span>
         ) : (
           <span className="text-[#2563eb]">Lista {finalChoice}</span>

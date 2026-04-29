@@ -71,7 +71,7 @@ const SummaryStep = ({
                     : "bg-gray-50 text-gray-700 border-gray-200"
                 }`}
               >
-                <span className="text-[13px] sm:text-[14px] md:text-[15px]">
+                <span className="text-[15px] sm:text-[14px] md:text-[16px]">
                   Lista {letter}
                 </span>
               </div>

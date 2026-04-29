@@ -78,7 +78,7 @@ const CountryList = ({
               compact
                 ? sizeProfile === "reveal"
                   ? "text-[13.3px] md:text-[12.7px]"
-                  : "text-[12.8px] sm:text-[12px]"
+                  : "text-[12.8px] sm:text-[12.3px]"
                 : "text-[14.5px]"
             }`}
           >
