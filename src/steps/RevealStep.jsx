@@ -112,7 +112,8 @@ const RevealStep = ({
           <span
             className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent font-bold`}
           >
-            Lista {finalChoice} — {meta.title}
+            <span className="md:hidden">{meta.title}</span>
+            <span className="hidden md:inline">Lista {finalChoice} — {meta.title}</span>
           </span>
         ) : (
           <span className="text-[#2563eb]">Lista {finalChoice}</span>

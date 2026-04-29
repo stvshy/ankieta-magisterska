@@ -96,13 +96,13 @@ const SummaryStep = ({
                 key={opt.id}
                 type="button"
                 onClick={() => setFinalChoice(opt.id)}
-                className={`px-2 py-4 sm:py-4.5 md:py-4 rounded-xl border-2 transition-all flex items-center justify-center ${
+                className={`px-2 py-4 sm:py-4.5 md:py-3.5 rounded-xl border-2 transition-all flex items-center justify-center ${
                   isSelected
                     ? "bg-blue-50 border-blue-600 text-blue-700 shadow-md scale-[1.015]"
                     : "bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-gray-50"
                 }`}
               >
-                <span className="font-extrabold text-[27px] sm:text-[31px] md:text-[31px] tracking-tight leading-none">
+                <span className="font-extrabold text-[22px] sm:text-[31px] md:text-[22px] tracking-tight leading-none">
                   {opt.letter}
                 </span>
               </button>
