@@ -96,13 +96,13 @@ const SummaryStep = ({
                 key={opt.id}
                 type="button"
                 onClick={() => setFinalChoice(opt.id)}
-                className={`px-2 py-4 sm:py-4.5 md:py-5 rounded-xl border-2 transition-all flex items-center justify-center ${
+                className={`px-2 py-4 sm:py-4.5 md:py-4 rounded-xl border-2 transition-all flex items-center justify-center ${
                   isSelected
                     ? "bg-blue-50 border-blue-600 text-blue-700 shadow-md scale-[1.015]"
                     : "bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-gray-50"
                 }`}
               >
-                <span className="font-extrabold text-[27px] sm:text-[31px] md:text-[35px] tracking-tight leading-none">
+                <span className="font-extrabold text-[27px] sm:text-[31px] md:text-[31px] tracking-tight leading-none">
                   {opt.letter}
                 </span>
               </button>
@@ -144,10 +144,13 @@ const SummaryStep = ({
             onChange={(e) => setJustification(e.target.value)}
             placeholder="Np. Lista X miała dla mnie zbyt drogie kierunki, a Lista Y była idealnym kompromisem między ceną a moimi preferencjami..."
             rows={3}
-            className="w-full resize-y rounded-lg border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-[14px] md:text-[14.5px] leading-relaxed text-gray-800 placeholder:text-gray-400 outline-none transition-colors focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
+            className="w-full min-h-[108px] md:min-h-0 resize-none md:resize-y overflow-y-auto rounded-lg border border-gray-200 bg-gray-50 px-3.5 pt-2 pb-3.5 md:py-2.5 text-[13.5px] md:text-[14.5px] leading-relaxed text-gray-800 placeholder:text-[13.5px] md:placeholder:text-[14.5px] placeholder:text-gray-400 outline-none transition-colors focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
           />
           <div className="flex justify-between text-[11.5px] md:text-[12px] text-gray-500">
-            <span>Możesz pominąć to pytanie i przejść dalej.</span>
+            <span className="md:hidden">Możesz pominąć to pytanie</span>
+            <span className="hidden md:inline">
+              Możesz pominąć to pytanie i przejść dalej.
+            </span>
             <span
               className={`tabular-nums ${
                 remainingChars < 50 ? "text-amber-600 font-medium" : ""

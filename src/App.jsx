@@ -493,9 +493,7 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  {currentStep === STEPS.length - 2
-                    ? "Zakończ badanie"
-                    : "Dalej"}{" "}
+                  {currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}{" "}
                   <ChevronRight className="w-5 h-5" />
                 </>
               )}
