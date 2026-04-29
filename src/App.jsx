@@ -95,9 +95,9 @@ export default function App() {
     C: [],
   });
 
-  // --- Stany wysylania do Supabase ---
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // --- Zapis do Supabase (tylko z kroku Reveal) ---
   const [submitError, setSubmitError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Czy na mobile pokazaliśmy już opis „Układ” obok przycisku zmiany widoku?
   const [showMobileLayoutLabel, setShowMobileLayoutLabel] = useState(true);
@@ -201,12 +201,10 @@ export default function App() {
     });
   }, [preferences]);
 
-  // Wysyla pelen rekord do Supabase i przechodzi do ekranu Dziekujemy.
   const submitToDatabase = useCallback(async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     setSubmitError(null);
-
     try {
       await submitSurveyResult({
         demographics,
@@ -253,24 +251,22 @@ export default function App() {
       return;
     }
 
-    // Z ekranu Reveal (ostatni przed Dziekujemy) wysylamy do Supabase
-    // i dopiero po sukcesie przechodzimy na Dziekujemy.
-    if (currentStep === STEP.REVEAL) {
-      submitToDatabase();
-      return;
-    }
+    if (currentStep === STEP.REVEAL) return;
 
     if (currentStep < STEPS.length - 1) {
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     }
-  }, [
-    canProceed,
-    currentStep,
-    isSubmitting,
-    generateRankingsAndShuffle,
-    submitToDatabase,
-  ]);
+  }, [canProceed, currentStep, isSubmitting, generateRankingsAndShuffle]);
+
+  const handlePrimaryNavClick = useCallback(() => {
+    if (currentStep === STEP.REVEAL) {
+      if (!canProceed() || isSubmitting) return;
+      void submitToDatabase();
+      return;
+    }
+    handleNext();
+  }, [currentStep, canProceed, isSubmitting, handleNext, submitToDatabase]);
 
   const handlePrev = useCallback(() => {
     if (currentStep > 0) {
@@ -477,26 +473,47 @@ export default function App() {
             </button>
 
             <button
-              onClick={handleNext}
+              type="button"
+              onClick={handlePrimaryNavClick}
               disabled={!canProceed() || isSubmitting}
-              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-8 pr-4 py-3 rounded-xl !font-medium transition-all shadow-sm
+              className={`ankieta-primary-nav-next relative min-w-[135px] sm:min-w-[150px] px-4 flex items-center justify-center gap-2 py-3 rounded-xl !font-medium transition-[box-shadow,background-color,border-color,transform,opacity] shadow-sm border-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200/90 focus-visible:ring-offset-2 focus-visible:ring-offset-white
                 ${
-                  canProceed() && !isSubmitting
-                    ? "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
-                    : "bg-blue-600 text-white opacity-40 cursor-not-allowed shadow-none ring-1 ring-blue-300"
+                  currentStep === STEP.REVEAL &&
+                  canProceed() &&
+                  !isSubmitting
+                    ? "bg-emerald-600 text-white border-emerald-600 shadow-[0_4px_14px_rgba(5,150,105,0.32)] hover:bg-emerald-700 hover:border-emerald-700 hover:shadow-[0_6px_18px_rgba(5,150,105,0.38)] active:scale-[0.98]"
+                    : ""
+                }
+                ${
+                  currentStep === STEP.REVEAL && isSubmitting
+                    ? "bg-emerald-500 text-white border-emerald-300 cursor-wait shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_0_0_4px_rgba(167,243,208,0.95),0_10px_28px_rgba(16,185,129,0.42)] scale-[1.02]"
+                    : ""
+                }
+                ${
+                  !(
+                    currentStep === STEP.REVEAL &&
+                    canProceed() &&
+                    !isSubmitting
+                  ) && !(currentStep === STEP.REVEAL && isSubmitting)
+                    ? canProceed() && !isSubmitting
+                      ? "bg-blue-600 text-white border-transparent hover:bg-blue-700 hover:shadow-md"
+                      : "bg-blue-600 text-white opacity-40 cursor-not-allowed shadow-none ring-1 ring-blue-300 border-transparent"
+                    : ""
                 }`}
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Zapisuję…
-                </>
-              ) : (
-                <>
-                  {currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}{" "}
-                  <ChevronRight className="w-5 h-5" />
-                </>
-              )}
+              <span className="flex items-center justify-center gap-2">
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 shrink-0 animate-spin" />
+                    Zapisuję…
+                  </>
+                ) : (
+                  <>
+                    {currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}{" "}
+                    <ChevronRight className="w-5 h-5 shrink-0" />
+                  </>
+                )}
+              </span>
             </button>
           </div>
         </div>
