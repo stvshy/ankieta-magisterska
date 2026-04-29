@@ -161,68 +161,68 @@ const RevealStep = ({
                     : "rounded-2xl"
                 }`}
               >
-              {/* Zawartosc karty (zawsze wyrenderowana, ale pojawia sie z animacja) */}
-              <div
-                className="reveal-card-content"
-                style={{
-                  animationDelay,
-                  animationDuration: "700ms",
-                }}
-              >
+                {/* Zawartosc karty (zawsze wyrenderowana, ale pojawia sie z animacja) */}
                 <div
-                  className={`px-4 py-3 bg-gradient-to-r ${meta.accent} flex items-center justify-between gap-2`}
+                  className="reveal-card-content"
+                  style={{
+                    animationDelay,
+                    animationDuration: "700ms",
+                  }}
                 >
-                  <div className="flex items-center gap-2 min-w-0">
-                    {meta.icon}
-                    <h3 className="text-[15px] md:text-[16px] font-bold truncate">
-                      {meta.title}
-                    </h3>
+                  <div
+                    className={`px-4 py-3 bg-gradient-to-r ${meta.accent} flex items-center justify-between gap-2`}
+                  >
+                    <div className="flex items-center gap-2 min-w-0">
+                      {meta.icon}
+                      <h3 className="text-[15px] md:text-[16px] font-bold truncate">
+                        {meta.title}
+                      </h3>
+                    </div>
+                    <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] md:text-[11.5px] font-semibold tracking-wide">
+                      Lista {letter}
+                    </span>
                   </div>
-                  <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] md:text-[11.5px] font-semibold tracking-wide">
+                  <div className="px-4 pt-3 pb-4 space-y-3">
+                    <div>
+                      <p className="text-[12px] md:text-[12.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
+                        <span
+                          className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent`}
+                        >
+                          Źródło:
+                        </span>{" "}
+                        {meta.sourceLabel}
+                      </p>
+                      <p className="mt-1 text-[12.5px] md:text-[13px] leading-snug text-gray-600">
+                        {meta.description}
+                      </p>
+                      {type === "wsm" && (
+                        <p className="mt-1.5 -mb-2 text-right text-[10.5px] md:text-[9.8px] font-semibold text-blue-700">
+                          % dopasowania
+                        </p>
+                      )}
+                    </div>
+                    <CountryList
+                      list={list}
+                      layout="list"
+                      compact
+                      showMatchPct={type === "wsm"}
+                    />
+                  </div>
+                </div>
+
+                {/* Zaslonka karty - sliduje w gore i znika */}
+                <div
+                  className="reveal-card-cover absolute inset-0 flex items-center justify-center pointer-events-none"
+                  style={{
+                    animationDelay,
+                    background: meta.coverGradient,
+                  }}
+                  aria-hidden="true"
+                >
+                  <span className="text-white text-[36px] md:text-[44px] font-extrabold tracking-tight drop-shadow-md select-none">
                     Lista {letter}
                   </span>
                 </div>
-                <div className="px-4 pt-3 pb-4 space-y-3">
-                  <div>
-                    <p className="text-[12px] md:text-[12.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
-                      <span
-                        className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent`}
-                      >
-                        Źródło:
-                      </span>{" "}
-                      {meta.sourceLabel}
-                    </p>
-                    <p className="mt-1 text-[12.5px] md:text-[13px] leading-snug text-gray-600">
-                      {meta.description}
-                    </p>
-                    {type === "wsm" && (
-                      <p className="mt-1.5 inline-flex items-center rounded-md border border-blue-200 bg-blue-50/75 px-2 py-1 text-[11.2px] md:text-[11.6px] font-semibold text-blue-700">
-                        % po prawej = dopasowanie kraju do Twoich preferencji
-                      </p>
-                    )}
-                  </div>
-                  <CountryList
-                    list={list}
-                    layout="list"
-                    compact
-                    showMatchPct={type === "wsm"}
-                  />
-                </div>
-              </div>
-
-              {/* Zaslonka karty - sliduje w gore i znika */}
-              <div
-                className="reveal-card-cover absolute inset-0 flex items-center justify-center pointer-events-none"
-                style={{
-                  animationDelay,
-                  background: meta.coverGradient,
-                }}
-                aria-hidden="true"
-              >
-                <span className="text-white text-[36px] md:text-[44px] font-extrabold tracking-tight drop-shadow-md select-none">
-                  Lista {letter}
-                </span>
-              </div>
               </div>
               {isPickedByUser && (
                 <div className="absolute right-[-2.54px] top-[-21px] z-[60] rounded-t-md rounded-b-none bg-blue-600 px-2 py-[3px] text-[9.8px] font-extrabold tracking-wide text-white shadow-[0_8px_16px_rgba(37,99,235,0.38)]">
