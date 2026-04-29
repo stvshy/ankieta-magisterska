@@ -94,7 +94,7 @@ const CountryList = ({
 
           {showPct && (
             <span
-              className={`shrink-0 rounded-md bg-blue-200/35 text-blue-700 font-bold tabular-nums border border-blue-200/55 ${
+              className={`shrink-0 rounded-md bg-blue-200/19 text-blue-700 font-bold tabular-nums border border-blue-200/60 ${
                 compact
                   ? sizeProfile === "reveal"
                     ? "px-1.5 py-[1px] text-[11.2px] md:px-1.5 md:py-[1px] md:text-[10.8px]"
