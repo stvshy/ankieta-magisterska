@@ -100,13 +100,18 @@ const RevealStep = ({
     const type = listMapping?.[finalChoice];
     const meta = type ? RANKING_META[type] : null;
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-300 bg-blue-100/90 px-3.5 py-1.5 text-[12.5px] md:text-[13px] font-semibold text-blue-900 shadow-[0_6px_16px_rgba(37,99,235,0.22)] ring-1 ring-blue-200">
-        <CheckCircle2 className="w-4 h-4 text-blue-700" aria-hidden="true" />
-        Twój wybór:{" "}
-        <span className="text-blue-900">
-          Lista {finalChoice}
-          {meta ? ` — ${meta.title}` : ""}
-        </span>
+      <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-[#2563eb] bg-white px-3.5 py-1.5 text-[12.5px] md:text-[13px] font-semibold shadow-[0_6px_16px_rgba(37,99,235,0.22)]">
+        <CheckCircle2 className="w-4 h-4 text-[#2563eb]" aria-hidden="true" />
+        <span className="text-[#2563eb]">Twój wybór:</span>
+        {meta ? (
+          <span
+            className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent font-bold`}
+          >
+            Lista {finalChoice} — {meta.title}
+          </span>
+        ) : (
+          <span className="text-[#2563eb]">Lista {finalChoice}</span>
+        )}
       </span>
     );
   };
