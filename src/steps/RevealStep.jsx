@@ -8,7 +8,12 @@ import {
   HelpCircle,
   CheckCircle2,
 } from "lucide-react";
+import Hypher from "hypher";
+import polish from "hyphenation.pl";
 import CountryList from "../components/CountryList.jsx";
+
+const plHypher = new Hypher(polish);
+const hyphenatePl = (text) => plHypher.hyphenateText(text);
 
 // Definicje 3 typow rankingow - tytul, podtytul (zrodlo), opis,
 // kolor naglowka karty oraz emoji-akcent. Te metadane sa wspolne
@@ -30,7 +35,7 @@ const RANKING_META = {
     title: "Ranking marzeń",
     sourceLabel: "marzenia podróżnicze Polaków",
     description:
-      "Zbudowany na podstawie analizy najczęściej wymarzonych kierunków podróży wśród Polaków.",
+      "Zbudowany na podstawie analizy kierunków podróży, o których Polacy marzą najczęściej",
     accent: "from-fuchsia-500 to-rose-500 text-white",
     sourceGradient: "from-fuchsia-500 to-rose-500",
     coverGradient:
@@ -41,7 +46,7 @@ const RANKING_META = {
     title: "Ranking rzeczywistości",
     sourceLabel: "rzeczywiste wybory Polaków",
     description:
-      "Zbudowany w oparciu o twarde dane sprzedażowe biur podróży - czyli kierunki, które Polacy faktycznie najczęściej wybierają.",
+      "Oparty na twardych danych sprzedażowych biur podróży - czyli kierunki, które Polacy faktycznie najczęściej wybierają.",
     accent: "from-emerald-600 to-teal-700 text-white",
     sourceGradient: "from-emerald-600 to-teal-700",
     coverGradient:
@@ -193,20 +198,31 @@ const RevealStep = ({
                         </span>{" "}
                         {type === "reality" ? (
                           <>
-                            <span className="md:hidden">{meta.sourceLabel}</span>
-                            <span className="hidden md:inline">wybory Polaków</span>
+                            <span className="md:hidden">
+                              {meta.sourceLabel}
+                            </span>
+                            <span className="hidden md:inline">
+                              wybory Polaków
+                            </span>
                           </>
                         ) : type === "aspirations" ? (
                           <>
-                            <span className="md:hidden">{meta.sourceLabel}</span>
-                            <span className="hidden md:inline">marzenia Polaków</span>
+                            <span className="md:hidden">
+                              {meta.sourceLabel}
+                            </span>
+                            <span className="hidden md:inline">
+                              marzenia Polaków
+                            </span>
                           </>
                         ) : (
                           meta.sourceLabel
                         )}
                       </p>
-                      <p className="mt-1 text-[12.5px] md:text-[12px] leading-snug text-gray-600">
-                        {meta.description}
+                      <p
+                        className="mt-1 text-[12.5px] md:text-[12px] leading-snug text-gray-600 text-justify [hyphens:auto] [-webkit-hyphens:auto]"
+                        lang="pl"
+                      >
+                        {hyphenatePl(meta.description)}
                       </p>
                       {type === "wsm" && (
                         <p className="mt-1.5 -mb-2 text-right text-[10.5px] md:text-[9.8px] font-semibold text-blue-700">
