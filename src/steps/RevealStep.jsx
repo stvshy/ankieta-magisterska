@@ -129,7 +129,7 @@ const RevealStep = ({
       </div>
 
       {/* 3 odslaniajace sie karty */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+      <div className="mt-4 md:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
         {["A", "B", "C"].map((letter, idx) => {
           const type = listMapping?.[letter];
           const meta = type ? RANKING_META[type] : null;
@@ -143,12 +143,19 @@ const RevealStep = ({
           return (
             <div
               key={letter}
-              className={`relative rounded-2xl border bg-white transition-shadow ${
+              className={`relative bg-white transition-shadow ${
                 isPickedByUser
-                  ? "z-20 overflow-visible rounded-[1.25rem] rounded-tr-none border-[#2563eb] ring-[2px] ring-[#2563eb] shadow-[0_6px_14px_#2563eb]"
-                  : "z-10 overflow-hidden border-gray-200 shadow-sm"
+                  ? "z-20 mt-5 md:mt-0 overflow-visible rounded-[1.25rem] rounded-tr-none ring-[2px] ring-[#2563eb] shadow-[0_6px_14px_#2563eb]"
+                  : "z-10 rounded-2xl ring-1 ring-gray-200 shadow-sm"
               }`}
             >
+              <div
+                className={`relative overflow-hidden ${
+                  isPickedByUser
+                    ? "rounded-[1.25rem] rounded-tr-none"
+                    : "rounded-2xl"
+                }`}
+              >
               {/* Zawartosc karty (zawsze wyrenderowana, ale pojawia sie z animacja) */}
               <div
                 className="reveal-card-content"
@@ -158,11 +165,7 @@ const RevealStep = ({
                 }}
               >
                 <div
-                  className={`px-4 py-3 bg-gradient-to-r ${meta.accent} flex items-center justify-between gap-2 ${
-                    isPickedByUser
-                      ? "rounded-tl-[1.25rem] rounded-tr-none"
-                      : "rounded-t-2xl"
-                  }`}
+                  className={`px-4 py-3 bg-gradient-to-r ${meta.accent} flex items-center justify-between gap-2`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     {meta.icon}
@@ -174,11 +177,6 @@ const RevealStep = ({
                     Lista {letter}
                   </span>
                 </div>
-                {isPickedByUser && (
-                  <div className="absolute right-[-2.54px] top-[-21px] z-[60] rounded-t-md rounded-b-none bg-blue-600 px-2 py-[3px] text-[9.8px] font-extrabold tracking-wide text-white shadow-[0_8px_16px_rgba(37,99,235,0.38)]">
-                    Twój wybór
-                  </div>
-                )}
                 <div className="px-4 pt-3 pb-4 space-y-3">
                   <div>
                     <p className="text-[12px] md:text-[12.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
@@ -220,6 +218,12 @@ const RevealStep = ({
                   Lista {letter}
                 </span>
               </div>
+              </div>
+              {isPickedByUser && (
+                <div className="absolute right-[-2.54px] top-[-21px] z-[60] rounded-t-md rounded-b-none bg-blue-600 px-2 py-[3px] text-[9.8px] font-extrabold tracking-wide text-white shadow-[0_8px_16px_rgba(37,99,235,0.38)]">
+                  Twój wybór
+                </div>
+              )}
             </div>
           );
         })}
