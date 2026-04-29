@@ -277,10 +277,10 @@ const RevealStep = ({
             <p className="text-[12px] md:text-[12.5px] font-semibold uppercase tracking-[0.08em] text-blue-600 mb-1.5">
               Pytanie końcowe
             </p>
-            <h3 className="text-[15.5px] md:text-[17px] font-bold text-gray-900 leading-snug">
+            <h3 className="text-[15px] md:text-[15.6px] font-semibold text-gray-900 leading-snug">
               Czy po zapoznaniu się z tymi informacjami uważasz, że funkcja
               personalizowanych rekomendacji byłaby przydatna w aplikacjach
-              turystycznych (np. na Booking.com)?
+              turystycznych?
             </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 md:gap-3">
