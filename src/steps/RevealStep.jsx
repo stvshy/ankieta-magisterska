@@ -282,7 +282,7 @@ const RevealStep = ({
               lang="pl"
             >
               {hyphenatePl(
-                "Czy po zapoznaniu się z tymi informacjami uważasz, że funkcja personalizowanych rekomendacji byłaby przydatna w aplikacjach turystycznych?"
+                "Czy po zapoznaniu się z tymi informacjami uważasz, że funkcja personalizowanych rekomendacji byłaby przydatna w aplikacjach turystycznych?",
               )}
             </h3>
           </div>
@@ -306,7 +306,7 @@ const RevealStep = ({
                       isSelected ? opt.iconActive : "text-gray-500"
                     }`}
                   />
-                  <span className="font-semibold text-[14px] md:text-[15px]">
+                  <span className="font-semibold text-[15px] md:text-[16px]">
                     {opt.label}
                   </span>
                 </button>
