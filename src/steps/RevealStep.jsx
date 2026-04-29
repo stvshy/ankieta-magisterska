@@ -83,6 +83,7 @@ const USEFUL_OPTIONS = [
 const COVER_DURATION_MS = 850;
 const STAGGER_MS = 220;
 const QUESTION_DELAY_BUFFER_MS = 250;
+const MOBILE_INITIAL_HOLD_MS = 500;
 
 const RevealStep = ({
   finalChoice,
@@ -91,9 +92,25 @@ const RevealStep = ({
   personalizationUseful,
   setPersonalizationUseful,
 }) => {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px)").matches;
+  });
   const totalRevealMs =
-    STAGGER_MS * 2 + COVER_DURATION_MS + QUESTION_DELAY_BUFFER_MS;
+    STAGGER_MS * 2 +
+    COVER_DURATION_MS +
+    QUESTION_DELAY_BUFFER_MS +
+    (isMobile ? MOBILE_INITIAL_HOLD_MS : 0);
   const [showQuestion, setShowQuestion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const onChange = (event) => setIsMobile(event.matches);
+    setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const t = window.setTimeout(() => setShowQuestion(true), totalRevealMs);
@@ -151,7 +168,9 @@ const RevealStep = ({
 
           if (!meta) return null;
 
-          const animationDelay = `${idx * STAGGER_MS}ms`;
+          const animationDelay = `${
+            idx * STAGGER_MS + (isMobile ? MOBILE_INITIAL_HOLD_MS : 0)
+          }ms`;
 
           return (
             <div
@@ -245,14 +264,14 @@ const RevealStep = ({
 
                 {/* Zaslonka karty - sliduje w gore i znika */}
                 <div
-                  className="reveal-card-cover absolute inset-0 flex items-center justify-center pointer-events-none"
+                  className="reveal-card-cover absolute inset-0 flex items-start md:items-center justify-center pt-8 md:pt-0 pointer-events-none"
                   style={{
                     animationDelay,
                     background: meta.coverGradient,
                   }}
                   aria-hidden="true"
                 >
-                  <span className="text-white text-[36px] md:text-[44px] font-extrabold tracking-tight drop-shadow-md select-none">
+                  <span className="text-white text-[36px] md:text-[44px] font-extrabold tracking-tight drop-shadow-md select-none leading-none">
                     Lista {letter}
                   </span>
                 </div>
