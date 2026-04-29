@@ -174,7 +174,7 @@ const RevealStep = ({
                   >
                     <div className="flex items-center gap-2 min-w-0">
                       {meta.icon}
-                      <h3 className="text-[15px] md:text-[16px] font-bold truncate">
+                      <h3 className="text-[15px] md:text-[14px] font-bold truncate">
                         {meta.title}
                       </h3>
                     </div>
@@ -184,7 +184,7 @@ const RevealStep = ({
                   </div>
                   <div className="px-4 pt-3 pb-4 space-y-3">
                     <div>
-                      <p className="text-[12px] md:text-[12.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
+                    <p className="text-[12px] md:text-[11.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
                         <span
                           className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent`}
                         >
@@ -192,7 +192,7 @@ const RevealStep = ({
                         </span>{" "}
                         {meta.sourceLabel}
                       </p>
-                      <p className="mt-1 text-[12.5px] md:text-[13px] leading-snug text-gray-600">
+                    <p className="mt-1 text-[12.5px] md:text-[12px] leading-snug text-gray-600">
                         {meta.description}
                       </p>
                       {type === "wsm" && (
@@ -206,6 +206,7 @@ const RevealStep = ({
                       layout="list"
                       compact
                       showMatchPct={type === "wsm"}
+                      sizeProfile="reveal"
                     />
                   </div>
                 </div>
