@@ -41,7 +41,7 @@ const RANKING_META = {
     title: "Ranking rzeczywistości",
     sourceLabel: "rzeczywiste wybory Polaków",
     description:
-      "Zbudowany w oparciu o twarde dane sprzedażowe biur podróży - czyli kierunki, które Polacy faktycznie najczęściej kupują.",
+      "Zbudowany w oparciu o twarde dane sprzedażowe biur podróży - czyli kierunki, które Polacy faktycznie najczęściej wybierają.",
     accent: "from-emerald-600 to-teal-700 text-white",
     sourceGradient: "from-emerald-600 to-teal-700",
     coverGradient:
@@ -134,7 +134,7 @@ const RevealStep = ({
       </div>
 
       {/* 3 odslaniajace sie karty */}
-      <div className="mt-4 md:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+      <div className="mt-4 md:mt-8 md:mx-[-20px] lg:mx-[-28px] grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
         {["A", "B", "C"].map((letter, idx) => {
           const type = listMapping?.[letter];
           const meta = type ? RANKING_META[type] : null;
@@ -179,20 +179,33 @@ const RevealStep = ({
                       </h3>
                     </div>
                     <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] md:text-[11.5px] font-semibold tracking-wide">
-                      Lista {letter}
+                      <span className="md:hidden">Lista </span>
+                      {letter}
                     </span>
                   </div>
                   <div className="px-4 pt-3 pb-4 space-y-3">
                     <div>
-                    <p className="text-[12px] md:text-[11.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
+                      <p className="text-[12px] md:text-[11.5px] font-semibold uppercase tracking-[0.06em] text-gray-500">
                         <span
                           className={`bg-gradient-to-r ${meta.sourceGradient} bg-clip-text text-transparent`}
                         >
                           Źródło:
                         </span>{" "}
-                        {meta.sourceLabel}
+                        {type === "reality" ? (
+                          <>
+                            <span className="md:hidden">{meta.sourceLabel}</span>
+                            <span className="hidden md:inline">wybory Polaków</span>
+                          </>
+                        ) : type === "aspirations" ? (
+                          <>
+                            <span className="md:hidden">{meta.sourceLabel}</span>
+                            <span className="hidden md:inline">marzenia Polaków</span>
+                          </>
+                        ) : (
+                          meta.sourceLabel
+                        )}
                       </p>
-                    <p className="mt-1 text-[12.5px] md:text-[12px] leading-snug text-gray-600">
+                      <p className="mt-1 text-[12.5px] md:text-[12px] leading-snug text-gray-600">
                         {meta.description}
                       </p>
                       {type === "wsm" && (
