@@ -208,11 +208,12 @@
 }
 
 .ankieta-app-shell {
-  padding-bottom: 6rem;
+  padding-bottom: calc(6rem + var(--ankieta-footer-offset, 0px));
 }
 
 .ankieta-footer-nav {
   padding-bottom: 1rem;
+  transform: translateY(var(--ankieta-footer-offset, 0px));
 }
 
 @media (max-width: 640px) {
@@ -460,12 +461,17 @@
 
 .consent-step-checkbox-text {
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .consent-step-checkbox-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 0;
+  flex: 1 1 auto;
+  width: 100%;
 }
 
 .consent-step-checkbox-required {
