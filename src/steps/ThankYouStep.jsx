@@ -28,21 +28,21 @@ const ThankYouStep = () => {
         udostępnić poniższy link swoim znajomym :)
       </p>
       <div className="max-w-[min(22rem,100%)] mx-auto w-full mt-2">
-        <div className="flex gap-0 items-stretch rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="flex gap-0 items-stretch rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
           <input
             type="text"
             readOnly
             value={SURVEY_URL}
-            className="flex-1 min-w-0 rounded-l-xl px-3 py-2.5 text-[15.5px] text-gray-800 bg-gray-50/80 border-0 focus:ring-0 focus:outline-none text-left font-mono"
+            className="flex-1 min-w-0 min-h-0 rounded-none rounded-l-xl px-3 py-2.5 text-[15.5px] text-gray-800 bg-gray-50/80 border-0 focus:ring-0 focus:outline-none text-left font-mono self-stretch"
             aria-label="Adres URL ankiety"
           />
           <button
             type="button"
             onClick={handleCopy}
-            className={`shrink-0 rounded-r-xl px-3.5 sm:px-4 py-2.5 text-sm font-medium flex items-center gap-2 border-2 transition-all duration-200 ${
+            className={`shrink-0 min-h-0 rounded-none rounded-r-xl px-3.5 sm:px-4 py-2.5 text-sm font-medium flex items-center justify-center gap-2 border-0 border-l-2 transition-colors duration-200 outline-none focus:outline-none self-stretch ${
               copied
-                ? "border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100"
-                : "border-blue-600 bg-blue-600 text-white hover:bg-blue-700"
+                ? "border-l-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100"
+                : "border-l-blue-600 bg-blue-600 text-white hover:bg-blue-700"
             }`}
           >
             {copied ? (
