@@ -1,7 +1,9 @@
-import React, { memo, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 
 const TOUCH_THUMB_TOLERANCE_PX = 40;
 const TOUCH_THUMB_VERTICAL_TOLERANCE_PX = 24;
+const TOUCH_SCROLL_GUARD_MS = 140;
+const TOUCH_GESTURE_THRESHOLD_PX = 6;
 
 const COLOR_HEX_MAP = {
   "text-amber-600": "#d97706",
@@ -26,6 +28,8 @@ const CustomSlider = memo(function CustomSlider({
   const [isTouchActive, setIsTouchActive] = useState(false);
   const inputRef = useRef(null);
   const activePointerIdRef = useRef(null);
+  const pendingPointerRef = useRef(null);
+  const lastScrollTimestampRef = useRef(0);
   const visibleMarks = useMemo(
     () => marks || Array.from({ length: max + 1 }, (_, index) => index),
     [marks, max],
@@ -51,8 +55,23 @@ const CustomSlider = memo(function CustomSlider({
     return Math.round(ratio * max);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      lastScrollTimestampRef.current = Date.now();
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+      capture: true,
+    });
+    return () => {
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, []);
+
   const handlePointerDown = (e) => {
     if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
+    if (Date.now() - lastScrollTimestampRef.current < TOUCH_SCROLL_GUARD_MS) return;
     const inputElement = inputRef.current;
     if (!inputElement) return;
     const rect = inputElement.getBoundingClientRect();
@@ -66,24 +85,53 @@ const CustomSlider = memo(function CustomSlider({
       distanceX <= TOUCH_THUMB_TOLERANCE_PX &&
       distanceY <= TOUCH_THUMB_VERTICAL_TOLERANCE_PX
     ) {
-      e.preventDefault();
-      activePointerIdRef.current = e.pointerId;
-      e.currentTarget.setPointerCapture?.(e.pointerId);
-      setIsTouchActive(true);
-      onChange(getValueFromClientX(e.clientX));
+      pendingPointerRef.current = {
+        pointerId: e.pointerId,
+        startX: e.clientX,
+        startY: e.clientY,
+      };
     }
   };
 
   const handlePointerMove = (e) => {
+    const pendingPointer = pendingPointerRef.current;
+
+    if (pendingPointer?.pointerId === e.pointerId) {
+      const deltaX = e.clientX - pendingPointer.startX;
+      const deltaY = e.clientY - pendingPointer.startY;
+      const absDeltaX = Math.abs(deltaX);
+      const absDeltaY = Math.abs(deltaY);
+
+      if (absDeltaY > absDeltaX && absDeltaY > TOUCH_GESTURE_THRESHOLD_PX) {
+        pendingPointerRef.current = null;
+        return;
+      }
+
+      if (absDeltaX > TOUCH_GESTURE_THRESHOLD_PX) {
+        e.preventDefault();
+        activePointerIdRef.current = e.pointerId;
+        pendingPointerRef.current = null;
+        e.currentTarget.setPointerCapture?.(e.pointerId);
+        setIsTouchActive(true);
+        onChange(getValueFromClientX(e.clientX));
+      }
+      return;
+    }
+
     if (activePointerIdRef.current !== e.pointerId) return;
     e.preventDefault();
     onChange(getValueFromClientX(e.clientX));
   };
 
   const handlePointerUp = (e) => {
-    if (activePointerIdRef.current !== e.pointerId) return;
-    activePointerIdRef.current = null;
-    setIsTouchActive(false);
+    if (pendingPointerRef.current?.pointerId === e.pointerId) {
+      pendingPointerRef.current = null;
+    }
+
+    if (activePointerIdRef.current === e.pointerId) {
+      activePointerIdRef.current = null;
+      setIsTouchActive(false);
+    }
   };
 
   const handleInputChange = (e) => {
