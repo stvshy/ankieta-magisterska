@@ -1,6 +1,7 @@
 import React, { memo, useMemo, useRef, useState } from "react";
 
-const TOUCH_THUMB_TOLERANCE_PX = 28;
+const TOUCH_THUMB_TOLERANCE_PX = 40;
+const TOUCH_THUMB_VERTICAL_TOLERANCE_PX = 24;
 
 const COLOR_HEX_MAP = {
   "text-amber-600": "#d97706",
@@ -23,7 +24,8 @@ const CustomSlider = memo(function CustomSlider({
 }) {
   const [hoveredMark, setHoveredMark] = useState(null);
   const [isTouchActive, setIsTouchActive] = useState(false);
-  const allowTouchChangeRef = useRef(true);
+  const inputRef = useRef(null);
+  const activePointerIdRef = useRef(null);
   const visibleMarks = useMemo(
     () => marks || Array.from({ length: max + 1 }, (_, index) => index),
     [marks, max],
@@ -39,29 +41,52 @@ const CustomSlider = memo(function CustomSlider({
     return `calc(${percent}% - (${percent} * ${thumbSizePx}px / 100) + ${thumbRadiusPx}px)`;
   };
 
-  const handleTouchStart = (e) => {
-    if (e.touches.length !== 1) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const touchX = e.touches[0].clientX - rect.left;
-    const ratio = max === 0 ? 0 : value / max;
-    const thumbCenterX = thumbRadiusPx + ratio * (rect.width - thumbSizePx);
-    const distance = Math.abs(touchX - thumbCenterX);
+  const getValueFromClientX = (clientX) => {
+    const inputElement = inputRef.current;
+    if (!inputElement) return value;
+    const rect = inputElement.getBoundingClientRect();
+    const relativeX = clientX - rect.left;
+    const trackWidth = Math.max(rect.width - thumbSizePx, 1);
+    const ratio = Math.min(Math.max((relativeX - thumbRadiusPx) / trackWidth, 0), 1);
+    return Math.round(ratio * max);
+  };
 
-    if (distance <= TOUCH_THUMB_TOLERANCE_PX) {
-      allowTouchChangeRef.current = true;
+  const handlePointerDown = (e) => {
+    if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
+    const inputElement = inputRef.current;
+    if (!inputElement) return;
+    const rect = inputElement.getBoundingClientRect();
+    const ratio = max === 0 ? 0 : value / max;
+    const thumbCenterX = rect.left + thumbRadiusPx + ratio * (rect.width - thumbSizePx);
+    const thumbCenterY = rect.top + rect.height / 2;
+    const distanceX = Math.abs(e.clientX - thumbCenterX);
+    const distanceY = Math.abs(e.clientY - thumbCenterY);
+
+    if (
+      distanceX <= TOUCH_THUMB_TOLERANCE_PX &&
+      distanceY <= TOUCH_THUMB_VERTICAL_TOLERANCE_PX
+    ) {
+      e.preventDefault();
+      activePointerIdRef.current = e.pointerId;
+      e.currentTarget.setPointerCapture?.(e.pointerId);
       setIsTouchActive(true);
-    } else {
-      allowTouchChangeRef.current = false;
+      onChange(getValueFromClientX(e.clientX));
     }
   };
 
-  const handleTouchEnd = () => {
-    allowTouchChangeRef.current = true;
+  const handlePointerMove = (e) => {
+    if (activePointerIdRef.current !== e.pointerId) return;
+    e.preventDefault();
+    onChange(getValueFromClientX(e.clientX));
+  };
+
+  const handlePointerUp = (e) => {
+    if (activePointerIdRef.current !== e.pointerId) return;
+    activePointerIdRef.current = null;
     setIsTouchActive(false);
   };
 
   const handleInputChange = (e) => {
-    if (!allowTouchChangeRef.current) return;
     onChange(parseInt(e.target.value, 10));
   };
   const renderMinorMarks = (markValues) => (
@@ -145,7 +170,13 @@ const CustomSlider = memo(function CustomSlider({
   );
 
   return (
-    <div className="relative pt-1.5 pb-1.5">
+    <div
+      className="relative pt-1.5 pb-1.5"
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
       {renderMarks(visibleMarks, "relative h-[33px] w-full mb-1 lg:hidden")}
       <div className="relative hidden lg:block h-[38px] w-full mb-1.5">
         {renderMinorMarks(visibleDesktopMinorMarks)}
@@ -153,15 +184,13 @@ const CustomSlider = memo(function CustomSlider({
       </div>
 
       <input
+        ref={inputRef}
         type="range"
         min="0"
         max={max}
         step="1"
         value={value}
         onChange={handleInputChange}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchCancel={handleTouchEnd}
         onMouseLeave={() => setHoveredMark(null)}
         className={`custom-slider block w-full h-[8.8px] sm:h-[9.8px] lg:h-[10.8px] rounded-lg appearance-none cursor-pointer relative z-10 outline-none
           [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border
