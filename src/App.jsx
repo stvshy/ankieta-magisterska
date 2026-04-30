@@ -129,6 +129,42 @@ export default function App() {
     }
   }, [countryListLayout]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.visualViewport) return;
+
+    const ua = window.navigator.userAgent || "";
+    const platform = window.navigator.platform || "";
+    const maxTouchPoints = window.navigator.maxTouchPoints || 0;
+    const isIOS =
+      /iPad|iPhone|iPod/.test(ua) ||
+      (platform === "MacIntel" && maxTouchPoints > 1);
+    if (!isIOS) return;
+
+    const root = document.documentElement;
+    const updateBottomOffset = () => {
+      const vv = window.visualViewport;
+      if (!vv) return;
+      const offset = Math.max(
+        0,
+        window.innerHeight - (vv.height + vv.offsetTop),
+      );
+      root.style.setProperty("--ankieta-vv-bottom-offset", `${offset}px`);
+    };
+
+    updateBottomOffset();
+    window.visualViewport.addEventListener("resize", updateBottomOffset);
+    window.visualViewport.addEventListener("scroll", updateBottomOffset);
+    window.addEventListener("orientationchange", updateBottomOffset);
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", updateBottomOffset);
+      window.visualViewport?.removeEventListener("scroll", updateBottomOffset);
+      window.removeEventListener("orientationchange", updateBottomOffset);
+      root.style.removeProperty("--ankieta-vv-bottom-offset");
+    };
+  }, []);
+
   // --- WALIDACJA KROKÓW ---
   const canProceed = useCallback(() => {
     if (currentStep === STEP.CONSENT) return agreed;
