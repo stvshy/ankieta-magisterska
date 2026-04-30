@@ -344,7 +344,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 pb-24">
+    <div className="min-h-dvh bg-gray-50 text-gray-900 pb-[calc(6rem+env(safe-area-inset-bottom))]">
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
@@ -453,7 +453,10 @@ export default function App() {
 
       {/* FOOTER Z PRZYCISKAMI NAWIGACJI */}
       {currentStep < STEPS.length - 1 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+        <div
+          className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20"
+          style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+        >
           {submitError && currentStep === STEPS.length - 2 && (
             <div className="max-w-4xl mx-auto mb-2 px-0 sm:px-6 lg:px-10">
               <p className="text-center text-[12.5px] font-medium text-red-600">
@@ -465,7 +468,7 @@ export default function App() {
             <button
               onClick={handlePrev}
               disabled={currentStep === 0 || isSubmitting}
-              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 pl-4 pr-8 py-3 rounded-xl !font-medium transition-all
+              className={`w-[135px] sm:w-[150px] flex items-center justify-center gap-2 border-2 border-transparent pl-4 pr-8 py-3 rounded-xl !font-medium leading-none transition-all
                 ${currentStep === 0 ? "opacity-0 cursor-default" : "text-gray-600 bg-gray-100 hover:bg-gray-200"}
                 ${isSubmitting ? "opacity-60 cursor-not-allowed" : ""}`}
             >
@@ -476,7 +479,7 @@ export default function App() {
               type="button"
               onClick={handlePrimaryNavClick}
               disabled={!canProceed() || isSubmitting}
-              className={`ankieta-primary-nav-next relative min-w-[135px] sm:min-w-[150px] px-4 flex items-center justify-center gap-2 py-3 rounded-xl !font-medium transition-[box-shadow,background-color,border-color,transform,opacity] shadow-sm border-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200/90 focus-visible:ring-offset-2 focus-visible:ring-offset-white
+              className={`ankieta-primary-nav-next relative min-w-[135px] sm:min-w-[150px] h-[47.2px] px-4 flex items-center justify-center rounded-xl !font-medium leading-none transition-[box-shadow,background-color,border-color,transform,opacity] shadow-sm border-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200/90 focus-visible:ring-offset-2 focus-visible:ring-offset-white
                 ${
                   currentStep === STEP.REVEAL &&
                   canProceed() &&
@@ -501,17 +504,21 @@ export default function App() {
                     : ""
                 }`}
             >
-              <span className="flex items-center justify-center gap-2">
+              <span className="flex w-full items-center justify-center">
                 {isSubmitting ? (
-                  <>
+                  <span className="inline-flex items-center justify-center gap-2">
                     <Loader2 className="w-5 h-5 shrink-0 animate-spin" />
                     Zapisuję…
-                  </>
+                  </span>
                 ) : (
-                  <>
-                    {currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}{" "}
-                    <ChevronRight className="w-5 h-5 shrink-0" />
-                  </>
+                  <span className="relative inline-flex w-full items-center justify-center">
+                    <span>{currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}</span>
+                    <ChevronRight
+                      className={`absolute right-0 w-5 h-5 shrink-0 ${
+                        currentStep === STEPS.length - 2 ? "hidden sm:block" : ""
+                      }`}
+                    />
+                  </span>
                 )}
               </span>
             </button>
