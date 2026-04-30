@@ -53,7 +53,6 @@ const STEP = {
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [footerViewportOffset, setFooterViewportOffset] = useState(0);
 
   // --- STATE ANKIETY ---
   const [agreed, setAgreed] = useState(false);
@@ -129,36 +128,6 @@ export default function App() {
       /* ignore */
     }
   }, [countryListLayout]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const computeViewportOffset = () => {
-      const vv = window.visualViewport;
-      if (!vv) {
-        setFooterViewportOffset(0);
-        return;
-      }
-
-      // iPad/iOS Safari potrafi przesuwać fixed footer względem visual viewport.
-      // Wyrównujemy go o realny "dół" viewportu.
-      const rawOffset = window.innerHeight - vv.height - vv.offsetTop;
-      setFooterViewportOffset(Math.max(0, Math.round(rawOffset)));
-    };
-
-    computeViewportOffset();
-    window.addEventListener("resize", computeViewportOffset);
-    window.addEventListener("orientationchange", computeViewportOffset);
-    window.visualViewport?.addEventListener("resize", computeViewportOffset);
-    window.visualViewport?.addEventListener("scroll", computeViewportOffset);
-
-    return () => {
-      window.removeEventListener("resize", computeViewportOffset);
-      window.removeEventListener("orientationchange", computeViewportOffset);
-      window.visualViewport?.removeEventListener("resize", computeViewportOffset);
-      window.visualViewport?.removeEventListener("scroll", computeViewportOffset);
-    };
-  }, []);
 
   // --- WALIDACJA KROKÓW ---
   const canProceed = useCallback(() => {
@@ -375,10 +344,7 @@ export default function App() {
   };
 
   return (
-    <div
-      className="ankieta-app-shell min-h-dvh bg-gray-50 text-gray-900"
-      style={{ "--ankieta-footer-offset": `${footerViewportOffset}px` }}
-    >
+    <div className="ankieta-app-shell min-h-[100dvh] flex flex-col bg-gray-50 text-gray-900">
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">

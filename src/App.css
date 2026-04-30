@@ -208,21 +208,16 @@
 }
 
 .ankieta-app-shell {
-  padding-bottom: calc(6rem + var(--ankieta-footer-offset, 0px));
+  padding-bottom: 6rem;
 }
 
 .ankieta-footer-nav {
-  padding-bottom: 1rem;
-  transform: translateY(var(--ankieta-footer-offset, 0px));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
 @media (max-width: 640px) {
   .ankieta-app-shell {
     padding-bottom: calc(6rem + env(safe-area-inset-bottom));
-  }
-
-  .ankieta-footer-nav {
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 }
 
@@ -461,8 +456,12 @@
 
 .consent-step-checkbox-text {
   line-height: 1.45;
-  overflow-wrap: anywhere;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   word-break: break-word;
+  white-space: normal;
+  width: 100%;
+  display: block;
 }
 
 .consent-step-checkbox-content {
