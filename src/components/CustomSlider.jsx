@@ -3,7 +3,6 @@ import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 const TOUCH_THUMB_TOLERANCE_PX = 40;
 const TOUCH_THUMB_VERTICAL_TOLERANCE_PX = 24;
 const TOUCH_SCROLL_GUARD_MS = 140;
-const TOUCH_GESTURE_THRESHOLD_PX = 6;
 
 const COLOR_HEX_MAP = {
   "text-amber-600": "#d97706",
@@ -26,9 +25,9 @@ const CustomSlider = memo(function CustomSlider({
 }) {
   const [hoveredMark, setHoveredMark] = useState(null);
   const [isTouchActive, setIsTouchActive] = useState(false);
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const inputRef = useRef(null);
   const activePointerIdRef = useRef(null);
-  const pendingPointerRef = useRef(null);
   const lastScrollTimestampRef = useRef(0);
   const visibleMarks = useMemo(
     () => marks || Array.from({ length: max + 1 }, (_, index) => index),
@@ -51,7 +50,10 @@ const CustomSlider = memo(function CustomSlider({
     const rect = inputElement.getBoundingClientRect();
     const relativeX = clientX - rect.left;
     const trackWidth = Math.max(rect.width - thumbSizePx, 1);
-    const ratio = Math.min(Math.max((relativeX - thumbRadiusPx) / trackWidth, 0), 1);
+    const ratio = Math.min(
+      Math.max((relativeX - thumbRadiusPx) / trackWidth, 0),
+      1,
+    );
     return Math.round(ratio * max);
   };
 
@@ -69,14 +71,31 @@ const CustomSlider = memo(function CustomSlider({
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return undefined;
+
+    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+    const updateCoarsePointer = () => {
+      setIsCoarsePointer(coarsePointerQuery.matches);
+    };
+
+    updateCoarsePointer();
+    coarsePointerQuery.addEventListener("change", updateCoarsePointer);
+    return () => {
+      coarsePointerQuery.removeEventListener("change", updateCoarsePointer);
+    };
+  }, []);
+
   const handlePointerDown = (e) => {
     if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
-    if (Date.now() - lastScrollTimestampRef.current < TOUCH_SCROLL_GUARD_MS) return;
+    if (Date.now() - lastScrollTimestampRef.current < TOUCH_SCROLL_GUARD_MS)
+      return;
     const inputElement = inputRef.current;
     if (!inputElement) return;
     const rect = inputElement.getBoundingClientRect();
     const ratio = max === 0 ? 0 : value / max;
-    const thumbCenterX = rect.left + thumbRadiusPx + ratio * (rect.width - thumbSizePx);
+    const thumbCenterX =
+      rect.left + thumbRadiusPx + ratio * (rect.width - thumbSizePx);
     const thumbCenterY = rect.top + rect.height / 2;
     const distanceX = Math.abs(e.clientX - thumbCenterX);
     const distanceY = Math.abs(e.clientY - thumbCenterY);
@@ -85,49 +104,21 @@ const CustomSlider = memo(function CustomSlider({
       distanceX <= TOUCH_THUMB_TOLERANCE_PX &&
       distanceY <= TOUCH_THUMB_VERTICAL_TOLERANCE_PX
     ) {
-      pendingPointerRef.current = {
-        pointerId: e.pointerId,
-        startX: e.clientX,
-        startY: e.clientY,
-      };
+      e.preventDefault();
+      activePointerIdRef.current = e.pointerId;
+      e.currentTarget.setPointerCapture?.(e.pointerId);
+      setIsTouchActive(true);
+      onChange(getValueFromClientX(e.clientX));
     }
   };
 
   const handlePointerMove = (e) => {
-    const pendingPointer = pendingPointerRef.current;
-
-    if (pendingPointer?.pointerId === e.pointerId) {
-      const deltaX = e.clientX - pendingPointer.startX;
-      const deltaY = e.clientY - pendingPointer.startY;
-      const absDeltaX = Math.abs(deltaX);
-      const absDeltaY = Math.abs(deltaY);
-
-      if (absDeltaY > absDeltaX && absDeltaY > TOUCH_GESTURE_THRESHOLD_PX) {
-        pendingPointerRef.current = null;
-        return;
-      }
-
-      if (absDeltaX > TOUCH_GESTURE_THRESHOLD_PX) {
-        e.preventDefault();
-        activePointerIdRef.current = e.pointerId;
-        pendingPointerRef.current = null;
-        e.currentTarget.setPointerCapture?.(e.pointerId);
-        setIsTouchActive(true);
-        onChange(getValueFromClientX(e.clientX));
-      }
-      return;
-    }
-
     if (activePointerIdRef.current !== e.pointerId) return;
     e.preventDefault();
     onChange(getValueFromClientX(e.clientX));
   };
 
   const handlePointerUp = (e) => {
-    if (pendingPointerRef.current?.pointerId === e.pointerId) {
-      pendingPointerRef.current = null;
-    }
-
     if (activePointerIdRef.current === e.pointerId) {
       activePointerIdRef.current = null;
       setIsTouchActive(false);
@@ -224,6 +215,10 @@ const CustomSlider = memo(function CustomSlider({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
+      style={{
+        touchAction:
+          isCoarsePointer && isTouchActive ? "none" : isCoarsePointer ? "pan-y" : "auto",
+      }}
     >
       {renderMarks(visibleMarks, "relative h-[33px] w-full mb-1 lg:hidden")}
       <div className="relative hidden lg:block h-[38px] w-full mb-1.5">
@@ -254,6 +249,7 @@ const CustomSlider = memo(function CustomSlider({
         style={{
           outline: "none",
           touchAction: "pan-y",
+          pointerEvents: isCoarsePointer ? "none" : "auto",
           background: `linear-gradient(to right, ${sliderColor} 0%, ${sliderColor} ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`,
         }}
       />
