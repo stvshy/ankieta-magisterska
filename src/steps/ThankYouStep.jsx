@@ -22,7 +22,7 @@ const ThankYouStep = () => {
         <CheckCircle className="w-12 h-12" />
       </div>
       <h2 className="text-3xl font-bold text-gray-900">Dziękuję za udział!</h2>
-      <p className="text-[14.5px] sm:text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed mt-4 sm:mt-8 mb-6 sm:mb-8">
+      <p className="text-[14.5px] sm:text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed mt-4.5 sm:mt-8 mb-6 sm:mb-8">
         Twoje odpowiedzi zostały pomyślnie zapisane. Z&nbsp;pewnością pomogą one
         w dalszych badaniach. Jeśli masz ochotę jeszcze jakoś pomóc, możesz
         udostępnić poniższy link swoim znajomym :)
@@ -41,7 +41,7 @@ const ThankYouStep = () => {
             onClick={handleCopy}
             className={`shrink-0 min-h-0 rounded-none rounded-r-xl px-3.5 sm:px-4 py-2.5 text-sm font-medium flex items-center justify-center gap-2 border-0 border-l-2 transition-colors duration-200 outline-none focus:outline-none self-stretch ${
               copied
-                ? "border-l-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100"
+                ? "border-l-gray-200 bg-[#EFF0F3] text-gray-600 hover:bg-[#EFF0F3]"
                 : "border-l-blue-600 bg-blue-600 text-white hover:bg-blue-700"
             }`}
           >
