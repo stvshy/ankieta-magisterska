@@ -17,7 +17,7 @@ const ThankYouStep = () => {
   };
 
   return (
-    <div className="text-center pt-2 pb-8 sm:pt-12 sm:pb-12 animate-fadeIn">
+    <div className="text-center -mt-2 sm:mt-0 pt-0 sm:pt-12 pb-8 sm:pb-12 animate-fadeIn">
       <div className="w-20 h-20 sm:w-24 sm:h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
         <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12" />
       </div>
@@ -35,7 +35,7 @@ const ThankYouStep = () => {
             type="text"
             readOnly
             value={SURVEY_URL}
-            className="flex-1 min-w-0 min-h-0 rounded-none rounded-l-xl px-2.5 sm:px-3 py-2 sm:py-2.5 text-[14px] sm:text-[15.5px] text-gray-800 bg-gray-50/80 border-0 focus:ring-0 focus:outline-none text-left font-mono self-stretch"
+            className="flex-1 min-w-0 min-h-0 rounded-none rounded-l-xl px-2.5 sm:px-3 py-2 sm:py-2.5 text-[13.5px] sm:text-[15.5px] text-gray-800 bg-gray-50/80 border-0 focus:ring-0 focus:outline-none text-left font-mono self-stretch"
             aria-label="Adres URL ankiety"
           />
           <button
