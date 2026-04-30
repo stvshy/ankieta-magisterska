@@ -344,7 +344,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-dvh bg-gray-50 text-gray-900 pb-[calc(6rem+env(safe-area-inset-bottom))]">
+    <div className="ankieta-app-shell min-h-dvh bg-gray-50 text-gray-900">
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
@@ -454,8 +454,7 @@ export default function App() {
       {/* FOOTER Z PRZYCISKAMI NAWIGACJI */}
       {currentStep < STEPS.length - 1 && (
         <div
-          className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20"
-          style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+          className="ankieta-footer-nav fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20"
         >
           {submitError && currentStep === STEPS.length - 2 && (
             <div className="max-w-4xl mx-auto mb-2 px-0 sm:px-6 lg:px-10">

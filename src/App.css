@@ -207,6 +207,24 @@
   color: #316de5;
 }
 
+.ankieta-app-shell {
+  padding-bottom: 6rem;
+}
+
+.ankieta-footer-nav {
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .ankieta-app-shell {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
+
+  .ankieta-footer-nav {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
 .consent-step-layout {
   display: flex;
   flex-direction: column;
