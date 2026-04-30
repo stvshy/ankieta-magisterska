@@ -18,13 +18,13 @@ const ThankYouStep = () => {
 
   return (
     <div className="text-center -mt-2 sm:mt-0 pt-0 sm:pt-12 pb-8 sm:pb-12 animate-fadeIn">
-      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-4">
         <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12" />
       </div>
       <h2 className="text-[24px] sm:text-[27px] font-bold text-gray-900">
         Dziękuję za udział!
       </h2>
-      <p className="text-[13.5px] sm:text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed mt-4 sm:mt-8 mb-5 sm:mb-8">
+      <p className="text-[13.5px] sm:text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed mt-4.5 sm:mt-8 mb-5.5 sm:mb-8">
         Twoje odpowiedzi zostały pomyślnie zapisane. Z&nbsp;pewnością pomogą one
         w dalszych badaniach. Jeśli masz ochotę jeszcze jakoś pomóc, możesz
         udostępnić poniższy link swoim znajomym :)
@@ -61,7 +61,7 @@ const ThankYouStep = () => {
           </button>
         </div>
       </div>
-      <div className="mt-5 sm:mt-10 p-3 sm:p-4 bg-gray-50 rounded-lg inline-block text-[13px] sm:text-sm text-gray-500">
+      <div className="mt-5.5 sm:mt-10 p-3 sm:p-4 bg-gray-50 rounded-lg inline-block text-[13px] sm:text-sm text-gray-500">
         Możesz teraz bezpiecznie zamknąć tę kartę przeglądarki.
       </div>
     </div>
