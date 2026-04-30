@@ -22,37 +22,37 @@ const ThankYouStep = () => {
         <CheckCircle className="w-12 h-12" />
       </div>
       <h2 className="text-3xl font-bold text-gray-900">Dziękuję za udział!</h2>
-      <p className="text-gray-600 max-w-md mx-auto">
-        Twoje odpowiedzi zostały pomyślnie zapisane. <br />Z pewnością pomogą
-        one w dalszych badaniach. <br />
-        Jeśli masz ochotę jeszcze jakoś pomóc, możesz udostępnić poniższy link
-        swoim znajomym :)
+      <p className="text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed">
+        Twoje odpowiedzi zostały pomyślnie zapisane. Z&nbsp;pewnością pomogą one
+        w dalszych badaniach. Jeśli masz ochotę jeszcze jakoś pomóc, możesz
+        udostępnić poniższy link swoim znajomym :)
       </p>
-      <div className="max-w-md mx-auto w-full mt-2">
-        {/* <p className="text-sm font-medium text-gray-700 mb-2">
-          Link do ankiety (np. do udostępnienia):
-        </p> */}
-        <div className="flex gap-2 items-stretch rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+      <div className="max-w-[min(22rem,100%)] mx-auto w-full mt-2">
+        <div className="flex gap-0 items-stretch rounded-xl border border-gray-200 bg-white shadow-sm">
           <input
             type="text"
             readOnly
             value={SURVEY_URL}
-            className="flex-1 min-w-0 px-3 py-2.5 text-sm text-gray-800 bg-gray-50/80 border-0 focus:ring-0 focus:outline-none text-left font-mono"
+            className="flex-1 min-w-0 rounded-l-xl px-3 py-2.5 text-[15.5px] text-gray-800 bg-gray-50/80 border-0 focus:ring-0 focus:outline-none text-left font-mono"
             aria-label="Adres URL ankiety"
           />
           <button
             type="button"
             onClick={handleCopy}
-            className="shrink-0 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium flex items-center gap-2 transition-colors"
+            className={`shrink-0 rounded-r-xl px-3.5 sm:px-4 py-2.5 text-sm font-medium flex items-center gap-2 border-2 border-blue-600 transition-all duration-200 ${
+              copied
+                ? "bg-white text-blue-600 ring-4 ring-inset ring-blue-600/15"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
           >
             {copied ? (
               <>
-                <Check className="w-4 h-4" />
+                <Check className="w-4 h-4 shrink-0" />
                 Skopiowano
               </>
             ) : (
               <>
-                <Copy className="w-4 h-4" />
+                <Copy className="w-4 h-4 shrink-0" />
                 Kopiuj
               </>
             )}
