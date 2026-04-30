@@ -99,7 +99,7 @@ const ListEvaluationStep = ({
                 <button
                   type="button"
                   onClick={() => setIntroExpanded((v) => !v)}
-                  className="mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center rounded-lg py-0 text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
+                  className="group mt-[calc(0.25rem+0.7px)] flex w-full items-center justify-center py-0 text-blue-100/90 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
                   aria-expanded={introExpanded}
                   aria-label={
                     introExpanded
@@ -109,12 +109,12 @@ const ListEvaluationStep = ({
                 >
                   {introExpanded ? (
                     <BsChevronCompactUp
-                      className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                      className="h-[26.4px] w-[26.4px] shrink-0 opacity-69 transition-opacity group-hover:opacity-100 group-active:opacity-100"
                       aria-hidden
                     />
                   ) : (
                     <BsChevronCompactDown
-                      className="h-[26.4px] w-[26.4px] shrink-0 opacity-69"
+                      className="h-[26.4px] w-[26.4px] shrink-0 opacity-69 transition-opacity group-hover:opacity-100 group-active:opacity-100"
                       aria-hidden
                     />
                   )}
