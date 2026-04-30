@@ -86,6 +86,12 @@ const CustomSlider = memo(function CustomSlider({
     };
   }, []);
 
+  useEffect(() => {
+    if (isCoarsePointer && hoveredMark !== null) {
+      setHoveredMark(null);
+    }
+  }, [hoveredMark, isCoarsePointer]);
+
   const handlePointerDown = (e) => {
     if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
     if (Date.now() - lastScrollTimestampRef.current < TOUCH_SCROLL_GUARD_MS)
@@ -154,7 +160,7 @@ const CustomSlider = memo(function CustomSlider({
       {markValues.map((mark) => {
         const isActive = value === mark;
         const isSelectable = mark <= maxSelectable;
-        const isHovered = hoveredMark === mark && isSelectable;
+        const isHovered = !isCoarsePointer && hoveredMark === mark && isSelectable;
 
         return (
           <div
@@ -166,8 +172,12 @@ const CustomSlider = memo(function CustomSlider({
               left: getMarkLeftPosition(mark),
               transform: "translateX(-50%)",
             }}
-            onMouseEnter={() => setHoveredMark(mark)}
-            onMouseLeave={() => setHoveredMark(null)}
+            onMouseEnter={() => {
+              if (!isCoarsePointer) setHoveredMark(mark);
+            }}
+            onMouseLeave={() => {
+              if (!isCoarsePointer) setHoveredMark(null);
+            }}
             onClick={() => {
               if (isSelectable) onChange(mark);
             }}
