@@ -214,6 +214,8 @@
 .ankieta-footer-nav {
   bottom: var(--ankieta-vv-bottom-offset, 0px);
   padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  /* Płynne przejście ukrywające lagi przeglądarki iOS */
+  transition: bottom 0.15s ease-out;
 }
 
 @media (max-width: 640px) {

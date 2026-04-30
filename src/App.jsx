@@ -145,6 +145,13 @@ export default function App() {
     const updateBottomOffset = () => {
       const vv = window.visualViewport;
       if (!vv) return;
+
+      // FIX: Ignoruj kalkulacje podczas efektu "sprężyny" (rubber-band) na samej górze
+      if (window.scrollY <= 0) {
+        root.style.setProperty("--ankieta-vv-bottom-offset", "0px");
+        return;
+      }
+
       const offset = Math.max(
         0,
         window.innerHeight - (vv.height + vv.offsetTop),
@@ -489,9 +496,7 @@ export default function App() {
 
       {/* FOOTER Z PRZYCISKAMI NAWIGACJI */}
       {currentStep < STEPS.length - 1 && (
-        <div
-          className="ankieta-footer-nav fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20"
-        >
+        <div className="ankieta-footer-nav fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
           {submitError && currentStep === STEPS.length - 2 && (
             <div className="max-w-4xl mx-auto mb-2 px-0 sm:px-6 lg:px-10">
               <p className="text-center text-[12.5px] font-medium text-red-600">
@@ -516,9 +521,7 @@ export default function App() {
               disabled={!canProceed() || isSubmitting}
               className={`ankieta-primary-nav-next relative min-w-[135px] sm:min-w-[150px] h-[47.2px] px-4 flex items-center justify-center rounded-xl !font-medium leading-none transition-[box-shadow,background-color,border-color,transform,opacity] shadow-sm border-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200/90 focus-visible:ring-offset-2 focus-visible:ring-offset-white
                 ${
-                  currentStep === STEP.REVEAL &&
-                  canProceed() &&
-                  !isSubmitting
+                  currentStep === STEP.REVEAL && canProceed() && !isSubmitting
                     ? "bg-emerald-600 text-white border-emerald-600 shadow-[0_4px_14px_rgba(5,150,105,0.32)] hover:bg-emerald-700 hover:border-emerald-700 hover:shadow-[0_6px_18px_rgba(5,150,105,0.38)] active:scale-[0.98]"
                     : ""
                 }
@@ -547,10 +550,14 @@ export default function App() {
                   </span>
                 ) : (
                   <span className="relative inline-flex w-full items-center justify-center">
-                    <span>{currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}</span>
+                    <span>
+                      {currentStep === STEPS.length - 2 ? "Zakończ" : "Dalej"}
+                    </span>
                     <ChevronRight
                       className={`absolute right-0 w-5 h-5 shrink-0 ${
-                        currentStep === STEPS.length - 2 ? "hidden sm:block" : ""
+                        currentStep === STEPS.length - 2
+                          ? "hidden sm:block"
+                          : ""
                       }`}
                     />
                   </span>
