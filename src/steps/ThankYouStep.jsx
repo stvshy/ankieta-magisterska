@@ -17,12 +17,12 @@ const ThankYouStep = () => {
   };
 
   return (
-    <div className="text-center py-12 animate-fadeIn space-y-6">
-      <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+    <div className="text-center pt-2 pb-8 sm:pt-12 sm:pb-12 animate-fadeIn">
+      <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
         <CheckCircle className="w-12 h-12" />
       </div>
       <h2 className="text-3xl font-bold text-gray-900">Dziękuję za udział!</h2>
-      <p className="text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed">
+      <p className="text-[14.5px] sm:text-[15px] text-gray-600 max-w-md mx-auto leading-relaxed mt-4 sm:mt-8 mb-6 sm:mb-8">
         Twoje odpowiedzi zostały pomyślnie zapisane. Z&nbsp;pewnością pomogą one
         w dalszych badaniach. Jeśli masz ochotę jeszcze jakoś pomóc, możesz
         udostępnić poniższy link swoim znajomym :)
@@ -39,10 +39,10 @@ const ThankYouStep = () => {
           <button
             type="button"
             onClick={handleCopy}
-            className={`shrink-0 rounded-r-xl px-3.5 sm:px-4 py-2.5 text-sm font-medium flex items-center gap-2 border-2 border-blue-600 transition-all duration-200 ${
+            className={`shrink-0 rounded-r-xl px-3.5 sm:px-4 py-2.5 text-sm font-medium flex items-center gap-2 border-2 transition-all duration-200 ${
               copied
-                ? "bg-white text-blue-600 ring-4 ring-inset ring-blue-600/15"
-                : "bg-blue-600 hover:bg-blue-700 text-white"
+                ? "border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100"
+                : "border-blue-600 bg-blue-600 text-white hover:bg-blue-700"
             }`}
           >
             {copied ? (
@@ -59,7 +59,7 @@ const ThankYouStep = () => {
           </button>
         </div>
       </div>
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg inline-block text-sm text-gray-500">
+      <div className="mt-5 sm:mt-10 p-4 bg-gray-50 rounded-lg inline-block text-sm text-gray-500">
         Możesz teraz bezpiecznie zamknąć tę kartę przeglądarki.
       </div>
     </div>
