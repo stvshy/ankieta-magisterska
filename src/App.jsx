@@ -344,7 +344,7 @@ export default function App() {
   };
 
   return (
-    <div className="ankieta-app-shell min-h-[100dvh] flex flex-col bg-gray-50 text-gray-900">
+    <div className="ankieta-app-shell min-h-dvh bg-gray-50 text-gray-900">
       {/* HEADER & NEW STEPPER */}
       <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
