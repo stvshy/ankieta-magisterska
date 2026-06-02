@@ -37,7 +37,7 @@ export const STEPS = [
   { id: "thanks", title: "Koniec" },
 ];
 
-// Indeksy krokow - latwiej sie czyta nawigacja niz porownania do magicznych liczb.
+// Indeksy krokow
 const STEP = {
   CONSENT: 0,
   PROFILING: 1,
@@ -49,7 +49,7 @@ const STEP = {
   THANKS: 7,
 };
 
-// (komponenty pomocnicze i widoki są teraz w osobnych plikach)
+// (komponenty pomocnicze i widoki są w osobnych plikach)
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -146,7 +146,7 @@ export default function App() {
       const vv = window.visualViewport;
       if (!vv) return;
 
-      // FIX: Ignoruj kalkulacje podczas efektu "sprężyny" (rubber-band) na samej górze
+      // Ignoruj kalkulacje podczas efektu "sprężyny" (rubber-band) na samej górze
       if (window.scrollY <= 0) {
         root.style.setProperty("--ankieta-vv-bottom-offset", "0px");
         return;
@@ -216,8 +216,8 @@ export default function App() {
   ]);
 
   // Liczy WSM + losuje przypisanie list do literek A/B/C.
-  // Wywolywane raz, przy przejsciu z Profilowania (krok 1) do Listy A (krok 2),
-  // tak aby kolejne krotne klikniecia "Dalej/Wstecz" nie zmienialy tasowania.
+  // Wywolywane raz, przy przejsciu z Profilowania (krok 2) do Listy A (krok 3),
+  // tak aby kolejne klikniecia "Dalej/Wstecz" nie zmienialy tasowania.
   const generateRankingsAndShuffle = useCallback(() => {
     const top10 = calculateWsmTopN(KRAJE_DB, preferences, 10);
     setWsmTop10(top10);
@@ -388,7 +388,7 @@ export default function App() {
 
   return (
     <div className="ankieta-app-shell min-h-dvh bg-gray-50 text-gray-900">
-      {/* HEADER & NEW STEPPER */}
+      {/* HEADER & STEPPER */}
       <div className="bg-white border-b border-gray-200 shadow-sm sm:sticky sm:top-0 sm:z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <h1 className="ankieta-accent-text text-lg font-bold text-center mb-6">
@@ -408,7 +408,7 @@ export default function App() {
                 ></div>
               </div>
 
-              {/* Kropki kroków */}
+              {/* STEPPER TRACK */}
               <div className="ankieta-stepper-track flex justify-between relative z-10 overflow-visible pb-2 sm:pb-0 px-0 sm:px-0">
                 {STEPS.map((step, index) => {
                   const isCompleted = index < currentStep;

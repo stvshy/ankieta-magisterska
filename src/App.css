@@ -183,7 +183,6 @@
   }
 }
 
-/* Top stepper fixed width */
 .ankieta-stepper-shell {
   width: min(816px, 100%);
   max-width: 100%;
@@ -627,7 +626,6 @@
 
 @media (min-width: 641px) and (max-width: 1023px) {
   .ankieta-stepper-shell {
-    /* Narrow tablet view to match bottom-nav horizontal rhythm. */
     width: calc(100% - 48px);
     max-width: none;
   }
@@ -763,7 +761,7 @@
   .consent-step-layout {
     min-height: auto;
     margin-top: -12px;
-    /* Mniejszy odstęp checkboxa „Oświadczam…” od dolnego paska (Dalej) — tylko mobile */
+    /* odstęp checkboxa "Oświadczam..." od dolnego paska (Dalej) — tylko mobile */
     margin-bottom: -26px;
   }
 

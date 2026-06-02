@@ -15,7 +15,7 @@ import CountryList from "../components/CountryList.jsx";
 const plHypher = new Hypher(polish);
 const hyphenatePl = (text) => plHypher.hyphenateText(text);
 
-// Definicje 3 typow rankingow - tytul, podtytul (zrodlo), opis,
+// Definicje 3 typow rankingow: ich tytul, podtytul (zrodlo), opis,
 // kolor naglowka karty oraz emoji-akcent. Te metadane sa wspolne
 // dla animacji odslony niezaleznie od tego, pod ktora literke trafil
 // dany typ rankingu (listMapping z App.jsx).

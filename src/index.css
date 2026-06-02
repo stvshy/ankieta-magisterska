@@ -2,12 +2,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap");
 
 body {
-  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-family:
+    "Plus Jakarta Sans",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Ubuntu,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif;
 }
-
-/* Nie ustawiaj tu `font: inherit` na button — Tailwind preflight już to robi,
-   a powtórzenie po warstwie utilities nadpisuje m.in. text-[…px] na przyciskach. */
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -30,7 +36,7 @@ body {
 .custom-slider::-webkit-slider-thumb {
   outline: none !important;
   /* stały, cienki szary obrys kółka */
-  box-shadow: 
+  box-shadow:
     0 0 0 1.5px rgba(156, 163, 175, 0.8),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;
 }
@@ -43,7 +49,7 @@ body {
 
 .custom-slider:focus-visible::-webkit-slider-thumb {
   outline: none !important;
-  /* cienki szary focus zamiast czarnego */
+  /* cienki szary focus */
   box-shadow:
     0 0 0 2.5px rgba(156, 163, 175, 0.95),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;
@@ -78,7 +84,7 @@ body {
 }
 
 .custom-slider:focus-visible::-moz-range-thumb {
-  /* cienki szary focus zamiast czarnego */
+  /* cienki szary focus */
   box-shadow:
     0 0 0 2.5px rgba(156, 163, 175, 0.95),
     0 4px 10px rgba(0, 0, 0, 0.08) !important;

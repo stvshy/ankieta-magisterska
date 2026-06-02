@@ -22,8 +22,8 @@ const SummaryStep = ({
   const previousChoiceRef = useRef(finalChoice);
   const [hasJustExpanded, setHasJustExpanded] = useState(false);
 
-  // Po pierwszym wyborze: zauwaz, ze textarea sie pojawila (animacja).
-  // Przy kolejnych zmianach wyboru NIE odpalaj animacji ponownie - drobny detal UX.
+  // Po pierwszym wyborze: textarea sie pojawia (animacja).
+  // Przy kolejnych zmianach wyboru NIE odpalaj animacji ponownie
   useEffect(() => {
     if (!previousChoiceRef.current && finalChoice) {
       setHasJustExpanded(true);
