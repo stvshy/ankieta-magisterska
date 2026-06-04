@@ -1,0 +1,16 @@
+=== ZALEŻNOŚĆ: Wiek a Ostateczny Wybór (%) ===
+final_choice_type  aspirations  reality   wsm
+age                                          
+18-25 lat                 24.1     30.2  45.7
+26-35 lat                 36.7     31.7  31.7
+36-45 lat                  8.7     56.5  34.8
+46-60 lat                 16.7     61.9  21.4
+Powyżej 60 lat            28.6     57.1  14.3
+
+=== ZALEŻNOŚĆ: Częstotliwość podróży a Ostateczny Wybór (%) ===
+final_choice_type           aspirations  reality   wsm
+travel_frequency                                      
+2-3 razy w roku                    31.1     33.0  35.8
+Częściej niż 3 razy w roku         37.5     22.5  40.0
+Raz na kilka lat                   23.1     38.9  38.0
+Raz w roku                         17.8     32.9  49.3

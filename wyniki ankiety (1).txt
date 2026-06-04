@@ -1,0 +1,65 @@
+=========================================
+LICZBA RESPONDENTÓW: 506
+=========================================
+
+1. DEMOGRAFIA I PROFIL (Do podrozdziału 4.1)
+Płeć:
+ gender
+Kobieta             52.6%
+Mężczyzna           42.1%
+Inna                 2.8%
+Nie chcę podawać     2.6%
+Name: proportion, dtype: object
+
+Wiek:
+ age
+18-25 lat         73.9%
+26-35 lat         11.9%
+46-60 lat          8.3%
+36-45 lat          4.5%
+Powyżej 60 lat     1.4%
+Name: proportion, dtype: object
+
+Częstotliwość podróży:
+ travel_frequency
+Raz na kilka lat              41.1%
+Raz w roku                    30.0%
+2-3 razy w roku               20.9%
+Częściej niż 3 razy w roku     7.9%
+Name: proportion, dtype: object
+
+=========================================
+2. OCENY LIST - ŚREDNIE (Do podrozdziału 4.2 - Weryfikacja hipotez)
+Skala 1-5, gdzie 5 to najlepiej.
+
+Trafność (Relevance):
+- WSM (Personalizowana): 3.44
+- Aspiracje (Marzenia): 2.98
+- Rzeczywistość (Popularne): 3.23
+
+Osiągalność (Achievable):
+- WSM (Personalizowana): 2.97
+- Aspiracje (Marzenia): 2.29
+- Rzeczywistość (Popularne): 3.70
+
+Inspiracja (Inspiring):
+- WSM (Personalizowana): 3.47
+- Aspiracje (Marzenia): 3.17
+- Rzeczywistość (Popularne): 3.04
+
+=========================================
+3. OSTATECZNY WYBÓR - FORCED CHOICE (Do podrozdziału 4.3)
+final_choice_type
+wsm            41.1%
+reality        34.6%
+aspirations    24.3%
+Name: proportion, dtype: object
+
+=========================================
+4. PRZYDATNOŚĆ FUNKCJI PERSONALIZACJI (Do podrozdziału 4.5)
+personalization_useful
+tak                  75.5%
+trudno_powiedziec    18.4%
+nie                   6.1%
+Name: proportion, dtype: object
+=========================================
