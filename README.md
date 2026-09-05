@@ -35,7 +35,7 @@ I built this application to test if an **algorithmic multi-criteria personalizat
 ## 📸 Application Overview
 
 ### ✨ Featured Views
-<img src="./assets/mobile-ankieta.png" align="right" width="180" alt="Mobile Profiling View">
+<img src="./public/mobile-ankieta.png" align="right" width="180" alt="Mobile Profiling View">
 
 **Flawless UX/UI for better data quality.** To prevent survey fatigue and "straightlining" (where users lazily select the same answers), the app utilizes a highly responsive and animated interface.
 
@@ -51,8 +51,8 @@ I built this application to test if an **algorithmic multi-criteria personalizat
     <th width="50%" align="center">Final Results (Unblinding)</th>
   </tr>
   <tr>
-    <td align="center"><img src="./assets/step3.jpg" alt="Profiling Step"></td>
-    <td align="center"><img src="./assets/step6.jpg" alt="Reveal Step"></td>
+    <td align="center"><img src="./public/step3.jpg" alt="Profiling Step"></td>
+    <td align="center"><img src="./public/step6.jpg" alt="Reveal Step"></td>
   </tr>
   <tr>
     <td align="center"><i>Users allocate a 100-point budget to define their travel priorities.</i></td>
@@ -69,7 +69,7 @@ I built this application to test if an **algorithmic multi-criteria personalizat
   <summary>&nbsp;&nbsp;<b>Click to expand</b></summary>
   <br>
   <p align="center">
-    <img src="./assets/step1.jpg" style="max-width: 900px; width: 100%;" alt="Consent Step">
+    <img src="./public/step1.jpg" style="max-width: 900px; width: 100%;" alt="Consent Step">
     <br><i>Step 1: Legal information and GDPR consent.</i>
   </p>
 </details>
@@ -79,9 +79,9 @@ I built this application to test if an **algorithmic multi-criteria personalizat
   <summary>&nbsp;&nbsp;<b>Click to expand</b></summary>
   <br>
   <p align="center">
-    <img src="./assets/step2.jpg" style="max-width: 900px; width: 100%;" alt="Profiling Step">
+    <img src="./public/step2.jpg" style="max-width: 900px; width: 100%;" alt="Profiling Step">
     <br><i>Step 2: Gathering user data.</i>
-    <img src="./assets/step3.jpg" style="max-width: 900px; width: 100%;" alt="Profiling Step">
+    <img src="./public/step3.jpg" style="max-width: 900px; width: 100%;" alt="Profiling Step">
     <br><i>Step 2: Distributing 100 points across 6 criteria (WSM weights).</i>
   </p>
 </details>
@@ -91,7 +91,7 @@ I built this application to test if an **algorithmic multi-criteria personalizat
   <summary>&nbsp;&nbsp;<b>Click to expand</b></summary>
   <br>
   <p align="center">
-    <img src="./assets/step4.jpg" style="max-width: 900px; width: 100%;" alt="Evaluation Step">
+    <img src="./public/step4.jpg" style="max-width: 900px; width: 100%;" alt="Evaluation Step">
     <br><i>Step 3, 4 & 5: Users evaluate 3 anonymous lists (A, B, C) using a 5-point Likert scale.</i>
   </p>
 </details>
@@ -101,7 +101,7 @@ I built this application to test if an **algorithmic multi-criteria personalizat
   <summary>&nbsp;&nbsp;<b>Click to expand</b></summary>
   <br>
   <p align="center">
-    <img src="./assets/step5.jpg" style="max-width: 900px; width: 100%;" alt="Summary Step">
+    <img src="./public/step5.jpg" style="max-width: 900px; width: 100%;" alt="Summary Step">
     <br><i>Step 6: Users must choose the single best list as their future travel inspiration.</i>
   </p>
 </details>
@@ -111,7 +111,7 @@ I built this application to test if an **algorithmic multi-criteria personalizat
   <summary>&nbsp;&nbsp;<b>Click to expand</b></summary>
   <br>
   <p align="center">
-    <img src="./assets/step6.jpg" style="max-width: 900px; width: 100%;" alt="Reveal Step">
+    <img src="./public/step6.jpg" style="max-width: 900px; width: 100%;" alt="Reveal Step">
     <br><i>Step 5: The algorithms are revealed, and users judge the market usefulness of the feature.</i>
   </p>
 </details>
