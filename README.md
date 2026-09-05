@@ -35,7 +35,7 @@ I built this application to test if an **algorithmic multi-criteria personalizat
 ## 📸 Application Overview
 
 ### ✨ Featured Views
-<img src="./assets/mobile-profiling.jpg" align="right" width="180" alt="Mobile Profiling View">
+<img src="./assets/mobile-ankieta.png" align="right" width="180" alt="Mobile Profiling View">
 
 **Flawless UX/UI for better data quality.** To prevent survey fatigue and "straightlining" (where users lazily select the same answers), the app utilizes a highly responsive and animated interface.
 
@@ -51,8 +51,8 @@ I built this application to test if an **algorithmic multi-criteria personalizat
     <th width="50%" align="center">Final Results (Unblinding)</th>
   </tr>
   <tr>
-    <td align="center"><img src="./assets/featured-profiling.png" alt="Profiling Step"></td>
-    <td align="center"><img src="./assets/featured-reveal.png" alt="Reveal Step"></td>
+    <td align="center"><img src="./assets/step3.jpg" alt="Profiling Step"></td>
+    <td align="center"><img src="./assets/step6.jpg" alt="Reveal Step"></td>
   </tr>
   <tr>
     <td align="center"><i>Users allocate a 100-point budget to define their travel priorities.</i></td>
